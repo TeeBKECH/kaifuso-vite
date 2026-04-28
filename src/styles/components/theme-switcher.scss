@@ -1,0 +1,72 @@
+.theme-switcher {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  $switcher: &;
+
+  &_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 1px solid rgba(var(--light-gold-rgb), 0.3);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--color-light-gold);
+    cursor: pointer;
+    transition:
+      color 0.2s ease,
+      background 0.2s ease,
+      border-color 0.2s ease;
+
+    &:hover {
+      color: var(--color-prime);
+      background: rgba(var(--prime-rgb), 0.05);
+      border-color: rgba(var(--light-gold-rgb), 0.5);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-light-gold);
+      outline-offset: 2px;
+    }
+
+    &[aria-pressed='true'] {
+      background: rgba(var(--light-gold-rgb), 0.15);
+      border-color: rgba(var(--light-gold-rgb), 0.5);
+      color: var(--color-light-gold);
+      display: none;
+    }
+
+    // Светлая тема: при скролле, меню или странице без интро — тёмнее для светлого фона
+    [data-theme='light'] .header.scrolled &,
+    [data-theme='light'] .header.menu-open &,
+    [data-theme='light'][data-has-intro='false'] .header & {
+      color: #402e00;
+      border-color: rgba(64, 46, 0, 0.4);
+
+      &:hover {
+        color: #101010;
+        background: rgba(16, 16, 16, 0.04);
+        border-color: rgba(64, 46, 0, 0.6);
+      }
+
+      &[aria-pressed='true'] {
+        background: rgba(64, 46, 0, 0.12);
+        border-color: rgba(64, 46, 0, 0.5);
+        color: #402e00;
+      }
+    }
+  }
+
+  &_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+}

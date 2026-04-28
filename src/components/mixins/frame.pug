@@ -1,0 +1,31 @@
+//- Миксин декоративной рамки (углы + края, контент поверх)
+//- Оборачивает произвольную вёрстку; контент в потоке, z-index выше рамки
+mixin Frame()
+  .frame
+    .frame_corner.frame_tl
+    .frame_corner.frame_tr
+    .frame_corner.frame_bl
+    .frame_corner.frame_br
+    .frame_edge.frame_top
+    .frame_edge.frame_right
+    .frame_edge.frame_bottom
+    .frame_edge.frame_left
+    .frame_content
+      block
+
+//- Рамка карточек «сценарии» — как +Frame(): 4 угла + 4 кромки (repeat), контент поверх.
+//- Классы: .scenario-frame; .scenario-frame_corner + .scenario-frame_tl|tr|bl|br; .scenario-frame_edge + .scenario-frame_top|right|bottom|left; .scenario-frame_content
+//- Файлы (все в assets/img/meropriyaiya/figma/): scenario-frame-tl.svg, -tr, -bl, -br, scenario-frame-top.svg, -right, -bottom, -left.svg
+//- Размер тайла = CSS var --scenario-frame-thickness на .scenario-frame (по умолчанию 80px в frame.scss — поменяй под свою нарезку).
+mixin ScenarioFrame()
+  .scenario-frame
+    .scenario-frame_corner.scenario-frame_tl
+    .scenario-frame_corner.scenario-frame_tr
+    .scenario-frame_corner.scenario-frame_bl
+    .scenario-frame_corner.scenario-frame_br
+    .scenario-frame_edge.scenario-frame_top
+    .scenario-frame_edge.scenario-frame_right
+    .scenario-frame_edge.scenario-frame_bottom
+    .scenario-frame_edge.scenario-frame_left
+    .scenario-frame_content
+      block

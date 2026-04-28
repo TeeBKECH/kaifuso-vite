@@ -1,0 +1,172 @@
+.loyalty_program {
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  color: var(--color-prime);
+
+  &_svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: visible;
+  }
+
+  &_line {
+    stroke: var(--color-light-gold);
+    stroke-width: 1.5;
+    vector-effect: non-scaling-stroke;
+  }
+
+  &_list {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(32px, 5vw, 56px);
+  }
+
+  &_item {
+    display: grid;
+    grid-template-columns: clamp(56px, 12vw, 72px) minmax(0, 1fr);
+    gap: clamp(20px, 4vw, 40px);
+    align-items: start;
+
+    @include respond-to(sm) {
+      grid-template-columns: 48px minmax(0, 1fr);
+      gap: 16px;
+    }
+  }
+
+  &_marker {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(56px, 12vw, 72px);
+    height: clamp(56px, 12vw, 72px);
+    margin: 0 auto;
+    border: 1.5px solid var(--color-light-gold);
+    border-radius: 50%;
+    background-color: var(--color-second);
+    box-shadow: 0 4px 24px rgba(var(--prime-rgb), 0.08);
+
+    [data-theme='dark'] & {
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    @include respond-to(sm) {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  &_num {
+    font-family: $font-secondary;
+    font-size: clamp(22px, 4vw, 28px);
+    font-weight: 550;
+    line-height: 1;
+    color: var(--color-light-gold);
+
+    @include respond-to(sm) {
+      font-size: 18px;
+    }
+  }
+
+  &_body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 8px;
+
+    @include respond-to(sm) {
+      padding-top: 4px;
+      gap: 12px;
+    }
+  }
+
+  &_title {
+    margin: 0;
+    font-family: $font-main;
+    font-size: clamp(19px, 2.4vw, 24px);
+    font-weight: 600;
+    line-height: 1.45;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: inherit;
+  }
+
+  &_sub {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.65;
+    color: rgba(var(--prime-rgb), 0.72);
+
+    @include respond-to(md) {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    @include respond-to(sm) {
+      font-size: 16px;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    li {
+      position: relative;
+      padding-left: 16px;
+      font-size: inherit;
+      line-height: inherit;
+      color: inherit;
+
+      &::before {
+        $bullet: 5px;
+        $bullet-half: calc(#{$bullet} / 2);
+
+        content: '';
+        position: absolute;
+        left: 0;
+        /* чуть ниже геом. центра строки — совпадает с оптическим центром текста */
+        top: calc(0.825em - #{$bullet-half} + 3px);
+
+        width: $bullet;
+        height: $bullet;
+        border-radius: 50%;
+        background-color: var(--color-light-gold);
+        opacity: 0.9;
+
+        @supports (top: 1lh) {
+          top: calc(0.5lh - #{$bullet-half} + 3px);
+        }
+      }
+    }
+
+    p {
+      margin: 0;
+      font-size: inherit;
+      line-height: inherit;
+      color: inherit;
+    }
+  }
+
+  &_cta {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    margin-top: clamp(40px, 6vw, 64px);
+  }
+}

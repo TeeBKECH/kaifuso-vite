@@ -1,0 +1,36 @@
+.scroll-to-top {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  z-index: 110;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 2px solid rgba(var(--light-gold-rgb), 0.5);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-light-gold);
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+
+  &:hover {
+    color: var(--color-prime);
+    background: rgba(var(--prime-rgb), 0.05);
+    border-color: rgba(var(--light-gold-rgb), 0.5);
+  }
+
+  .button_icon {
+  }
+
+  &.hidden-by-scroll {
+    opacity: 0;
+    pointer-events: none;
+  }
+}

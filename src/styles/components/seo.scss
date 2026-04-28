@@ -1,0 +1,121 @@
+.seo {
+  width: 100%;
+  $seo: &;
+
+  &_text {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+
+      @include respond-to(lg) {
+        gap: 24px;
+      }
+
+      @include respond-to(md) {
+        gap: 16px;
+      }
+    }
+
+    &-more {
+      outline: none;
+      border: none;
+      background: none;
+      color: $light-gold;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.3;
+      // font-family: $font-secondary;
+      text-decoration: underline;
+      cursor: pointer;
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    h2 {
+      font-size: 48px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--color-light-gold);
+      font-family: 'ALaRuss', sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-top: 20px;
+
+      @include respond-to(lg) {
+        font-size: 40px;
+      }
+
+      @include respond-to(md) {
+        font-size: 32px;
+      }
+
+      @include respond-to(sm) {
+        font-size: 24px;
+      }
+    }
+
+    h3 {
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: 3px;
+      color: var(--color-light-gold);
+      font-family: 'ALaRuss', sans-serif;
+
+      @include respond-to(md) {
+        font-size: 24px;
+      }
+
+      @include respond-to(sm) {
+        font-size: 20px;
+      }
+    }
+
+    p {
+      @include respond-to(md) {
+        font-size: 14px;
+      }
+    }
+
+    a {
+      color: var(--color-light-gold);
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+
+      li {
+        font-size: 18px;
+        font-weight: 500;
+        color: $prime;
+        line-height: 1.3;
+        padding-left: 20px;
+        position: relative;
+
+        &::before {
+          content: '';
+          display: block;
+          width: 8px;
+          height: 8px;
+          background: $dark-gold;
+          // border-radius: 50%;
+          position: absolute;
+          top: 9px;
+          left: 0;
+        }
+      }
+    }
+  }
+}

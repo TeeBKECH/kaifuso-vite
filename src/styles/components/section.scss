@@ -1,0 +1,378 @@
+.section {
+  $section: &;
+
+  &_container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    @include respond-to(lg) {
+      gap: 24px;
+    }
+  }
+
+  &_title {
+    display: flex;
+    flex-direction: column;
+    $title: &;
+
+    &--main {
+      color: $prime;
+      text-align: center;
+    }
+
+    &--light {
+      color: $second;
+      text-align: center;
+    }
+
+    &--left {
+      color: $prime;
+    }
+
+    &--center {
+      color: $second;
+      text-align: center;
+      align-items: center;
+    }
+
+    .title-h1 {
+      color: $light-gold;
+    }
+
+    &--gold {
+      h2 {
+        color: $light-gold;
+      }
+    }
+
+    &--md {
+      gap: 11px;
+    }
+
+    &--lg {
+      gap: 16px;
+
+      @include respond-to(lg) {
+        gap: 8px;
+      }
+    }
+
+    &--alt {
+      text-align: center;
+    }
+  }
+
+  &_subtitle {
+    font-size: 32px;
+    font-weight: 550;
+    font-family: $font-secondary;
+    color: rgba(var(--prime-rgb), 0.5);
+
+    @include respond-to(lg) {
+      font-size: 16px;
+    }
+
+    @include respond-to(md) {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: calc(20 / 14);
+    }
+
+    &--main {
+      text-align: center;
+    }
+
+    &--light {
+      text-align: center;
+    }
+
+    &--left {
+    }
+
+    &--center {
+      // text-align: center;
+    }
+  }
+
+  &_footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include respond-to(lg) {
+      // display: none;
+    }
+  }
+
+  &--intro {
+    padding: 140px 0 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    @include respond-to(lg) {
+      gap: 24px;
+      padding: 90px 0 30px;
+    }
+
+    #{$section}_title {
+      gap: 16px;
+    }
+
+    &.intro--secondary {
+      #{$section}_content {
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      .intro-secondary_breadcrumbs {
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+      }
+
+      .breadcrumbs_items {
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  &--events {
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+
+    @include respond-to(lg) {
+      gap: 24px;
+    }
+
+    #{$section}_content {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+  }
+
+  &--benefits,
+  &--spa,
+  &--rituals,
+  &--programms {
+    #{$section}_container {
+      @include respond-to(lg) {
+        padding: 0;
+      }
+    }
+    #{$section}_title {
+      @include respond-to(lg) {
+        padding: 0 16px;
+      }
+    }
+  }
+
+  &--room {
+    &-other {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+
+      @include respond-to(lg) {
+        gap: 24px;
+      }
+    }
+  }
+
+  &--features {
+    padding: 100px 0;
+    background-color: $second;
+    color: $second;
+    position: relative;
+    overflow: hidden;
+
+    @include respond-to(lg) {
+      padding: 80px 0;
+    }
+
+    @include respond-to(md) {
+      padding: 60px 0;
+    }
+
+    #{$section}_container {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  &--rest {
+    #{$section}_content {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+  }
+
+  &--choice {
+    padding: 120px 0;
+    background-color: $second;
+    color: $prime;
+
+    @include respond-to(lg) {
+      padding: 80px 0;
+    }
+
+    @include respond-to(md) {
+      padding: 60px 0;
+    }
+  }
+
+  &--loyalty {
+    padding: 100px 0;
+    background-color: var(--color-second);
+    color: var(--color-prime);
+
+    @include respond-to(lg) {
+      padding: 80px 0;
+    }
+
+    @include respond-to(md) {
+      padding: 60px 0;
+    }
+
+    #{$section}_container {
+      position: relative;
+      z-index: 1;
+    }
+
+    #{$section}_content {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(32px, 5vw, 48px);
+    }
+
+    #{$section}_title {
+      .title-h2,
+      .section_title-h2 {
+        color: $light-gold;
+      }
+    }
+  }
+
+  // --- Мероприятия под ключ (только оболочка секции: отступы, фон, типографика заголовков секции)
+  &--meropriyaiya-gallery {
+    position: relative;
+    padding: 80px 0 60px;
+    background-color: var(--color-second);
+
+    @include respond-to(lg) {
+      padding: 48px 0 40px;
+    }
+
+    #{$section}_title--gold h2 {
+      color: $light-gold;
+    }
+  }
+
+  &--meropriyaiya-scenarios {
+    position: relative;
+    overflow: hidden;
+    padding: 80px 0;
+    background-color: var(--color-second);
+
+    @include respond-to(lg) {
+      padding: 48px 0;
+    }
+
+    #{$section}_container {
+      position: relative;
+      z-index: 1;
+    }
+
+    #{$section}_title-h2 {
+      color: $light-gold;
+      font-family: $font-secondary;
+      text-transform: uppercase;
+    }
+
+    #{$section}_subtitle {
+      max-width: 920px;
+      margin: 0 auto;
+      font-size: clamp(16px, 1.6vw, 22px);
+      line-height: 1.45;
+      font-weight: 500;
+      color: rgba(var(--prime-rgb), 0.82);
+    }
+  }
+
+  // Список форматов под видео-интро на хабе (пустой контент) — тот же фон, что у галереи.
+  &--meropriyaiya-hub-formats {
+    padding: 0 0 48px;
+    margin-top: -8px;
+    background-color: var(--color-second);
+
+    @include respond-to(lg) {
+      padding: 0 0 32px;
+    }
+  }
+
+  &--meropriyaiya-why {
+    padding: 80px 0;
+    background-color: var(--color-second);
+
+    @include respond-to(lg) {
+      padding: 48px 0;
+    }
+
+    #{$section}_title--gold h2 {
+      color: $light-gold;
+    }
+  }
+
+  &--meropriyaiya-spaces {
+    padding: 80px 0 100px;
+    background-color: var(--color-second);
+    color: var(--color-prime);
+
+    @include respond-to(lg) {
+      padding: 48px 0 64px;
+    }
+
+    #{$section}_title--gold h2 {
+      color: $light-gold;
+    }
+  }
+
+  &--meropriyaiya-floor {
+    padding: 80px 0;
+    background-color: var(--color-second);
+
+    @include respond-to(lg) {
+      padding: 48px 0;
+    }
+
+    #{$section}_title--gold h2 {
+      color: $light-gold;
+    }
+
+    .tabs {
+      color: rgba(var(--second-rgb), 0.95);
+
+      html[data-theme='dark'] & {
+        color: rgba(var(--prime-rgb), 0.95);
+      }
+    }
+  }
+
+  &--meropriyaiya-rental {
+    padding: 80px 0;
+    background-color: var(--color-second);
+    color: var(--color-prime);
+
+    @include respond-to(lg) {
+      padding: 48px 0;
+    }
+  }
+}

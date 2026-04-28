@@ -1,0 +1,38 @@
+// Тема: светлая по умолчанию, тёмная при [data-theme="dark"]
+// Light theme: тёмный текст (#101010), светлый фон (#fcf5ed)
+// Dark theme: светлый текст (#fcf5ed), тёмный фон (#101010)
+
+:root {
+  // Светлая тема (по умолчанию)
+  --color-prime: #101010;
+  --color-second: #fcf5ed;
+  --prime-rgb: 16, 16, 16;
+  --second-rgb: 252, 245, 237;
+  --color-light-gold: #b99c60;
+  --light-gold-rgb: 185, 156, 96;
+  --color-dark-gold: #402e00;
+  --dark-gold-rgb: 64, 46, 0;
+  --color-second-lightened: #fffcf7;
+  /* Иконки (соцсети и др.): светлые на светлом фоне → тёмные/золотые */
+  --icon-filter: brightness(0) saturate(100%) invert(35%) sepia(50%) saturate(600%) hue-rotate(5deg);
+  /* Overlay всегда тёмный */
+  --overlay-rgb: 16, 16, 16;
+  --overlay-solid: #101010;
+}
+
+[data-theme='dark'] {
+  // Тёмная тема
+  --color-prime: #fcf5ed;
+  --color-second: #101010;
+  --prime-rgb: 252, 245, 237;
+  --second-rgb: 16, 16, 16;
+  --color-light-gold: #b99c60;
+  --light-gold-rgb: 185, 156, 96;
+  --color-dark-gold: #402e00;
+  --dark-gold-rgb: 64, 46, 0;
+  --color-second-lightened: #1f1f1f;
+  /* Иконки: белые на тёмном фоне */
+  --icon-filter: brightness(0) invert(1);
+  --overlay-rgb: 16, 16, 16;
+  --overlay-solid: #101010;
+}

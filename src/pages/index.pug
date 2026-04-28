@@ -1,0 +1,30 @@
+//- @title: Главная
+//- @description: Банный комплекс «Княже» рядом с Москва-Сити - премиальный банный комплекс с традициями
+//- @page_class: index
+extends ../layouts/default.pug
+
+block content
+  +IntroVideo({
+    videoSrc: 'assets/video/video-bg.mp4',
+    title: 'БАННЫЙ КОМПЛЕКС<br>РЯДОМ С МОСКВА-СИТИ',
+    description: 'ГДЕ ТРАДИЦИИ ВСТРЕЧАЮТСЯ С СОВРЕМЕННОСТЬЮ',
+    buttons: [
+      {text: 'ЗАБРОНИРОВАТЬ ЦАРСКИЙ СЬЮТ', styles: ['primary', 'lg']},
+      {text: 'ПОСЕТИТЬ ОБЩЕСТВЕННУЮ БАНЮ', styles: ['secondary', 'lg']}
+    ],
+    showLogo: false
+  })
+
+  include ../components/sections/features.pug
+
+  //- include ../components/sections/banya.pug
+
+  include ../components/sections/choice.pug
+
+  include ../components/sections/places.pug
+
+  include ../components/sections/cta.pug
+
+  include ../components/sections/benefits.pug
+
+  include ../components/sections/events.pug

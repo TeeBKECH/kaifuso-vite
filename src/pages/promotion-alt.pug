@@ -1,0 +1,100 @@
+//- @title: Акция
+//- @description: Акция описание
+//- @page_class: promotion
+//- @has_intro: false
+extends ../layouts/default.pug
+
+block content
+  +Intro({
+    title: 'Царский мальчишник',
+    breadcrumbs: ['Акции', 'Царский мальчишник']
+  })
+
+  section.section.section--promotion(data-aos="fade-up", data-aos-duration="1000")
+    .container.section_container
+      .promotion_content
+        .promotion_box
+          .promotion_img
+            img(src='assets/img/cta-bg.webp', alt='Скидка 10%')
+            .promotion_badge Скидка 10%
+          .promotion_text
+            p Путь от городской суеты к тишине и обновлению — четыре часа, в которых собраны проверенные традиции русской бани. Чесночный пар открывает дорогу в баню: первый вдох прогревает дыхание и готовит тело к парению. Дубовые веники — классика жанра. Удары лёгкие и точные разгоняют кровь и разогревают мышцы. Ледяные шайбы дают первый контраст: тело отвечает приятным жаром, сосуды тренируются, а голова становится яснее. Второй заход в парную с натиранием мёдом — мягкий жар, аромат, который согревает и смягчает кожу. Можжевеловая выкатка — старинный обряд с хвойным ароматом и волнами пара. Тело расслабляется, а голова очищается от лишних мыслей. Обливание пивом даёт свежий контраст: прохлада, лёгкий хмельной аромат и ощущение лёгкости. Отдых на сеновале — время просто полежать, слушать тишину и чувствовать тепло после парной. Ингаляция с хреном завершает банный цикл и бережно прогревает дыхательные пути. Чаепитие — финал. Тёплый чай, разговоры и мягкое возвращение в обычный ритм.
+        .promotion_body
+          +Frame()
+            .promotion_info
+              p.promotion_title.title.title-h3 Царский мальчишник
+              .promotion_info_list
+                .promotion_info_item
+                  span.promotion_info_item_label Время:
+                  span.promotion_info_item_value 3 часа *
+                .promotion_info_item
+                  span.promotion_info_item_label Гости:
+                  span.promotion_info_item_value 1 Гость
+                  span.promotion_info_item_value 2 Гостя
+                .promotion_info_item
+                  span.promotion_info_item_label Цена:
+                  span.promotion_info_item_value 80 000 ₽
+                  span.promotion_info_item_value 120 000 ₽
+              .promotion_details
+                .promotion_details_title Условия акции:
+                ul.promotion_details_list
+                  li.promotion_details_item Скидка действует только по вторникам
+                  li.promotion_details_item Применяется ко всем услугам комплекса
+                  li.promotion_details_item Не суммируется с другими акциями
+                  li.promotion_details_item Требуется предъявление документа
+              .promotion_note
+                p *В стоимость входит: входной билет на 3 часа, индивидуальное парение, контраст, скрабирование, мыльная помывка, увлажнение тела, отдых на сеновале, чайная церемония на сеновале
+              .promotion_actions
+                +Button('Записаться', ['primary', 'lg', 'fw'])
+                +Button('Позвонить', ['secondary', 'lg', 'fw'])
+
+  section.section.section--other-promotions(data-aos="fade-up", data-aos-duration="1000")
+    .container.section_container
+      +SectionTitle({
+        title: 'Другие акции',
+        size: 'lg',
+        type: 'center'
+      })
+    .other-promotions_content.container
+      .other-promotions_items
+        +CardPromotion({
+          label: 'Счастливые часы',
+          title: 'Пн-Чт до 15:00: входной билет в Мовню на 3 часа — 3500₽',
+          text: 'Акция не суммируется с другими акциями и предложениями',
+          img: 'assets/img/benefits-1.webp',
+          alt: 'Счастливые часы',
+          link: 'promotion.html'
+        })(class='other-promotions_item')
+        +CardPromotion({
+          label: 'Скидка',
+          title: 'Каждый вторник скидка',
+          text: 'Акция не суммируется с другими акциями и предложениями или вообще не существует, а создана только для проверки вида карточки при разном размере контента',
+          img: 'assets/img/event.webp',
+          alt: 'Скидка 10%',
+          link: 'promotion.html'
+        })(class='other-promotions_item')
+        +CardPromotion({
+          label: 'Скидка 10%',
+          title: 'Каждый вторник скидка 10% для девушек на вход и все услуги',
+          text: 'Акция не суммируется с другими акциями и предложениями',
+          img: 'assets/img/benefits-2.webp',
+          alt: 'Скидка 10%',
+          link: 'promotion.html'
+        })(class='other-promotions_item')
+        +CardPromotion({
+          label: 'Специальное предложение',
+          title: 'Выходные дни: скидка 15% на все услуги',
+          text: 'Действует только в субботу и воскресенье. Не суммируется с другими акциями.',
+          img: 'assets/img/benefits-1.webp',
+          alt: 'Специальное предложение',
+          link: 'promotion.html'
+        })(class='other-promotions_item')
+      .swiper_nav.other-promotions_nav
+        +BtnIcon({
+          icon: 'assets/img/arrow_left.svg',
+          styles: ['swiper_nav--light', 'lg']
+        })(class='swiper_nav_item-prev other-promotions_nav-prev')
+        +BtnIcon({
+          icon: 'assets/img/arrow_right.svg',
+          styles: ['swiper_nav--light', 'lg']
+        })(class='swiper_nav_item-next other-promotions_nav-next')

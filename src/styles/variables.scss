@@ -1,0 +1,25 @@
+// Цветовая схема банного комплекса "Княже"
+// Основные цвета — маппинг на CSS-переменные из theme.scss
+// Для rgba() использовать: rgba(var(--prime-rgb), X), rgba(var(--second-rgb), X), rgba(var(--light-gold-rgb), X)
+$prime: var(--color-prime);
+$second: var(--color-second);
+$dark-gold: var(--color-dark-gold);
+$light-gold: var(--color-light-gold);
+
+// Размеры контейнеров и отступов
+$container-width: 1720px;
+$container-padding: 20px;
+$spacing-unit: 40px;
+
+// Breakpoints для адаптивности
+$breakpoint-xs: 400px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xl-2: 1400px;
+$breakpoint-xl-3: 1600px;
+
+// Шрифты
+$font-main: 'Akrobat', sans-serif;
+$font-secondary: 'ALaRuss', sans-serif;

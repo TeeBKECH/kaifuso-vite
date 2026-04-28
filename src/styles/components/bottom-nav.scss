@@ -1,0 +1,78 @@
+.bottom {
+  &-nav {
+    display: none;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border-top: 1px solid rgba(var(--light-gold-rgb), 0.5);
+    background: $second;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 111;
+    width: 100%;
+    will-change: transform;
+    transition: transform 0.3s ease;
+
+    /* Панель видна на ширине до lg */
+    @include respond-to(lg) {
+      display: flex;
+      padding: 8px 16px 4px;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    /* Уже sm: пункты на всю ширину полосы (идёт после lg — перебивает) */
+    @include respond-to(sm) {
+      padding: 8px 12px 4px;
+      gap: 8px;
+      align-items: stretch;
+      justify-content: flex-start;
+      overflow-x: visible;
+    }
+
+    &.hidden-by-scroll {
+      transform: translateY(100%);
+    }
+
+    &_item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+
+      @include respond-to(lg) {
+        flex: 0 0 auto;
+      }
+
+      @include respond-to(sm) {
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      &-icon {
+        width: 24px;
+        height: 24px;
+
+        img {
+          width: 100%;
+          filter: var(--icon-filter);
+        }
+      }
+      &-label {
+        font-size: 14px;
+        font-weight: 500;
+        color: $prime;
+        text-align: center;
+      }
+    }
+  }
+}
