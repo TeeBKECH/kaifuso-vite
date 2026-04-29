@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "deploy": "gh-pages -d build",
     "build:wp": "BUILD_TARGET=wp vite build",
     "sync:wp": "rsync -av build/assets/ ../../wp/kaifuso/prod/wp-content/themes/kaifuso/assets/",
     "sync:wp:dev": "rsync -av build/assets/ ../../wp/kaifuso/dev/wp-content/themes/kaifuso/assets/",
@@ -19,7 +18,6 @@
   "devDependencies": {
     "autoprefixer": "^10.4.21",
     "fast-glob": "^3.3.3",
-    "gh-pages": "^6.3.0",
     "prettier": "^3.6.2",
     "pug": "^3.0.3",
     "sass": "^1.93.2",
