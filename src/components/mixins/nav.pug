@@ -45,11 +45,19 @@
     },
   ]
 
+-
+  const kaifusoNav = [
+    { link: 'О нас', href: 'about.html', submenu: [] },
+    { link: 'Меню', href: 'menu.html', submenu: [] },
+    { link: 'Афиша', href: 'events.html', submenu: [] },
+    { link: 'Контакты', href: 'contacts.html', submenu: [] },
+  ]
+
 mixin MenuItem(props = {})
   li.menu_item&attributes(attributes)
     if (props.href)
       a.menu_item_link(href=props.href)= props.link
-    else 
+    else
       span.menu_item_link= props.link
     if (props.submenu && props.submenu.length > 0)
         span.menu_item_icon
@@ -77,14 +85,14 @@ mixin MenuItemMobile(props = {}, index = 0)
       button.menu_item_icon(type="button" aria-expanded="false" aria-controls=dropId data-menu-drop-toggle aria-label="Открыть подменю")
 
 mixin NavMain(props = {})
-  - const {items = links} = props
+  - const { items = kaifusoNav } = props
   nav.nav&attributes(attributes)
     ul.menu
       each item, index in items
         +MenuItem(item)
-        
+
 mixin NavMobile(props = {})
-  - const {items = links} = props
+  - const { items = kaifusoNav } = props
   nav.nav--mobile&attributes(attributes)
     ul.menu--mobile
       each item, index in items
@@ -92,28 +100,17 @@ mixin NavMobile(props = {})
     .nav_contacts
       .nav_contacts-list
         .nav_contacts-item
-          p.nav_contacts-text.nav_contacts-text--phone +7 (499) 647-68-88
+          p.nav_contacts-text.nav_contacts-text--phone 7 (495) 730 22 77
         .nav_contacts-item
-          p.nav_contacts-text 123317, Россия, Москва, Шмитовский проезд 27с1
-        .nav_contacts-item
-          p.nav_contacts-text Ежедневно с 10:00 до 23:00
-        .nav_contacts-item
-          p.nav_contacts-text Рядом с комплексом есть бесплатные и платные парковки.
-      +Button('Забронировать', ['secondary', 'md', 'fw'])(data-modal="modal-form" data-modal-action="toggle")
-      +SocialsGold([
-        {
-          icon: 'tg',
-          text: 'Telegram'
-        },
-        {
-          icon: 'vk',
-          text: 'VK'
-        },
-        {
-          icon: 'wa',
-          text: 'WhatsApp'
-        }
-      ])(class='socials--mobile')
+          p.nav_contacts-text ул. Кузнецкий мост, д.6/3
+      +Button('Забронировать', ['ghost-gold', 'md', 'fw'])(data-modal="modal-form" data-modal-action="toggle")
+      .nav_socials-kf
+        a.nav_socials-kf_link(href='#' target='_blank' rel='noopener noreferrer nofollow' aria-label='Telegram')
+          img(src='assets/img/kaifuso/icon-tg.svg' alt='')
+        a.nav_socials-kf_link(href='#' target='_blank' rel='noopener noreferrer nofollow' aria-label='ВКонтакте')
+          img(src='assets/img/kaifuso/icon-vk.svg' alt='')
+        a.nav_socials-kf_link(href='#' target='_blank' rel='noopener noreferrer nofollow' aria-label='YouTube')
+          img(src='assets/img/kaifuso/icon-youtube.svg' alt='')
 
 mixin NavBottom(props = {})
   - const {items = []} = props

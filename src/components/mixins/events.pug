@@ -7,3 +7,33 @@ mixin EventsItem(props)
       span Гран-При «Калибр - 2024». XI этап.
       p По практической стрельбе в дисциплине пистолет
     .events_item_arrow
+
+mixin EventsPosterCard(props = {})
+  -
+    const {
+      href = '#',
+      date = '',
+      time = '',
+      title = '',
+      lineup = '',
+      image = '',
+      imageAlt = ''
+    } = props || {}
+  article.events-card&attributes(attributes)
+    .events-card_media
+      if image
+        img(src=image alt=imageAlt || title loading='lazy' decoding='async')
+      else
+        .events-card_media-placeholder
+    .events-card_info
+      .events-card_meta
+        span.events-card_meta-date= date
+        span.events-card_meta-plus(aria-hidden='true')
+        span.events-card_meta-time= time
+      h3.events-card_title!= title
+      .events-card_line
+        span.events-card_line-label line up
+        p.events-card_line-value= lineup
+      a.events-card_more(href=href)
+        span.events-card_more-text Подробнее
+        span.events-card_more-arrow(aria-hidden='true')

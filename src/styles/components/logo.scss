@@ -3,48 +3,48 @@
   align-items: center;
   justify-content: center;
   transition: width 0.2s ease;
-  $logo: &;
 
   &_img {
     width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
   }
 
   &--header {
-    width: 200px;
+    width: 198px;
+    flex-shrink: 0;
 
     @include respond-to(xl-2) {
-      width: 160px;
-    }
-
-    @include respond-to(xl) {
-      width: 120px;
+      width: 170px;
     }
 
     @include respond-to(lg) {
-      width: 80px;
+      width: 140px;
     }
+  }
 
-    // Светлая тема: белый лого — только над тёмным интро; иначе золотой через filter
-    [data-theme='light'] .header.scrolled & img,
-    [data-theme='light'] .header.menu-open & img,
-    [data-theme='light'][data-has-intro='false'] .header & img {
-      filter: brightness(0) saturate(100%) invert(35%) sepia(50%) saturate(600%) hue-rotate(5deg);
-    }
+  &--kaifuso {
+    &.logo--header {
+      width: 198px;
 
-    .header.scrolled & {
-      width: 80px;
+      @include respond-to(xl-2) {
+        width: 170px;
+      }
 
-      // @include respond-to(xl) {
-      //   width: 64px;
-      // }
+      @include respond-to(lg) {
+        width: 148px;
+      }
     }
   }
 
   &--intro {
     width: 300px;
+
     @include respond-to(lg) {
       opacity: 0.6;
     }
+
     img {
       width: 100%;
     }
@@ -52,9 +52,5 @@
 
   &--footer {
     width: 300px;
-    #{$logo}_img {
-    }
-    #{$logo}_text {
-    }
   }
 }

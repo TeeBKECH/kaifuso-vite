@@ -221,6 +221,26 @@
     }
   }
 
+  // Десктопный бургер: полноэкранная модалка с основным меню (NavMain)
+  &--site-nav {
+    #{$modal}_content {
+      padding: 100px 24px 48px;
+      min-height: 100vh;
+      height: auto;
+      max-width: none;
+      width: 100%;
+      left: 0;
+      transform: scale(0.96);
+      background: $second;
+      align-items: center;
+      box-sizing: border-box;
+
+      @media (min-width: #{$breakpoint-lg + 1px}) {
+        padding-top: 120px;
+      }
+    }
+  }
+
   &.open {
     display: block;
 
@@ -231,6 +251,12 @@
     #{$modal}_content {
       opacity: 1;
       transform: translateX(-50%) scale(1);
+    }
+  }
+
+  &--site-nav.open {
+    #{$modal}_content {
+      transform: scale(1) !important;
     }
   }
 }

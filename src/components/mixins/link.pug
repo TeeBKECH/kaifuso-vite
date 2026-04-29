@@ -1,7 +1,38 @@
-mixin Link({num = 0, link = '', ver= '', title = ''})
-  if (link)
-    .link
-      .link_num= `${num}.`
-      a(href=link, target="_blank")= link
-      p= `(${title})`
-      span(class=`${ver <= 35 ? 'link-err' : ver > 35 && ver <= 99 ? 'link-warn' : 'link-ok'}`)= `(${ver}%)`
+mixin Link({ num = 0, link = '', ver = 0, title = '', note = '' })
+  if link
+    -
+      const pct = Math.max(0, Math.min(100, Number(ver) || 0))
+      let statusMod = 'draft'
+      let statusLabel = 'Черновик'
+      if (pct >= 100) {
+        statusMod = 'done'
+        statusLabel = 'Готово'
+      } else if (pct >= 70) {
+        statusMod = 'almost'
+        statusLabel = 'Почти готово'
+      } else if (pct >= 35) {
+        statusMod = 'wip'
+        statusLabel = 'В работе'
+      } else if (pct >= 1) {
+        statusMod = 'start'
+        statusLabel = 'Старт'
+      }
+      const pathLabel = String(link).replace(/^\//, '') || '—'
+    article.link
+      a.link_card(href=link target='_blank' rel='noopener noreferrer')
+        .link_head
+          span.link_badge= num
+          span.link_status(class=`link_status--${statusMod}`)= statusLabel
+        h4.link_title= title
+        span.link_url
+          span.link_url-text= pathLabel
+          span.icon-external(aria-hidden='true')
+            img(src='assets/img/kaifuso/icon-arrow-external.svg' alt='' decoding='async')
+        if note
+          p.link_note= note
+        .link_progress
+          .link_progress-track
+            .link_progress-bar(style=`--link-progress: ${pct}%`)
+          .link_progress-meta
+            span.link_progress-caption Готовность макета
+            span.link_progress-val= `${pct}%`

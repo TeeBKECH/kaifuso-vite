@@ -129,6 +129,21 @@ mixin Intro(props)
           h1.title.title-h1!= title
           +BreadCrumbs({items: breadcrumbs})
 
+//- Универсальный hero для внутренних страниц (404, contacts и т.д.)
+//- @param {string|object} title - заголовок
+//- @param {array} breadcrumbs - массив элементов breadcrumbs
+//- @param {string|object} subtitle - подпись под заголовком (опционально)
+//- @param {string} rootClass - корневой класс блока (по умолчанию page-hero)
+mixin PageHero(props)
+  - const {title = '', breadcrumbs = [], subtitle = '', rootClass = 'page-hero', titleId = ''} = props || {}
+  div(class=`page-hero ${rootClass}`)
+    .container(class=`page-hero_container ${rootClass}_container`)
+      if breadcrumbs && breadcrumbs.length > 0
+        +BreadCrumbs({items: breadcrumbs})
+      h1.title.title-h1(id=titleId || false class=`page-hero_title ${rootClass}_title`)!= title
+      if subtitle
+        p(class=`page-hero_subtitle ${rootClass}_subtitle`)= subtitle
+
 //- Миксин для полных intro секций (main, post, catalog)
 //- @param {string} bgImg - путь к фоновому изображению
 //- @param {string} sectionClass - класс модификатор для section (по умолчанию 'intro')

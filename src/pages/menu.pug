@@ -1,0 +1,39 @@
+//- @title: Меню
+//- @description: Страница меню
+//- @page_class: menu
+//- @has_intro: false
+extends ../layouts/default.pug
+
+block content
+  -
+    const menuCards = [
+      {
+        title: 'Меню блюд',
+        href: '#',
+        image: 'assets/img/kaifuso/menu/menu-food.jpg',
+      },
+      {
+        title: 'Винная карта',
+        href: '#',
+        image: 'assets/img/kaifuso/menu/menu-wine.jpg',
+      },
+      {
+        title: 'Барное меню',
+        href: '#',
+        image: 'assets/img/kaifuso/menu/menu-bar.jpg',
+      },
+    ]
+
+  section.menu-page(aria-labelledby='menu-title')
+    +PageHero({
+      title: 'Меню',
+      breadcrumbs: ['Меню'],
+      rootClass: 'menu-page_hero',
+      titleId: 'menu-title'
+    })
+
+    .menu-page_body
+      .container
+        .menu-page_cards
+          each item in menuCards
+            +MenuCatalogCard(item)

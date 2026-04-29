@@ -1,17 +1,24 @@
-// Цветовая схема банного комплекса "Княже"
-// Основные цвета — маппинг на CSS-переменные из theme.scss
-// Для rgba() использовать: rgba(var(--prime-rgb), X), rgba(var(--second-rgb), X), rgba(var(--light-gold-rgb), X)
-$prime: var(--color-prime);
-$second: var(--color-second);
-$dark-gold: var(--color-dark-gold);
-$light-gold: var(--color-light-gold);
+// KAIFUSO — дизайн-токены (Figma). theme.scss не используем; :root для совместимости со старыми var(--*) в компонентах.
+$img: '@/assets/img';
 
-// Размеры контейнеров и отступов
-$container-width: 1720px;
-$container-padding: 20px;
+$gold: #ffc387;
+$footer-bg: #1f0501;
+$page-bg: #0a0502;
+$prime: $gold;
+$second: $page-bg;
+$light-gold: $gold;
+$dark-gold: #c18b4a;
+
+$surface-raised: #1a0f0a;
+
+$font-main: 'Source Sans 3', system-ui, sans-serif;
+$font-secondary: 'Forum', serif;
+$font-heading: 'Forum', serif;
+
+$container-width: 1728px;
+$container-padding: 40px;
 $spacing-unit: 40px;
 
-// Breakpoints для адаптивности
 $breakpoint-xs: 400px;
 $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
@@ -20,6 +27,18 @@ $breakpoint-xl: 1200px;
 $breakpoint-xl-2: 1400px;
 $breakpoint-xl-3: 1600px;
 
-// Шрифты
-$font-main: 'Akrobat', sans-serif;
-$font-secondary: 'ALaRuss', sans-serif;
+:root {
+  --color-prime: #{$gold};
+  --color-second: #{$page-bg};
+  --color-light-gold: #{$gold};
+  --color-dark-gold: #{$dark-gold};
+  --color-second-lightened: #{$surface-raised};
+  --prime-rgb: 255, 195, 135;
+  --second-rgb: 10, 5, 2;
+  --light-gold-rgb: 255, 195, 135;
+  --dark-gold-rgb: 193, 139, 74;
+  --icon-filter: brightness(0) saturate(100%) invert(84%) sepia(20%) saturate(1466%) hue-rotate(322deg)
+    brightness(103%) contrast(101%);
+  --overlay-rgb: 0, 0, 0;
+  --overlay-solid: #000000;
+}

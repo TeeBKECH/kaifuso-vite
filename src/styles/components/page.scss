@@ -9,6 +9,50 @@ body.page {
   display: flex;
   flex-direction: column;
 
+  .page-hero {
+    &_container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-top: 40px;
+      padding-bottom: 32px;
+
+      @include respond-to(lg) {
+        gap: 16px;
+        padding-top: 24px;
+        padding-bottom: 24px;
+      }
+    }
+
+    .breadcrumbs_item {
+      font-weight: 300;
+
+      &--sep,
+      &--current {
+        color: rgba(var(--light-gold-rgb), 0.6);
+      }
+    }
+
+    &_title {
+      margin: 0;
+      max-width: 100%;
+    }
+
+    &_subtitle {
+      margin: 0;
+      max-width: 48rem;
+      font-family: $font-main;
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 1.5;
+      color: rgba(var(--light-gold-rgb), 0.8);
+
+      @include respond-to(md) {
+        font-size: 18px;
+      }
+    }
+  }
+
   &_intro {
     padding: 48px 0;
 
@@ -37,4 +81,9 @@ body.page {
     margin: 0 0 !important;
     max-width: unset !important;
   }
+}
+
+[data-has-intro='false'] .page .main {
+  // Совпадает с высотой .header (JS: setHeaderHeight → --height-h), иначе fallback как в :root
+  padding-top: var(--height-h, 92px);
 }

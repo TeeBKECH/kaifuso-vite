@@ -5,65 +5,45 @@
 extends ../layouts/default.pug
 
 block content
-  +Intro({
-    title: 'Мероприятия в княже',
-    breadcrumbs: ['Мероприятия']
-  })
-
-  section.section.section--events
-    .container.section_container
-      .section_content
-        .events_filters
-          +Button('Грядущие пиршества', ['secondary', 'sm'])
-          +Button('Прошедшие торжества', ['primary', 'sm'])
-        .events_grid
-          +CardEvent({
-            title: 'ВОЛШЕБНАЯ БАНЯ в «Княже» — портал в мир гармонии и очищения!',
-            img: 'assets/img/benefits-1.webp',
-            text: 'Среди суеты будней — оазис тишины и преображения. Здесь пар, звук и движение сплетаются в древний танец очищения души и тела',
-            label: '3 декабря с 18:00 до 23:00'
-          })(class='events_item')
-          +CardEvent({
-            title: 'ВОЛШЕБНАЯ БАНЯ в «Княже» — портал в мир гармонии и очищения!',
-            img: 'assets/img/benefits-2.webp',
-            text: 'Среди суеты будней — оазис тишины и преображения. Здесь пар, звук и движение сплетаются в древний танец очищения души и тела',
-            label: '3 декабря с 18:00 до 23:00'
-          })(class='events_item')
-          +CardEvent({
-            title: 'ВОЛШЕБНАЯ БАНЯ в «Княже» — портал в мир гармонии и очищения!',
-            img: 'assets/img/benefits-1.webp',
-            text: 'Среди суеты будней — оазис тишины и преображения. Здесь пар, звук и движение сплетаются в древний танец очищения души и тела',
-            label: '3 декабря с 18:00 до 23:00'
-          })(class='events_item')
-          +CardEvent({
-            title: 'ВОЛШЕБНАЯ БАНЯ в «Княже» — портал в мир гармонии и очищения!',
-            img: 'assets/img/benefits-2.webp',
-            text: 'Среди суеты будней — оазис тишины и преображения. Здесь пар, звук и движение сплетаются в древний танец очищения души и тела',
-            label: '3 декабря с 18:00 до 23:00'
-          })(class='events_item')
-          +CardEvent({
-            title: 'ВОЛШЕБНАЯ БАНЯ в «Княже» — портал в мир гармонии и очищения!',
-            img: 'assets/img/benefits-1.webp',
-            text: 'Среди суеты будней — оазис тишины и преображения. Здесь пар, звук и движение сплетаются в древний танец очищения души и тела',
-            label: '3 декабря с 18:00 до 23:00'
-          })(class='events_item')
-          +CardEvent({
-            title: 'ВОЛШЕБНАЯ БАНЯ в «Княже» — портал в мир гармонии и очищения!',
-            img: 'assets/img/benefits-2.webp',
-            text: 'Среди суеты будней — оазис тишины и преображения. Здесь пар, звук и движение сплетаются в древний танец очищения души и тела',
-            label: '3 декабря с 18:00 до 23:00'
-          })(class='events_item')
-          +CardEvent({
-            title: 'ВОЛШЕБНАЯ БАНЯ в «Княже» — портал в мир гармонии и очищения!',
-            img: 'assets/img/benefits-1.webp',
-            text: 'Среди суеты будней — оазис тишины и преображения. Здесь пар, звук и движение сплетаются в древний танец очищения души и тела',
-            label: '3 декабря с 18:00 до 23:00'
-          })(class='events_item')
-          +CardEvent({
-            title: 'ВОЛШЕБНАЯ БАНЯ в «Княже» — портал в мир гармонии и очищения!',
-            img: 'assets/img/benefits-2.webp',
-            text: 'Среди суеты будней — оазис тишины и преображения. Здесь пар, звук и движение сплетаются в древний танец очищения души и тела',
-            label: '3 декабря с 18:00 до 23:00'
-          })(class='events_item')
-        .section_footer
-          +Pagination({})
+  -
+    const eventsCards = [
+      { date: '22 марта', time: '20:00', title: 'PERFOMANCE<br>SHOW', lineup: 'LOVA SHOW, DJ BLANC', image: 'https://www.figma.com/api/mcp/asset/6b330251-5ec2-4ac8-8bc6-e13f348c4bfe' },
+      { date: '31 декабря', time: '22:00', title: 'НОВОГОДНЯЯ<br>НОЧЬ 2026', lineup: 'ANNA ASTI, кавер группа ASET', image: 'https://www.figma.com/api/mcp/asset/5ce93d5a-f5e1-4c28-8b35-d18f6685404d' },
+      { date: '21 марта', time: '21:00', title: 'PERFOMANCE<br>SHOW', lineup: 'Мария Балак, DJ Miller', image: 'https://www.figma.com/api/mcp/asset/e7083ef8-b5f1-4215-8a45-daabb864575b' },
+      { date: '25 марта', time: '16:00', title: 'ТВОРЧЕСКИЙ<br>ВЕЧЕР', lineup: 'Данила Якушев, Павел Майков', image: 'https://www.figma.com/api/mcp/asset/40bd0c79-5dd8-4aa1-bfe2-6761ae999219' },
+      { date: '8 марта', time: '20:00', title: 'МОТ', lineup: 'Lovers, DJ Фёдор Фомин', image: 'https://www.figma.com/api/mcp/asset/eb17ff3a-6134-40f3-8259-743888a69bb7' },
+      { date: '22 марта', time: '20:00', title: 'BODY<br>& SOUL', lineup: 'Nadiya, DJ Miller', image: 'https://www.figma.com/api/mcp/asset/824108fd-f2eb-46f0-90ba-1009f1fd2dfd' },
+    ]
+  section.events-page(aria-labelledby='events-title')
+    .events-page_bg(aria-hidden='true')
+    +PageHero({
+      title: 'Афиша',
+      breadcrumbs: ['Афиша'],
+      rootClass: 'events-page_hero',
+      titleId: 'events-title'
+    })
+    .events-page_filter.container
+      .events-page_filter-tags
+        button.events-page_filter-tag.events-page_filter-tag--active(type='button') Все
+        button.events-page_filter-tag(type='button') Предстоящие
+        button.events-page_filter-tag(type='button') Прошедшие
+      p.events-page_filter-total Всего : 24
+    .events-page_body
+      .container.events-page_body_container
+        .events-page_cards
+          each item in eventsCards
+            +EventsPosterCard(item)
+        .events-page_footer
+          button.events-page_load(type='button')
+            span.events-page_load-text Загрузить еще
+            span.events-page_load-icon(aria-hidden='true')
+          nav.events-page_pager(aria-label='Пагинация афиши')
+            button.events-page_pager-btn(type='button' aria-label='Назад')
+              span.events-page_pager-btn-arrow.events-page_pager-btn-arrow--left(aria-hidden='true')
+            button.events-page_pager-btn.events-page_pager-btn--active(type='button' aria-current='page') 1
+            button.events-page_pager-btn(type='button') 2
+            button.events-page_pager-btn(type='button') 3
+            button.events-page_pager-btn(type='button') 4
+            button.events-page_pager-btn(type='button') 5
+            button.events-page_pager-btn(type='button' aria-label='Вперед')
+              span.events-page_pager-btn-arrow.events-page_pager-btn-arrow--right(aria-hidden='true')

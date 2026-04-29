@@ -1,13 +1,13 @@
 {
-  "name": "knyaje-vite",
+  "name": "kaifuso-vite",
   "version": "1.0.1",
   "main": "index.js",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
     "build:wp": "BUILD_TARGET=wp vite build",
-    "sync:wp": "rsync -av build/assets/ ../../wp/knyaje/prod/wp-content/themes/knyaje/assets/",
-    "sync:wp:dev": "rsync -av build/assets/ ../../wp/knyaje/dev/wp-content/themes/knyaje/assets/",
+    "sync:wp": "rsync -av build/assets/ ../../wp/kaifuso/prod/wp-content/themes/kaifuso/assets/",
+    "sync:wp:dev": "rsync -av build/assets/ ../../wp/kaifuso/dev/wp-content/themes/kaifuso/assets/",
     "preview": "vite preview --open"
   },
   "type": "module",

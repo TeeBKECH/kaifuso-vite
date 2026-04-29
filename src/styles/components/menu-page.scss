@@ -1,0 +1,144 @@
+.menu-page {
+  position: relative;
+  background: #0f0101;
+
+  &_hero {
+    border-bottom: 0.4px solid rgba(255, 187, 119, 0.16);
+  }
+
+  &_body {
+    padding-top: 48px;
+    padding-bottom: 120px;
+
+    @include respond-to(lg) {
+      padding-top: 32px;
+      padding-bottom: 72px;
+    }
+  }
+
+  &_cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+
+    @include respond-to(xl) {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+
+  &_card {
+    display: flex;
+    border-radius: 32px;
+    overflow: hidden;
+    min-height: 450px;
+
+    @include respond-to(md) {
+      border-radius: 24px;
+      min-height: 360px;
+    }
+
+    &_media {
+      width: 48.02%;
+      min-height: 450px;
+      position: relative;
+      overflow: hidden;
+
+      @include respond-to(md) {
+        min-height: 360px;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 50% 50%, rgba(26, 26, 26, 0) 0%, rgba(26, 26, 26, 0.1) 100%),
+          linear-gradient(90deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%);
+        mix-blend-mode: soft-light;
+        pointer-events: none;
+      }
+    }
+
+    &_info {
+      width: 51.98%;
+      min-height: 450px;
+      padding: 28px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 40px;
+      background: rgba(0, 0, 0, 0.32);
+      backdrop-filter: blur(32px);
+
+      @include respond-to(md) {
+        min-height: 360px;
+        gap: 28px;
+      }
+    }
+
+    &_title {
+      margin: 0;
+      color: transparent;
+      background: linear-gradient(141deg, #c4ae75 4%, #e2da9b 7%, #c8b375 9%, #ece7ac 14%, #c7ae6e 24%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      font-family: $font-heading;
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 1.33;
+      text-transform: uppercase;
+
+      @include respond-to(md) {
+        font-size: 30px;
+        line-height: 1.25;
+      }
+    }
+
+    &_action {
+      min-height: 44px;
+      border-radius: 65.347px;
+      padding: 14px 16px;
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 195, 135, 0.08);
+      color: #ffc387;
+      text-decoration: none;
+
+      &-text {
+        font-family: $font-main;
+        font-size: 16px;
+        font-weight: 350;
+        line-height: 1;
+        opacity: 0.8;
+      }
+
+      &-arrow {
+        width: 16px;
+        height: 16px;
+        position: relative;
+
+        &::before {
+          content: '';
+          position: absolute;
+          width: 6px;
+          height: 6px;
+          border-top: 1.4px solid currentColor;
+          border-right: 1.4px solid currentColor;
+          transform: rotate(45deg);
+          top: 5px;
+          left: 4px;
+        }
+      }
+    }
+  }
+}

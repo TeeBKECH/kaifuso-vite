@@ -1,19 +1,35 @@
-mixin Btn(text = 'Текст кнопки', styles = ['default'], type = 'button')
+//- Опции для кнопки с иконкой: { type?, icon?, iconAlt?, iconOnly? }
+//- icon — путь к svg/img; iconOnly — только иконка (текст для a11y скрыт визуально)
+mixin Button(text = 'Текст кнопки', styles = ['primary'], typeOrOptions = 'button')
   - let classes = ''
-  each item in styles
-    - classes+= ` btn--${item}`
-  button(type=type, class=`btn${classes}`)&attributes(attributes)
-    span= text
+  - const defaultSize = 'md'
+  - let hasSize = false
+  - let hasVariant = false
+  - const opts = typeof typeOrOptions === 'object' ? typeOrOptions : { type: typeOrOptions }
+  - const { type = 'button', icon = '', iconAlt = '', iconOnly = false } = opts
+  - if (icon) classes += ' button--icon'
+  - if (iconOnly) classes += ' button--icon-only'
 
-mixin BtnIcon(props)
-  - const {icon = '', type = 'button', styles = ['default']} = props
-  - let classes = ' btn--icon'
   each item in styles
-    - classes+= ` btn--${item}`
-  button(type=type, class=`btn${classes}`)&attributes(attributes)
-    img(src=icon, alt="Btn Icon")
+    - classes+= ` button--${item}`
+    - if (item === 'sm' || item === 'md' || item === 'lg' || item === 'xl') hasSize = true
+    - if (['primary', 'secondary', 'third', 'nav', 'on-dark', 'on-light', 'ghost-gold'].includes(item)) hasVariant = true
 
-mixin BtnQuiz(text = 'Текст кнопки', type = 'next')
-  button(type='button', class=`btn btn--${type === 'next' ? 'default' : 'outlined'} btn--${type === 'next' ? 'arrow-right' : 'arrow-left'} btn--md btn__quiz btn__quiz--${type}`)&attributes(attributes)
-    span= text
-      
+  - if (!hasSize) classes+= ` button--${defaultSize}`
+  - if (!hasVariant) classes+= ` button--primary`
+
+  - const isLink = attributes.href !== undefined
+  - const tag = isLink ? 'a' : 'button'
+
+  if isLink
+    a(class=`button${classes}`)&attributes(attributes)
+      if icon
+        img.button_icon(src=icon, alt=iconAlt || text)
+      if !iconOnly && text
+        span.button_text= text
+  else
+    button(type=type, class=`button${classes}`)&attributes(attributes)
+      if icon
+        img.button_icon(src=icon, alt=iconAlt || text)
+      if !iconOnly && text
+        span.button_text= text

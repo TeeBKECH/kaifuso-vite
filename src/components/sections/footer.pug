@@ -1,75 +1,45 @@
 footer.footer
-  .container.footer_container
-    .footer_block
-      .footer_col.footer_col--logo
-        +Logo({type: 'footer'})
-        .footer_copy
-          p Все права защищены 
-            span &copy; 
-            | 2025
-          p ООО "Комплекс 888"
-    .footer_block.footer_block--alt
-      .footer_row.footer_row--menu
-        span.footer_title Навигация
-        ul.footer_list
-          li.footer_list_item
-            a.footer_list_link(href='rates.html') Общественная баня
-          li.footer_list_item
-            a.footer_list_link(href='promotions.html')  Индивидуальная баня
-          li.footer_list_item
-            a.footer_list_link(href='spa-programs.html') Спа программы
-          li.footer_list_item
-            a.footer_list_link(href='restaurant.html') Массажи
-          li.footer_list_item
-            a.footer_list_link(href='events.html') Диковины
-          li.footer_list_item
-            a.footer_list_link(href='certificates.html') Скрабы
-          li.footer_list_item
-            a.footer_list_link(href='certificates.html') Акции
-        ul.footer_list
-          li.footer_list_item
-            a.footer_list_link(href='rates.html') Подарочный сертификат
-          li.footer_list_item
-            a.footer_list_link(href='promotions.html') Система лояльности
-          li.footer_list_item
-            a.footer_list_link(href='spa-programs.html') Мероприятия
-          li.footer_list_item
-            a.footer_list_link(href='restaurant.html') Ресторан
-          li.footer_list_item
-            a.footer_list_link(href='events.html') Расписание паров
-          li.footer_list_item
-            a.footer_list_link(href='certificates.html') Отдых за городом
-      .footer_row.footer_row--contacts
-        span.footer_title Контакты
-        ul.footer_list
-          li.footer_list_item
-            a.footer_list_link.footer_list_link--alt(href='tel:+74996476888') +7 (499) 647-68-88
-          li.footer_list_item
-            a.footer_list_link(href='https://yandex.ru/maps/-/CPEvnD0E', target='_blank', rel='noopener noreferrer nofollow') 123317, Россия, Москва, Шмитовский проезд 27с1
-          li.footer_list_item
-            p.footer_list_text Ежедневно с 10:00 до 23:00
-          li.footer_list_item
-            p.footer_list_text Рядом с комплексом есть бесплатные и платные парковки.
-      .footer_row.footer_row--socials
-        span.footer_title Социальные сети
-        +SocialsGold([
-          {
-            icon: 'tg',
-            text: 'Telegram'
-          },
-          {
-            icon: 'vk',
-            text: 'VK'
-          },
-          {
-            icon: 'wa',
-            text: 'WhatsApp'
-          }
-        ])
-      .footer_copy.footer_copy--alt
-        p 
-          span &copy; 
-          | 2025 Все права защищены 
-        p ООО "Комплекс 888"
-  .footer_ornament
-    img(src="assets/img/footer-ornament.svg", alt="Ornament")
+  .footer_shell
+    .container.footer_top
+      nav.footer_nav(aria-label='Навигация')
+        a.footer_nav-link(href='about.html') О нас
+        a.footer_nav-link(href='events.html') События
+        a.footer_nav-link(href='menu.html') Меню
+        a.footer_nav-link(href='news.html') Новости
+        a.footer_nav-link(href='contacts.html') Контакты
+      .footer_center
+        .footer_brand
+          .footer_brand-marks
+            .footer_mark
+              img(src='assets/img/kaifuso/footer-mark.svg' alt='' decoding='async' loading='lazy')
+            .footer_wordmark
+              img(src='assets/img/kaifuso/footer-wordmark.svg' alt='KAIFUSO' decoding='async' loading='lazy')
+          p.footer_tagline Азиатский ресторан-клуб
+        .footer_soc
+          a.footer_soc-link(href='#' target='_blank' rel='noopener noreferrer nofollow' aria-label='Telegram')
+            img(src='assets/img/kaifuso/icon-tg.svg' alt='')
+          a.footer_soc-link(href='#' target='_blank' rel='noopener noreferrer nofollow' aria-label='ВКонтакте')
+            img(src='assets/img/kaifuso/icon-vk.svg' alt='')
+          a.footer_soc-link(href='#' target='_blank' rel='noopener noreferrer nofollow' aria-label='YouTube')
+            img(src='assets/img/kaifuso/icon-youtube.svg' alt='')
+      .footer_aside
+        .footer_aside-block
+          p.footer_aside-title ул. Кузнецкий мост, д.6/3
+          a.footer_route(
+            href='https://yandex.ru/maps/?text=%D0%9A%D1%83%D0%B7%D0%BD%D0%B5%D1%86%D0%BA%D0%B8%D0%B9%20%D0%BC%D0%BE%D1%81%D1%82%2C%206%2F3'
+            target='_blank'
+            rel='noopener noreferrer nofollow'
+          )
+            span.footer_route_text Построить маршрут
+            span.icon-external(aria-hidden='true')
+              img(src='assets/img/kaifuso/icon-arrow-external.svg' alt='' decoding='async')
+        .footer_aside-block
+          a.footer_aside-phone(href='tel:+74957302277') 7 (495) 730 22 77
+          a.footer_aside-mail(href='mailto:info@kaifuso.rest') info@kaifuso.rest
+        +Button('Забронировать стол', ['ghost-gold', 'sm'])(data-modal='modal-form' data-modal-action='open' class='footer_booking')
+    .footer_bar
+      .container.footer_bar-inner
+        p.footer_copy Все права защищены © 2014 - 2026 Kaifuso.rest
+        .footer_legal
+          a.footer_legal-link(href='privacy.html') Политика конфиденциальности
+          a.footer_legal-link(href='#') Разработка сайта

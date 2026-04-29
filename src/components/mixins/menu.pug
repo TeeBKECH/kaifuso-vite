@@ -45,3 +45,27 @@ mixin MenuAllCategories(props = {})
   - const { categories = [] } = props
     each categoryData in categories
       +MenuCategory(categoryData)
+
+//- Карточка категории меню для страницы /menu
+//- @param {Object} props
+//- @param {string} props.title
+//- @param {string} props.image
+//- @param {string} props.href
+//- @param {string} props.alt
+mixin MenuCatalogCard(props = {})
+  -
+    const {
+      title = '',
+      image = '',
+      href = '#',
+      alt = title
+    } = props || {}
+  article.menu-page_card
+    .menu-page_card_media
+      if image
+        img(src=image alt=alt loading='lazy' decoding='async')
+    .menu-page_card_info
+      h2.menu-page_card_title!= title
+      a.menu-page_card_action(href=href)
+        span.menu-page_card_action-text Смотреть
+        span.menu-page_card_action-arrow(aria-hidden='true')

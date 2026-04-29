@@ -1,30 +1,47 @@
-//- @title: Главная
-//- @description: Банный комплекс «Княже» рядом с Москва-Сити - премиальный банный комплекс с традициями
-//- @page_class: index
+//- @title: Страницы
+//- @description: Ссылки на сверстанные страницы и черновики
+//- @page_class: links
+//- @has_intro: false
 extends ../layouts/default.pug
 
 block content
-  +IntroVideo({
-    videoSrc: 'assets/video/video-bg.mp4',
-    title: 'БАННЫЙ КОМПЛЕКС<br>РЯДОМ С МОСКВА-СИТИ',
-    description: 'ГДЕ ТРАДИЦИИ ВСТРЕЧАЮТСЯ С СОВРЕМЕННОСТЬЮ',
-    buttons: [
-      {text: 'ЗАБРОНИРОВАТЬ ЦАРСКИЙ СЬЮТ', styles: ['primary', 'lg']},
-      {text: 'ПОСЕТИТЬ ОБЩЕСТВЕННУЮ БАНЮ', styles: ['secondary', 'lg']}
-    ],
-    showLogo: false
-  })
+  -
+    const linksPages = [
+      { link: '/main.html', ver: 15, title: 'Главная', note: 'Хедер, футер и базовые блоки; секции главной в процессе.' },
+      { link: '/about.html', ver: 0, title: 'О нас', note: 'Заготовка под внутреннюю страницу.' },
+      { link: '/menu.html', ver: 80, title: 'Меню', note: 'Hero и три карточки категорий: меню блюд, винная карта, барное меню.' },
+      { link: '/menu-detail.html', ver: 60, title: 'Меню (внутренняя)', note: 'Черновик: hero, grid-таблица позиций и форма бронирования (ACF repeater-ready).' },
+      { link: '/events.html', ver: 85, title: 'Афиша', note: 'Hero, фильтры, карточки-афиша через отдельный миксин, футер и пагинация.' },
+      { link: '/event.html', ver: 85, title: 'Событие', note: 'Hero, постер, форма бронирования с выбором канала связи, блок описания и swiper «Другие события».' },
+      { link: '/contacts.html', ver: 25, title: 'Контакты', note: 'Контактная информация и форма.' },
+      { link: '/404.html', ver: 90, title: '404', note: 'Страница ошибки.' },
+      { link: '/privacy.html', ver: 15, title: 'Политика конфиденциальности', note: 'Типовой юридический текст (нужна адаптация под KAIFUSO).' },
+      { link: '/single.html', ver: 10, title: 'Блог', note: 'Страница записи / статьи.' },
+    ]
+    const totalVer = linksPages.reduce((acc, p) => acc + p.ver, 0)
+    const avgVer = linksPages.length ? Math.round(totalVer / linksPages.length) : 0
+    const activeCount = linksPages.filter((p) => p.ver > 0).length
 
-  include ../components/sections/features.pug
+  section.links
+    .container
+      .links_intro
+        h3.title.title-h3 Страницы
+        p.links_note
+          | Реестр ссылок для сверки с макетом Figma.
+          |
+          span.links_note-accent Ниже — краткое описание и ориентировочный процент готовности.
 
-  //- include ../components/sections/banya.pug
+      .links_stats
+        .links_stat
+          span.links_stat-value= linksPages.length
+          p.links_stat-label Страниц в списке
+        .links_stat
+          span.links_stat-value= `${avgVer}%`
+          p.links_stat-label Средняя готовность
+        .links_stat
+          span.links_stat-value= activeCount
+          p.links_stat-label С ненулевым прогрессом
 
-  include ../components/sections/choice.pug
-
-  include ../components/sections/places.pug
-
-  include ../components/sections/cta.pug
-
-  include ../components/sections/benefits.pug
-
-  include ../components/sections/events.pug
+      .links_items
+        each pg, i in linksPages
+          +Link({ num: i + 1, link: pg.link, title: pg.title, ver: pg.ver, note: pg.note })

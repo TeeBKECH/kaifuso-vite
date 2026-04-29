@@ -1,19 +1,24 @@
-//- @title: 404
-//- @description: Ошибка
+//- @title: Страница не найдена
+//- @description: Ошибка 404
 //- @page_class: error
 //- @has_intro: false
 extends ../layouts/default.pug
 
 block content
-  +Intro({
-    title: 'Страница не найдена',
-    breadcrumbs: ['Ошибка 404!']
-  })
-
-  section.error_404
-    .container.error_404_container 
-      +Frame()
-        .error_404_content
-          h1.title.title-h1 Ошибка 404!
-          p Страница не найдена
-          +Button('На главную', ['primary', 'lg', 'fw'])
+  section.error_404(aria-labelledby='error-404-title')
+    .error_404_watermark-stack(aria-hidden='true')
+      p.error_404_watermark 404
+    .error_404_bg(aria-hidden='true')
+    +PageHero({
+      title: 'Страница не найдена',
+      breadcrumbs: ['Страница не найдена'],
+      rootClass: 'error_404_hero',
+      titleId: 'error-404-title'
+    })
+    .error_404_body
+      .container.error_404_body-inner
+        .error_404_col
+          .error_404_msg
+            h2.error_404_code-title Ошибка 404
+            p.error_404_text Похоже, такой страницы больше нет или она была перемещена
+          +Button('Вернуться на главную', ['ghost-gold', 'lg'])(href='main.html' class='error_404_btn')

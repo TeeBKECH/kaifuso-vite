@@ -3,33 +3,20 @@ import { Navigation } from 'swiper/modules'
 import { Fancybox } from '@fancyapps/ui/dist/fancybox/'
 import AOS from 'aos'
 
-import { initResponsiveSwiper, initResponsiveSwiperAll } from '@/scripts/components/swiper.js'
+import { initResponsiveSwiperAll } from '@/scripts/components/swiper.js'
 import {
   attachCustomScrollbar,
   attachCustomScrollbarHorizontal,
 } from '@/scripts/components/scroll-bar.js'
 import { initSelects } from '@/scripts/components/select.js'
-import { initCounters } from '@/scripts/components/counter.js'
-import { initCountersUp } from '@/scripts/components/counters-up.js'
 import { initPhoneMasks } from '@/scripts/components/phone-mask.js'
 import { buildToc } from '@/scripts/components/toc.js'
 import { initModalSystem, registerModal, initPopupModal, isModalOpen, closeModal } from '@/scripts/components/modal.js'
-import { initVideoPlayer, initVideoSwiper } from '@/scripts/components/video-player.js'
 import { initContactFields } from '@/scripts/components/contact-field.js'
-import { initCategoryTags } from '@/scripts/components/category-tags.js'
-import { initGalleryMosaic } from '@/scripts/components/gallery-mosaic.js'
-import { initBlogFilters } from '@/scripts/components/filters.js'
-import { initTabsAll } from '@/scripts/components/tabs.js'
-import { initMeropriyaiyaFloorTabsSwipe } from '@/scripts/components/meropriyaiya-floor-tabs.js'
-import { initIntroParallax } from '@/scripts/components/intro-parallax.js'
-import { initPalacesTabs } from '@/scripts/components/palaces.js'
 import { attachScrollVisibility } from '@/scripts/utils/scroll-visibility.js'
-
-import { initGeneratorTotal } from '@/scripts/utils/gen-total.js'
 import { truncateText } from '@/scripts/utils/truncText.js'
-import { hidePartContent } from '@/scripts/utils/hidePartContent.js'
 import { initViewportHeight, setHeaderHeight } from '@/scripts/utils/viewport-height.js'
-import { initThemeSwitcher } from '@/scripts/utils/theme-switcher.js'
+// import { initThemeSwitcher } from '@/scripts/utils/theme-switcher.js'
 
 import '@/scripts/components/smooth-scroll.js'
 
@@ -40,7 +27,7 @@ import '@/styles/styles.scss'
 initViewportHeight()
 
 // Смена темы (светлая/тёмная) — до загрузки DOM, чтобы минимизировать мигание
-initThemeSwitcher()
+// initThemeSwitcher()
 
 function getPageIdFromUrl() {
   const path = window.location.pathname.replace(/\/+/g, '/').replace(/^\/|\/$/g, '') // убираем ведущий/замыкающий слеш
@@ -107,31 +94,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
    * Contact Fields (динамическое обновление поля контакта)
    */
   initContactFields()
-  initCategoryTags()
-
-  /*
-   * Blog Filters
-   */
-  initBlogFilters()
-
-  /*
-   * Tabs
-   */
-  initTabsAll()
-  initMeropriyaiyaFloorTabsSwipe()
-  initPalacesTabs()
-
-  // Custom horizontal scroll for price tables (md+)
-  document.querySelectorAll('.price-table_wrap').forEach((wrapEl) => {
-    attachCustomScrollbarHorizontal(wrapEl, {
-      offsetBottom: 12,
-      trackHeight: 1,
-      trackColor: 'rgba(185, 155, 79, 0.3)',
-      thumbHeight: 6,
-      thumbColor: 'rgba(185, 155, 79, 0.5)',
-      minThumbPx: 30,
-    })
-  })
 
   // Custom Scroll Bar for Selects
   selects.forEach((select) => {
@@ -148,33 +110,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
   })
 
-  /*
-   * Counters
-   */
-  const counters = initCounters()
-  // Пример: подписка на изменение
-  // document.querySelectorAll('[data-component="counter"]').forEach((el) => {
-  //   el.addEventListener('counter:change', (e) => {
-  //     console.log('counter changed:', e.detail.value)
-  //   })
-  // })
-
-  /*
-   * Counters Up (Animated Counters)
-   */
-  const countersUp = initCountersUp()
-
-  /*
-   * Generator Cert
-   */
-  initGeneratorTotal({
-    selectEl: '#cert-select', // корень вашего кастомного select (single)
-    counterEl: '#cert-counter', // корень счётчика
-    outEl: '.generator-form__total-count', // куда писать строку
-    uppercase: true,
-    dash: ' – ',
-    defaultCount: 1,
-  })
   /*
    * ==== Swipers
    */
@@ -219,182 +154,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
   })
 
-  // Other Promotions Swiper
-  initResponsiveSwiperAll('.other-promotions_items', (root) => {
-    const section = root.closest('.other-promotions_content')
-    const prevEl = section?.querySelector('.other-promotions_nav-prev')
-    const nextEl = section?.querySelector('.other-promotions_nav-next')
-    return {
-      Swiper, // передаём класс
-      modules: [Navigation],
-      itemsSelector: '.other-promotions_item',
-      breakpoint: '(max-width: 9999px)',
-      slidesPerView: 1.5,
-      spaceBetween: 16,
-      loop: false,
-      slidesOffsetAfter: 16,
-      slidesOffsetBefore: 16,
-      navigation: {
-        prevEl,
-        nextEl,
-        createInside: false,
-      },
-      pagination: false,
-      breakpoints: {
-        320: {
-          slidesPerView: 1.5,
-          spaceBetween: 16,
-          slidesOffsetAfter: 16,
-          slidesOffsetBefore: 16,
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 24,
-        },
-        992: {
-          slidesPerView: 3,
-          spaceBetween: 32,
-        },
-      },
-      extendSwiperOptions: (opts) => ({
-        ...opts,
-        speed: 500,
-      }),
-    }
-  })
-
-  // Benefits Swiper
-  initResponsiveSwiperAll('.benefits_items', (root) => {
-    return {
-      Swiper, // передаём класс
-      itemsSelector: '.card--promotion',
-      breakpoint: '(max-width: 992px)',
-      slidesPerView: 1.5,
-      spaceBetween: 16,
-      loop: false,
-      slidesOffsetAfter: 16,
-      slidesOffsetBefore: 16,
-      pagination: false,
-      extendSwiperOptions: (opts) => ({
-        ...opts,
-        speed: 500,
-      }),
-    }
-  })
-  // Programms Swiper
-  initResponsiveSwiperAll('.programms', (root) => {
-    return {
-      Swiper, // передаём класс
-      itemsSelector: '.programm-card',
-      breakpoint: '(max-width: 1200px)',
-      slidesPerView: 3.2,
-      spaceBetween: 16,
-      loop: false,
-      slidesOffsetAfter: 16,
-      slidesOffsetBefore: 16,
-      pagination: false,
-      breakpoints: {
-        320: {
-          slidesPerView: 1.2,
-          spaceBetween: 16,
-          slidesOffsetAfter: 16,
-          slidesOffsetBefore: 16,
-        },
-        768: {
-          slidesPerView: 2.2,
-          spaceBetween: 24,
-        },
-        992: {
-          slidesPerView: 3.2,
-          spaceBetween: 32,
-        },
-      },
-      extendSwiperOptions: (opts) => ({
-        ...opts,
-        speed: 500,
-      }),
-    }
-  })
-
-  // Rituals Section Swiper
-  initResponsiveSwiperAll('.rituals_items', (root) => {
-    const section = root.closest('.rituals_content')
-    const prevEl = section?.querySelector('.rituals_nav-prev')
-    const nextEl = section?.querySelector('.rituals_nav-next')
-    const slideCount = root.querySelectorAll('.card--ritual').length
-    const spv = slideCount > 1 ? 1.3 : 1
-    return {
-      Swiper,
-      modules: [Navigation],
-      itemsSelector: '.card--ritual',
-      breakpoint: '(max-width: 9999px)',
-      slidesPerView: slideCount > 1 ? 1.3 : 1,
-      spaceBetween: 32,
-      loop: false,
-      navigation: {
-        prevEl,
-        nextEl,
-        createInside: false,
-      },
-      pagination: false,
-      breakpoints: {
-        320: {
-          slidesPerView: spv,
-          spaceBetween: 20,
-        },
-        768: {
-          slidesPerView: spv,
-          spaceBetween: 24,
-        },
-        992: {
-          slidesPerView: spv,
-          spaceBetween: 32,
-        },
-      },
-      extendSwiperOptions: (opts) => ({
-        ...opts,
-        speed: 500,
-      }),
-    }
-  })
-
-  // Spa Section Swiper
-  initResponsiveSwiperAll('.spa_items', (root) => {
-    return {
-      Swiper,
-      itemsSelector: '.spa_item',
-      breakpoint: '(max-width: 769px)',
-      slidesPerView: 1.2,
-      spaceBetween: 16,
-      slidesOffsetAfter: 16,
-      slidesOffsetBefore: 16,
-      loop: false,
-      pagination: false,
-      extendSwiperOptions: (opts) => ({
-        ...opts,
-        speed: 500,
-      }),
-    }
-  })
-
-  // Мероприятия: галерея — слайдер только < 991px
-  initResponsiveSwiperAll('.meropriyaiya_gallery', () => ({
-    Swiper,
-    itemsSelector: '.meropriyaiya_gallery-cell',
-    breakpoint: '(max-width: 990px)',
-    slidesPerView: 1.08,
-    spaceBetween: 12,
-    slidesOffsetAfter: 0,
-    slidesOffsetBefore: 0,
-    loop: false,
-    pagination: true,
-    watchOverflow: true,
-    extendSwiperOptions: (opts) => ({
-      ...opts,
-      speed: 400,
-    }),
-  }))
-
   // Gallery swiper
   initResponsiveSwiperAll('.gallery-swiper', (root) => {
     const gallery = root.closest('.gallery')
@@ -421,62 +180,21 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
   })
 
-  // Room gallery (главный + миниатюры с Thumbs)
-  initResponsiveSwiperAll('.room-gallery-main', (root) => {
-    const gallery = root.closest('.room_gallery')
-    const thumbsEl = gallery?.querySelector('.room-gallery-thumbs')
-    const mainPrevEl = root.querySelector('.room_gallery-main_nav-prev')
-    const mainNextEl = root.querySelector('.room_gallery-main_nav-next')
-    const thumbsPrevEl = thumbsEl?.querySelector('.room_gallery-thumbs_nav-prev')
-    const thumbsNextEl = thumbsEl?.querySelector('.room_gallery-thumbs_nav-next')
-    return {
-      Swiper,
-      modules: [Navigation],
-      breakpoint: '(max-width: 9999px)',
-      thumbs: {
-        container: '.room-gallery-thumbs',
-        scope: '.room_gallery',
-        options: {
-          modules: [Navigation],
-          navigation: {
-            prevEl: thumbsPrevEl,
-            nextEl: thumbsNextEl,
-            createInside: false,
-          },
-          spaceBetween: 16,
-          slidesPerView: 3.5,
-          freeMode: true,
-          watchSlidesProgress: true,
-          slideToClickedSlide: true,
-          breakpoints: {
-            320: { slidesPerView: 3.5, spaceBetween: 12 },
-            768: { slidesPerView: 3.5, spaceBetween: 16 },
-          },
-        },
-      },
-      slidesPerView: 1,
-      spaceBetween: 0,
-      navigation: { prevEl: mainPrevEl, nextEl: mainNextEl, createInside: false },
-      speed: 500,
-      grabCursor: true,
-    }
-  })
+  // Event page: related events swiper
+  initResponsiveSwiperAll('.event-related_items', (root) => {
+    const section = root.closest('.event-page_related')
+    const prevEl = section?.querySelector('.event-page_related-nav-prev')
+    const nextEl = section?.querySelector('.event-page_related-nav-next')
 
-  // Room other (Другие хоромы) swiper
-  initResponsiveSwiperAll('.room-other_items', (root) => {
-    const section = root.closest('.room-other_content')
-    const prevEl = section?.querySelector('.room-other_nav-prev')
-    const nextEl = section?.querySelector('.room-other_nav-next')
     return {
       Swiper,
       modules: [Navigation],
-      itemsSelector: '.room-other_item',
+      itemsSelector: '.event-related_item',
       breakpoint: '(max-width: 9999px)',
-      slidesPerView: 1.5,
+      slidesPerView: 1.1,
       spaceBetween: 16,
       loop: false,
-      slidesOffsetAfter: 16,
-      slidesOffsetBefore: 16,
+      watchOverflow: true,
       navigation: {
         prevEl,
         nextEl,
@@ -485,22 +203,16 @@ document.addEventListener('DOMContentLoaded', (e) => {
       pagination: false,
       breakpoints: {
         320: {
-          slidesPerView: 1.5,
-          spaceBetween: 16,
-          slidesOffsetAfter: 16,
-          slidesOffsetBefore: 16,
+          slidesPerView: 1.05,
+          spaceBetween: 14,
         },
         768: {
-          slidesPerView: 2,
-          spaceBetween: 24,
-          slidesOffsetAfter: 0,
-          slidesOffsetBefore: 0,
+          slidesPerView: 2.1,
+          spaceBetween: 20,
         },
-        992: {
-          slidesPerView: 3,
-          spaceBetween: 32,
-          slidesOffsetAfter: 0,
-          slidesOffsetBefore: 0,
+        1200: {
+          slidesPerView: 4,
+          spaceBetween: 16,
         },
       },
       extendSwiperOptions: (opts) => ({
@@ -509,50 +221,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
       }),
     }
   })
-
-  // Dishes swiper
-  // initResponsiveSwiperAll('.dishes_items', (root) => {
-  //   const section = root.closest('.dishes')
-  //   const prevEl = section?.querySelector('.dishes_nav-prev')
-  //   const nextEl = section?.querySelector('.dishes_nav-next')
-  //   return {
-  //     Swiper,
-  //     modules: [Navigation],
-  //     itemsSelector: '.dishes_item',
-  //     breakpoint: '(max-width: 9999px)',
-  //     slidesPerView: 1.5,
-  //     spaceBetween: 16,
-  //     loop: false,
-  //     navigation: {
-  //       prevEl,
-  //       nextEl,
-  //       createInside: false,
-  //     },
-  //     pagination: false,
-  //     breakpoints: {
-  //       320: {
-  //         slidesPerView: 1.2,
-  //         spaceBetween: 16,
-  //         slidesOffsetAfter: 16,
-  //         slidesOffsetBefore: 16,
-  //       },
-  //       768: {
-  //         slidesPerView: 2.2,
-  //         spaceBetween: 24,
-  //       },
-  //       992: {
-  //         slidesPerView: 3.2,
-  //         spaceBetween: 32,
-  //         slidesOffsetAfter: 0,
-  //         slidesOffsetBefore: 0,
-  //       },
-  //     },
-  //     extendSwiperOptions: (opts) => ({
-  //       ...opts,
-  //       speed: 500,
-  //     }),
-  //   }
-  // })
 
   // Обновляем AOS после инициализации всех Swiper'ов
   // Используем небольшую задержку, чтобы Swiper'ы успели полностью инициализироваться
@@ -574,24 +242,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
   })
 
   /*
-   * Partners
-   */
-  // Ищем все ленты партнёров на странице
-  document.querySelectorAll('.partners_line').forEach((line) => {
-    const track = line.querySelector('.partners_track')
-    if (!track) return
-
-    // Дублируем содержимое один раз (получится 2N элементов подряд)
-    const clone = track.cloneNode(true)
-    clone.setAttribute('aria-hidden', 'true')
-    line.appendChild(clone)
-  })
-
-  /*
    * FancyBox
    */
-  // Dish Image
-  Fancybox.bind('[data-fancybox="dish-image"]', {})
   // Gallery - динамическая инициализация для всех групп галереи
   const galleryGroups = new Set()
   document
@@ -605,9 +257,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
         Fancybox.bind(`[data-fancybox="${group}"]`, {})
       }
     })
-
-  // Инициализация мозаичной галереи (автоматическое определение ориентации)
-  initGalleryMosaic()
 
   /*
    * Accordions
@@ -634,25 +283,46 @@ document.addEventListener('DOMContentLoaded', (e) => {
    * Modals
    */
   initModalSystem()
-  // Регистрируем модалки
-  const burger = document.querySelector('.burger')
+
+  const burgerMobile = document.querySelector('.header_burger--mobile.burger')
+  const burgerSite = document.querySelector('.header_burger--site.burger')
+
+  function syncHeaderMenuState() {
+    if (!header) return
+    const overlayOpen = isModalOpen('mobile-menu') || isModalOpen('site-menu')
+    header.classList.toggle('menu-open', overlayOpen)
+  }
+
   registerModal('mobile-menu', {
     closeOnBackdrop: true,
     closeOnEscape: true,
     exclusive: true,
-    onOpen: (modal) => {
-      burger.classList.add('active')
-      if (header) header.classList.add('menu-open')
+    onOpen: () => {
+      burgerMobile?.classList.add('active')
+      syncHeaderMenuState()
     },
     onClose: (modal) => {
-      burger.classList.remove('active')
-      if (header) header.classList.remove('menu-open')
-      // Закрываем все подменю при закрытии модалки
+      burgerMobile?.classList.remove('active')
+      syncHeaderMenuState()
       modal.querySelectorAll('.menu_item.is-open').forEach((item) => {
         item.classList.remove('is-open')
         const btn = item.querySelector('[data-menu-drop-toggle]')
         if (btn) btn.setAttribute('aria-expanded', 'false')
       })
+    },
+  })
+
+  registerModal('site-menu', {
+    closeOnBackdrop: true,
+    closeOnEscape: true,
+    exclusive: true,
+    onOpen: () => {
+      burgerSite?.classList.add('active')
+      syncHeaderMenuState()
+    },
+    onClose: () => {
+      burgerSite?.classList.remove('active')
+      syncHeaderMenuState()
     },
   })
 
@@ -706,41 +376,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
       }
     },
   })
-  registerModal('modal-form-meropriyatiya', {
-    closeOnBackdrop: true,
-    closeOnEscape: true,
-    exclusive: true,
-    onOpen: async (modal) => {
-      if (isModalOpen('modal-popup')) {
-        closeModal('modal-popup')
-      }
-      const form = modal.querySelector('form')
-      if (form) {
-        setTimeout(() => {
-          initContactFields()
-        }, 100)
-      }
-    },
-  })
-  registerModal('video-player-modal', {
-    closeOnBackdrop: true,
-    closeOnEscape: true,
-    exclusive: true,
-    onClose: (modal) => {
-      // Очищаем контейнер при закрытии модалки
-      const container = modal.querySelector('.video-player__container')
-      if (container) {
-        // Останавливаем локальное видео, если есть
-        const video = container.querySelector('video')
-        if (video) {
-          video.pause()
-          video.currentTime = 0
-        }
-        // Очищаем контейнер
-        container.innerHTML = ''
-      }
-    },
-  })
 
   // Popup-модалка: показ по таймеру и/или при уходе курсора (конфиг из WP или data-атрибутов)
   const popupConfig =
@@ -756,13 +391,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
           }
         })()
   if (popupConfig) {
-    initPopupModal(popupConfig)
+    // initPopupModal(popupConfig)
   }
-
-  /*
-   * Video Player
-   */
-  initVideoPlayer()
 
   /*
    * Header Scroll
@@ -790,7 +420,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
   /*
    * Bottom Nav — скрывать при скролле вниз, показывать при скролле вверх (класс hidden-by-scroll)
    */
-  attachScrollVisibility('.bottom-nav', { threshold: 60, minDelta: 25 })
+  // attachScrollVisibility('.bottom-nav', { threshold: 60, minDelta: 25 })
 
   /*
    * Кнопка «Наверх» — показывать при скролле вниз, скрывать при скролле вверх (invert)
@@ -803,53 +433,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
       window.scrollTo({ top: 0, behavior: prefersReducedMotion.matches ? 'auto' : 'smooth' })
     })
   }
-
-  /*
-   * Intro Arrow - плавная прокрутка к следующей секции
-   */
-  const introArrows = document.querySelectorAll('.intro_arrow')
-  introArrows.forEach((arrow) => {
-    arrow.addEventListener('click', (e) => {
-      e.preventDefault()
-
-      const introSection = arrow.closest('.intro')
-      if (!introSection) return
-
-      // Находим следующую секцию после intro
-      const allSections = Array.from(document.querySelectorAll('section'))
-      const introIndex = allSections.indexOf(introSection)
-      const nextSection = allSections[introIndex + 1]
-
-      if (!nextSection) return
-
-      // Добавляем id следующей секции, если его нет
-      if (!nextSection.id) {
-        nextSection.id = 'next-section'
-      }
-
-      // Прокручиваем к следующей секции
-      const offset = window.innerWidth < 768 ? 80 : 110
-      const rect = nextSection.getBoundingClientRect()
-      const targetY = Math.max(0, window.scrollY + rect.top - offset)
-
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
-      window.scrollTo({
-        top: targetY,
-        behavior: prefersReducedMotion.matches ? 'auto' : 'smooth',
-      })
-
-      // Для доступности
-      if (!nextSection.hasAttribute('tabindex')) {
-        nextSection.setAttribute('tabindex', '-1')
-      }
-      nextSection.focus({ preventScroll: true })
-    })
-  })
-
-  /*
-   * Intro Parallax - параллакс эффект для интро блоков
-   */
-  initIntroParallax()
 })
 // Обновляем AOS при изменении размера окна
 let resizeTimer

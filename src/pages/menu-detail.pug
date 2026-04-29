@@ -1,0 +1,85 @@
+//- @title: Винная карта
+//- @description: Внутренняя страница меню
+//- @page_class: menu-detail
+//- @has_intro: false
+extends ../layouts/default.pug
+
+block content
+  -
+    //- WP/ACF-ready shape: category title + repeater rows
+    const menuCategory = {
+      title: 'Игристы вина и не только',
+      headers: ['Регион', 'Год', 'Год', 'Объем', 'Цена'],
+      rows: [
+        { name: 'Фанагория, Благ Де Блан Брют (выдержанное)', region: 'Краснодарский край', vintage: 'N/V', volume: '750 мл', price: '5 800 ₽' },
+        { name: 'CUVEE DE VITMER BRUT', region: 'Балаклава, Крым', vintage: 'N/V', volume: '750 мл', price: '7 500 ₽' },
+        { name: 'MARIS BLANC DE BLANCS BRUT NATURE', region: 'Усадьба Дивноморское', vintage: '2021', volume: '125 / 750 мл', price: '1 850 ₽ / 11 100 ₽' },
+        { name: 'ШАТО ПИНО ПИНО ГРИ РОЗЕ БРЮТ', region: 'Краснодарский край', vintage: 'N/V', volume: '750 мл', price: '5 100 ₽' },
+        { name: 'ВИНОДЕЛЬНЯ ВЕДЕРНИКОВЪ РЕЗЕРВ ЦИМЛЯНСКИЙ ЧЕРНЫЙ-СИБИРЬКОВЫЙ БЕЛОЕ ЭКСТРА БРЮТ', region: 'Ростовская область', vintage: 'N/V', volume: '750 мл', price: '5 400 ₽' },
+        { name: 'ИГРИСТОЕ ВИНО ПРЕМИУМ ВИКТОР ДРАВИНЬИ БЕЛОЕ БРЮТ', region: 'Краснодарский край', vintage: 'N/V', volume: '750 мл', price: '3 600 ₽' },
+        { name: 'ESSE ROSE CUVEE PRESTIGE', region: 'Крым', vintage: '2021', volume: '750 мл', price: '13 200 ₽' },
+        { name: 'TEMELION BRUT ROSE', region: 'Долина Лефкадия', vintage: '2012', volume: '750 мл', price: '15 000 ₽' },
+      ],
+    }
+
+  section.menu-detail(aria-labelledby='menu-detail-title')
+    +PageHero({
+      title: 'Винная карта',
+      breadcrumbs: ['Меню', 'Винная карта'],
+      rootClass: 'menu-detail_hero',
+      titleId: 'menu-detail-title'
+    })
+
+    .menu-detail_body
+      .container.menu-detail_body_container
+        .menu-detail_table
+          h2.menu-detail_table-title= menuCategory.title
+          .menu-detail_table_head
+            each head in menuCategory.headers
+              span.menu-detail_table_head-cell= head
+          .menu-detail_table_rows
+            each row in menuCategory.rows
+              .menu-detail_table_row
+                p.menu-detail_table_cell.menu-detail_table_cell--name= row.name
+                p.menu-detail_table_cell= row.region
+                p.menu-detail_table_cell= row.vintage
+                p.menu-detail_table_cell= row.volume
+                p.menu-detail_table_cell.menu-detail_table_cell--price= row.price
+
+        .menu-detail_form
+          h2.menu-detail_form-title Забронировать стол
+          form.menu-detail_form-body(action='#')
+            .menu-detail_form-grid
+              .menu-detail_form-field
+                input.menu-detail_form-input(type='text' name='name' placeholder='Ваше имя')
+              .menu-detail_form-field.menu-detail_form-field--icon
+                input.menu-detail_form-input(type='text' name='date' placeholder='Дата и время')
+                span.menu-detail_form-field-icon(aria-hidden='true')
+                  span.menu-detail_form-field-glyph.menu-detail_form-field-glyph--calendar
+              .menu-detail_form-field
+                +AppSelect({
+                  name: 'contact-channel',
+                  placeholder: 'Удобный канал связи',
+                  mode: 'light',
+                  items: [
+                    { value: 'phone', label: 'Телефон' },
+                    { value: 'whatsapp', label: 'WhatsApp' },
+                    { value: 'email', label: 'Email' },
+                    { value: 'telegram', label: 'Telegram' }
+                  ],
+                  selected: ['phone']
+                })
+              .menu-detail_form-field
+                input.menu-detail_form-input(type='text' name='contact-value' data-quiz-contact-field placeholder='Переменная')
+            .menu-detail_form-field.menu-detail_form-field--textarea
+              textarea.menu-detail_form-input.menu-detail_form-textarea(name='message' placeholder='Добавить комментарий')
+            .menu-detail_form-footer
+              label.menu-detail_form-privacy
+                input.menu-detail_form-privacy-checkbox(type='checkbox' name='privacy' checked required)
+                span.menu-detail_form-privacy-check(aria-hidden='true')
+                span.menu-detail_form-privacy-text
+                  | Я ознакомлен и согласен
+                  br
+                  | с
+                  a(href='privacy.html') политикой обработки персональных данных
+              +Button('Забронировать стол', ['ghost-gold', 'sm'], 'submit')(class='menu-detail_form-submit')

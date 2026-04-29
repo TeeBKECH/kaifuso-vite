@@ -58,6 +58,37 @@
     }
   }
 
+  &_socials-kf {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    &_link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 65px;
+      background: rgba(255, 195, 135, 0.08);
+      transition: background 0.2s ease;
+
+      img {
+        display: block;
+        width: auto;
+        height: auto;
+        max-width: 20px;
+        max-height: 16px;
+        object-fit: contain;
+      }
+
+      &:hover {
+        background: rgba(255, 195, 135, 0.16);
+      }
+    }
+  }
+
   &--mobile {
     flex-direction: column;
     gap: 32px;
@@ -70,5 +101,27 @@
   &--bottom {
     width: 100%;
     background: $second;
+  }
+
+  // Меню в модалке (десктопный бургер): вертикальный список тех же пунктов, что в шапке
+  &--site-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 32rem;
+    margin: 0 auto;
+
+    .menu {
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(20px, 3vh, 32px);
+    }
+
+    .menu_item_link {
+      font-size: clamp(20px, 2.4vw, 26px);
+      line-height: 1.2;
+    }
   }
 }

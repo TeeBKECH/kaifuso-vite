@@ -1,32 +1,48 @@
 .burger {
-  display: none;
   flex-direction: column;
   justify-content: space-between;
   padding: 6px 4px;
-  width: 32px;
-  height: 32px;
   cursor: pointer;
   position: relative;
   $burger: &;
 
+  // Классический бургер (не KAIFUSO): только на узкой ширине
+  &:not(.burger--kf) {
+    display: none;
+    width: 32px;
+    height: 32px;
+  }
+
   @include respond-to(lg) {
-    display: flex;
+    &:not(.burger--kf) {
+      display: flex;
+    }
+  }
+
+  // KAIFUSO: видимость задаёт .header_burger--site / --mobile (иначе display:none из .burger перебивает шапку — файл после header.scss)
+  &.burger--kf {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
   }
 
   &_item {
-    display: inline-block;
+    display: block;
     width: 100%;
     height: 2px;
-    // border-radius: 6px;
+    border-radius: 999px;
     background: $prime;
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition:
+      transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+      opacity 0.25s ease,
+      background 0.2s ease;
     transform-origin: center;
   }
 
-  &.active {
+  // Классическое меню (не KAIFUSO): 32×32
+  &.active:not(.burger--kf) {
     #{$burger}_item {
-      // background: $CULT-FLAME;
-
       &:nth-child(1) {
         transform: translateY(9px) rotate(45deg);
       }
@@ -39,6 +55,22 @@
       &:nth-child(3) {
         transform: translateY(-9px) rotate(-45deg);
       }
+    }
+  }
+
+  // KAIFUSO: сдвиг для крестика — --burger-open-shift на кнопке (десктоп / mobile)
+  &.burger--kf.active #{$burger}_item {
+    &:nth-child(1) {
+      transform: translateY(var(--burger-open-shift, 6px)) rotate(45deg);
+    }
+
+    &:nth-child(2) {
+      opacity: 0;
+      transform: scale(0);
+    }
+
+    &:nth-child(3) {
+      transform: translateY(calc(-1 * var(--burger-open-shift, 6px))) rotate(-45deg);
     }
   }
 }

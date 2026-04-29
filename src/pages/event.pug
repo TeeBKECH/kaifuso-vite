@@ -5,37 +5,93 @@
 extends ../layouts/default.pug
 
 block content
-  +Intro({
-    title: 'ВОЛШЕБНАЯ БАНЯ в «Княже» — портал в мир гармонии и очищения!',
-    breadcrumbs: ['Мероприятия', 'ВОЛШЕБНАЯ БАНЯ в «Княже» — портал в мир гармонии и очищения!']
-  })
+  -
+    const relatedEvents = [
+      { date: '22 марта', time: '20:00', title: 'PERFOMANCE<br>SHOW', lineup: 'LOVA SHOW, DJ BLANC', image: 'https://www.figma.com/api/mcp/asset/6b330251-5ec2-4ac8-8bc6-e13f348c4bfe' },
+      { date: '31 декабря', time: '22:00', title: 'НОВОГОДНЯЯ<br>НОЧЬ 2026', lineup: 'ANNA ASTI, кавер группа ASET', image: 'https://www.figma.com/api/mcp/asset/5ce93d5a-f5e1-4c28-8b35-d18f6685404d' },
+      { date: '21 марта', time: '21:00', title: 'PERFOMANCE<br>SHOW', lineup: 'Мария Балак, DJ Miller', image: 'https://www.figma.com/api/mcp/asset/e7083ef8-b5f1-4215-8a45-daabb864575b' },
+      { date: '25 марта', time: '16:00', title: 'ТВОРЧЕСКИЙ<br>ВЕЧЕР', lineup: 'Данила Якушев, Павел Майков', image: 'https://www.figma.com/api/mcp/asset/40bd0c79-5dd8-4aa1-bfe2-6761ae999219' },
+    ]
 
-  section.section.section--event
-    .container.section_container
-      .event_content
-        .event_img 
-          img(src='assets/img/event.webp', alt='ВОЛШЕБНАЯ БАНЯ в «Княже» — портал в мир гармонии и очищения!')
-        .event_body
-          +Frame()
-            .event_info 
-              p.event_title.title.title-h3 ВОЛШЕБНАЯ БАНЯ в «Княже» — портал в мир гармонии и очищения!
-              .event_info_list
-                .event_info_item
-                  span.event_info_item_label Дата:
-                  span.event_info_item_value 3 декабря с 18:00 до 23:00
-                .event_info_item
-                  span.event_info_item_label Место:
-                  span.event_info_item_value «Княже»
-                .event_info_item
-                  span.event_info_item_label Тип:
-                  span.event_info_item_value Волшебная баня
-                .event_info_item
-                  span.event_info_item_label Цена:
-                  span.event_info_item_value 1000 руб.
-              .event_text
-                p Среди суеты будней — оазис тишины и преображения. Здесь пар, звук и движение сплетаются в древний танец очищения души и телаСреди суеты будней — оазис тишины и преображения. Здесь пар, звук и движение сплетаются в древний танец
-                p Среди суеты будней — оазис тишины и преображения. Здесь пар, звук и движение сплетаются в древний танец очищения души и тела
-              .event_actions
-                +Button('Записаться', ['primary', 'lg'])
-                
-  include ../components/sections/events.pug
+  section.event-page(aria-labelledby='event-title')
+    .event-page_bg(aria-hidden='true')
+    +PageHero({
+      title: 'Новогодняя ночь 2026',
+      breadcrumbs: ['Афиша', 'Новогодняя ночь 2026'],
+      rootClass: 'event-page_hero',
+      titleId: 'event-title'
+    })
+
+    .event-page_top
+      .container.event-page_top-container
+        .event-page_main
+          .event-page_poster
+            img(src='https://www.figma.com/api/mcp/asset/0e131205-9632-4da4-b135-d6af3e4da183' alt='Новогодняя ночь 2026' decoding='async')
+          .event-page_about
+            h2.event-page_about-title О событии
+            .event-page_about-meta
+              .event-page_about-item
+                p.event-page_about-item-label Когда:
+                p.event-page_about-item-value 31 декабря
+              .event-page_about-item
+                p.event-page_about-item-label Сбор гостей:
+                p.event-page_about-item-value 22:00
+              .event-page_about-item
+                p.event-page_about-item-label Вход:
+                p.event-page_about-item-value Депозитная система
+                p.event-page_about-item-note Чтобы узнать о входе: 7 495 730 22 77
+            .event-page_about-desc
+              p Kaifuso приглашает встретить Новый год в атмосфере яркого праздника, созданного специально для этой ночи!
+              p Сбор гостей начнётся в 22:00 под DJ-сет и присутствие ведущего Виталия Бе Валерино, который задаст ритм и настроение вечера.
+              p Сразу после боя курантов гостей ждёт главный момент ночи - выступление ANNA ASTI, чьи хиты стали саундтреком к самым тёплым эмоциям.
+              p Музыкальную ночь продолжит LESHA MIGROV (@MIRACLE) - артист, который стал одной из ключевых фигур петербургской сцены и клубной культуры.
+        .event-page_form
+          h2.event-page_form-title Забронировать стол
+          form.event-page_form-body(action='#')
+            .event-page_form-grid
+              .event-page_form-field
+                input.event-page_form-input(type='text' name='name' placeholder='Ваше имя')
+              .event-page_form-field.event-page_form-field--icon
+                input.event-page_form-input(type='text' name='date' placeholder='Дата и время')
+                span.event-page_form-field-icon(aria-hidden='true')
+                  span.event-page_form-field-glyph.event-page_form-field-glyph--calendar
+              .event-page_form-field
+                +AppSelect({
+                  name: 'contact-channel',
+                  placeholder: 'Удобный канал связи',
+                  mode: 'light',
+                  items: [
+                    { value: 'phone', label: 'Телефон' },
+                    { value: 'whatsapp', label: 'WhatsApp' },
+                    { value: 'email', label: 'Email' },
+                    { value: 'telegram', label: 'Telegram' }
+                  ],
+                  selected: ['phone']
+                })
+              .event-page_form-field
+                input.event-page_form-input(type='text' name='contact-value' data-quiz-contact-field placeholder='Переменная')
+            .event-page_form-field.event-page_form-field--textarea
+              textarea.event-page_form-input.event-page_form-textarea(name='message' placeholder='Добавить комментарий')
+            .event-page_form-footer
+              label.event-page_form-privacy
+                input.event-page_form-privacy-checkbox(type='checkbox' name='privacy' checked required)
+                span.event-page_form-privacy-check(aria-hidden='true')
+                span.event-page_form-privacy-text
+                  | Я ознакомлен и согласен 
+                  br
+                  | с 
+                  a(href='privacy.html') политикой обработки персональных данных
+              +Button('Забронировать стол', ['ghost-gold', 'sm'], 'submit')(class='event-page_form-submit')
+
+    .event-page_related
+      .container.event-page_related-container
+        .event-page_related-head
+          h2.event-page_related-title Другие события
+          .swiper_nav.event-page_related-nav
+            button.swiper_nav_item.event-page_related-nav-prev(type='button' aria-label='Назад')
+              span.event-page_related-arrow.event-page_related-arrow--left(aria-hidden='true')
+            button.swiper_nav_item.event-page_related-nav-next(type='button' aria-label='Вперед')
+              span.event-page_related-arrow.event-page_related-arrow--right(aria-hidden='true')
+        .event-related_items
+          each item in relatedEvents
+            +EventsPosterCard(item)(class='event-related_item')

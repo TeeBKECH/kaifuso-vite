@@ -169,14 +169,35 @@ export function closeAllModals(exceptModalId = null) {
   })
 }
 
-// Обновление скролла body
+// Ширина нативного скроллбара в момент первого открытия модалки (пока body ещё прокручивается)
+let bodyScrollLockPad = 0
+
+// Обновление скролла body + компенсация исчезновения полосы прокрутки (без сдвига контента)
 export function updateBodyScroll() {
   const hasOpenModals = Array.from(modalState.values()).some((isOpen) => isOpen)
 
   if (hasOpenModals) {
+    if (bodyScrollLockPad === 0) {
+      bodyScrollLockPad = Math.max(0, window.innerWidth - document.documentElement.clientWidth)
+    }
+
     document.body.style.overflow = 'hidden'
+    document.body.classList.add('noscroll')
+
+    if (bodyScrollLockPad > 0) {
+      document.body.style.paddingRight = `${bodyScrollLockPad}px`
+      document.documentElement.style.setProperty('--scrollbar-width', `${bodyScrollLockPad}px`)
+      const headerEl = document.querySelector('.header')
+      if (headerEl) headerEl.style.paddingRight = `${bodyScrollLockPad}px`
+    }
   } else {
+    bodyScrollLockPad = 0
     document.body.style.overflow = ''
+    document.body.style.paddingRight = ''
+    document.body.classList.remove('noscroll')
+    document.documentElement.style.removeProperty('--scrollbar-width')
+    const headerEl = document.querySelector('.header')
+    if (headerEl) headerEl.style.paddingRight = ''
   }
 }
 

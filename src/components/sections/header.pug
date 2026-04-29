@@ -1,30 +1,35 @@
 header.header
   .container.header_container
-    .header_mobile
-      +ThemeSwitcher()
-          //- {icon: 'pin', text: 'Address'},
-          //- {icon: 'tel', text: 'Phone'},
-    .header_left
-      +NavMain()
-    .header_center
-      +Logo({type: 'header'})
-    .header_right
+    .header_brand
+      +Logo({ type: 'header' })
+      .header_nav-desktop
+        +NavMain()
+    .header_tray
       .header_contacts
-        a.header_contact-item(href='https://yandex.ru/maps/-/CPEvnD0E', target='_blank', rel='noopener noreferrer nofollow')
-          img.header_contact-icon(src="assets/img/location.svg", alt="Адрес")
-          span.header_contact-text Шмитовский проезд 27с1
-        a.header_contact-item(href="tel:+74996476888", target='_blank', rel='noopener noreferrer nofollow')
-          img.header_contact-icon(src="assets/img/phone.svg", alt="Телефон")
-          p.header_contact-text +7 (499) 647-68-88
-        .header_socials
-          +Socials([
-            {icon: 'tg', text: 'Telegram'},
-            {icon: 'vk', text: 'VK'},
-            {icon: 'wa', text: 'WhatsApp'},
-            {icon: 'max', text: 'Max'}
-          ])(class='socials--header')
-      +ThemeSwitcher()
-    .header_mobile.header_mobile--right
-      
-      +Burger({fn: 'mobile-menu'})
-
+        a.header_line(href='tel:+74957302277') 7 (495) 730 22 77
+        a.header_line(
+          href='https://yandex.ru/maps/?text=%D0%9A%D1%83%D0%B7%D0%BD%D0%B5%D1%86%D0%BA%D0%B8%D0%B9%20%D0%BC%D0%BE%D1%81%D1%82%2C%206%2F3'
+          target='_blank'
+          rel='noopener noreferrer nofollow'
+        ) ул. Кузнецкий мост, д.6/3
+        +Button('Забронировать', ['ghost-gold', 'md'])(data-modal='modal-form' data-modal-action='open' class='header_booking')
+      button.header_burger.header_burger--site.burger.burger--kf(
+        type='button'
+        data-modal='site-menu'
+        data-modal-action='toggle'
+        aria-label='Открыть меню сайта'
+      )
+        span.header_burger_inner
+          span.burger_item
+          span.burger_item
+          span.burger_item
+      button.header_burger.header_burger--mobile.burger.burger--kf(
+        type='button'
+        data-modal='mobile-menu'
+        data-modal-action='toggle'
+        aria-label='Открыть мобильное меню'
+      )
+        span.header_burger_inner
+          span.burger_item
+          span.burger_item
+          span.burger_item

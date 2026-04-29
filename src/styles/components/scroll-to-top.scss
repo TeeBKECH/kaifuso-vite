@@ -1,36 +1,110 @@
 .scroll-to-top {
   position: fixed;
-  right: 25px;
-  bottom: 25px;
+  right: calc(22px + var(--scrollbar-width, 0px));
+  bottom: calc(22px + env(safe-area-inset-bottom, 0px));
   z-index: 110;
-  transition: opacity 0.3s ease;
-  display: flex;
+
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  padding: 0;
-  border: 2px solid rgba(var(--light-gold-rgb), 0.5);
-  border-radius: 8px;
-  background: transparent;
-  color: var(--color-light-gold);
+  width: 56px !important;
+  min-width: 56px !important;
+  height: 56px !important;
+  padding: 0 !important;
+
+  border: 0.4px solid rgba(255, 195, 135, 0.35) !important;
+  border-radius: 50% !important;
+  background: rgba(10, 5, 2, 0.72) !important;
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 195, 135, 0.08) inset;
+  color: $gold !important;
+
   cursor: pointer;
+  overflow: visible;
+
+  transform-origin: 50% 50%;
+  will-change: transform, opacity, filter;
+
   transition:
-    color 0.2s ease,
-    background 0.2s ease,
-    border-color 0.2s ease;
+    opacity 0.5s cubic-bezier(0.34, 1.35, 0.64, 1),
+    transform 0.5s cubic-bezier(0.34, 1.35, 0.64, 1),
+    filter 0.45s ease,
+    box-shadow 0.35s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
 
-  &:hover {
-    color: var(--color-prime);
-    background: rgba(var(--prime-rgb), 0.05);
-    border-color: rgba(var(--light-gold-rgb), 0.5);
-  }
-
-  .button_icon {
+  &:not(.hidden-by-scroll) {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+    pointer-events: auto;
   }
 
   &.hidden-by-scroll {
     opacity: 0;
+    transform: translate3d(0, 28px, 0) scale(0.65) rotate(-12deg);
+    filter: blur(3px);
     pointer-events: none;
+  }
+
+  @include onlyDescHover() {
+    &:hover:not(.hidden-by-scroll) {
+      border-color: rgba(255, 195, 135, 0.55) !important;
+      background: rgba(255, 195, 135, 0.12) !important;
+      box-shadow:
+        0 12px 36px rgba(0, 0, 0, 0.4),
+        0 0 32px rgba(255, 195, 135, 0.12);
+      transform: translate3d(0, -2px, 0) scale(1.06);
+    }
+  }
+
+  &:active:not(.hidden-by-scroll) {
+    transform: translate3d(0, 0, 0) scale(0.96);
+    transition-duration: 0.15s;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(255, 195, 135, 0.65);
+    outline-offset: 4px;
+  }
+
+  .button_icon {
+    width: 22px !important;
+    height: 22px !important;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition:
+      opacity 0.2s ease,
+      filter 0.2s ease;
+
+    &:not(.hidden-by-scroll) {
+      transform: none;
+    }
+
+    &.hidden-by-scroll {
+      transform: none;
+      filter: none;
+      opacity: 0;
+    }
+
+    @include onlyDescHover() {
+      &:hover:not(.hidden-by-scroll) {
+        transform: none;
+      }
+    }
+
+    &:active:not(.hidden-by-scroll) {
+      transform: none;
+    }
   }
 }

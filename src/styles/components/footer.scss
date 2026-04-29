@@ -1,336 +1,320 @@
 .footer {
   margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
-  background: $second;
-  padding: 100px 0 0;
-  $footer: &;
+  background: $footer-bg;
+  border-radius: 60px 60px 0 0;
+  color: $gold;
 
-  @include respond-to(lg) {
-    padding: 60px 0 0;
+  &_shell {
+    overflow: hidden;
+    border-radius: inherit;
   }
 
-  @include respond-to(md) {
-    padding: 40px 0 0;
-    gap: 40px;
-  }
-
-  &_container {
+  &_top {
     display: flex;
+    align-items: flex-start;
     justify-content: space-between;
-    align-items: center;
-    gap: 60px;
+    gap: 40px;
+    padding-top: 60px;
+    padding-bottom: 68px;
+    position: relative;
 
     @include respond-to(lg) {
       flex-direction: column;
+      align-items: stretch;
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+  }
+
+  &_nav {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    flex-shrink: 0;
+
+    @include respond-to(lg) {
+      gap: 20px;
+    }
+
+    &-link {
+      font-family: $font-heading;
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 28px;
+      text-transform: uppercase;
+      color: $gold;
+      text-decoration: none;
+      white-space: nowrap;
+
+      @include respond-to(md) {
+        font-size: 22px;
+        line-height: 1.2;
+      }
+
+      &:hover {
+        opacity: 0.85;
+      }
+    }
+  }
+
+  &_center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, calc(-50% - 4px));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 234px;
+    max-width: 220px;
+    width: 100%;
+    text-align: center;
+    pointer-events: auto;
+
+    @include respond-to(lg) {
+      position: relative;
+      left: auto;
+      top: auto;
+      transform: none;
+      min-height: 0;
+      max-width: none;
+      order: -1;
+      justify-content: flex-start;
       gap: 24px;
     }
   }
 
-  &_block {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-
-    @include respond-to(lg) {
-    }
-
-    &--alt {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px 24px;
-
-      @include respond-to(lg) {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 24px;
-      }
-    }
-  }
-
-  &_text {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-
-    @include respond-to(lg) {
-      align-items: center;
-    }
-    &-top {
-    }
-    &-bottom {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    p {
-      font-size: 16px;
-      font-weight: 500;
-      color: $prime;
-      line-height: 1;
-    }
-    span {
-      font-size: 16px;
-      font-family: $font-secondary;
-      font-weight: 350;
-      color: $prime;
-      line-height: 1;
-    }
-  }
-
-  &_title {
-    font-size: 32px;
-    color: $light-gold;
-    font-weight: 700;
-    line-height: 1;
-    text-transform: uppercase;
-    font-family: $font-secondary;
-    letter-spacing: 2px;
-
-    @include respond-to(lg) {
-      // display: none;
-    }
-  }
-
-  &_list {
-    display: flex;
-    gap: 32px;
-
-    @include respond-to(xl-3) {
-      gap: 18px;
-    }
-
-    @include respond-to(xl) {
-      flex-direction: column;
-    }
-
-    @include respond-to(lg) {
-      align-items: center;
-      gap: 12px;
-    }
-
-    &_item {
-      color: $prime;
-      font-size: 24px;
-      font-weight: 400;
-
-      @include respond-to(xl-3) {
-        font-size: 16px;
-      }
-    }
-    &_link,
-    &_text {
-      color: inherit;
-      font-size: inherit;
-      font-weight: inherit;
-      line-height: 1;
-      font-family: $font-main;
-    }
-    &_link {
-      text-decoration: none;
-      transition: all 0.2s linear;
-
-      &:hover {
-        color: $light-gold;
-        // [data-theme='dark'] & {
-        //   color: $light-gold;
-        // }
-        // [data-theme='light'] & {
-        //   color: $prime;
-        // }
-      }
-
-      &--alt {
-        text-decoration: none;
-      }
-    }
-    &_text {
-      line-height: 1.4;
-    }
-  }
-
-  &_col {
+  &_brand {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 12px;
   }
 
-  &_row {
+  &_brand-marks {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
+    align-items: center;
+    gap: 20px;
+  }
 
-    @include respond-to(lg) {
+  &_mark {
+    img {
+      width: 184px;
+      height: auto;
+      max-height: 95px;
+      object-fit: contain;
+    }
+  }
+
+  &_wordmark {
+    img {
+      width: 184px;
+      height: auto;
+      max-height: 20px;
+      object-fit: contain;
+    }
+  }
+
+  &_tagline {
+    font-family: $font-main;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 18px;
+    letter-spacing: 0.32px;
+    color: $gold;
+    opacity: 0.8;
+  }
+
+  &_soc {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    max-width: 184px;
+
+    &-link {
+      display: flex;
       align-items: center;
-      width: 100%;
-    }
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 65px;
+      background: rgba(255, 195, 135, 0.08);
+      transition: background 0.2s ease;
 
-    &--menu {
-      grid-column: 1/3;
-
-      @include respond-to(lg) {
-        align-items: flex-start;
+      img {
+        display: block;
+        width: auto;
+        height: auto;
+        max-width: 20px;
+        max-height: 16px;
+        object-fit: contain;
       }
 
-      @include respond-to(xl) {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 24px;
-      }
-
-      @include respond-to(lg) {
-        // display: none;
-      }
-
-      #{$footer}_title {
-        @include respond-to(xl) {
-          grid-column: 1/3;
-        }
-
-        @include respond-to(lg) {
-          // text-align: center;
-        }
-      }
-
-      #{$footer}_list {
-        @include respond-to(lg) {
-          align-items: flex-start;
-        }
-        &_item {
-          font-family: $font-secondary;
-          color: $prime;
-        }
-      }
-    }
-
-    &--contacts {
-      @include respond-to(lg) {
-        align-items: flex-start;
-      }
-
-      #{$footer}_list {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-
-        @include respond-to(lg) {
-          align-items: flex-start;
-          gap: 12px;
-        }
-
-        &_item {
-          font-weight: 500;
-        }
-
-        &_link {
-          display: inline-block;
-
-          &--alt {
-            border-bottom: none;
-            font-size: 48px;
-            flex: none;
-            // color: $light-gold;
-
-            @include respond-to(xl) {
-              font-size: 24px;
-            }
-          }
-
-          @include respond-to(lg) {
-            font-size: 24px;
-          }
-        }
-
-        &_text {
-          @include respond-to(lg) {
-            font-size: 16px;
-          }
-        }
-      }
-    }
-
-    &--socials {
-      @include respond-to(lg) {
-        align-items: flex-start;
+      &:hover {
+        background: rgba(255, 195, 135, 0.16);
       }
     }
   }
 
-  &_links {
+  &_aside {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    align-items: flex-end;
+    gap: 20px;
+    min-height: 234px;
+    margin-left: auto;
+    position: relative;
+    z-index: 1;
+
+    @include respond-to(lg) {
+      align-items: flex-start;
+      min-height: 0;
+      margin-left: 0;
+    }
+
+    &-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 20px;
+
+      @include respond-to(lg) {
+        align-items: flex-start;
+      }
+    }
+
+    &-title {
+      font-family: $font-heading;
+      font-size: 28px;
+      line-height: 28px;
+      text-transform: uppercase;
+      text-align: right;
+
+      @include respond-to(lg) {
+        text-align: left;
+        font-size: 22px;
+      }
+    }
+
+    &-phone {
+      font-family: $font-heading;
+      font-size: 28px;
+      line-height: 28px;
+      text-transform: uppercase;
+      color: $gold;
+      text-decoration: none;
+
+      @include respond-to(lg) {
+        font-size: 22px;
+      }
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+
+    &-mail {
+      font-family: $font-main;
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 18px;
+      color: rgba(255, 195, 135, 0.8);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+
+      &:hover {
+        color: $gold;
+      }
+    }
+  }
+
+  &_route {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    font-family: $font-main;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.25;
+    color: rgba(255, 195, 135, 0.8);
+    text-decoration: none;
+
+    &_text {
+      text-decoration: underline;
+      text-decoration-color: currentColor;
+      text-decoration-skip-ink: auto;
+      text-underline-offset: 0.28em;
+      text-decoration-thickness: max(1px, 0.06em);
+      text-underline-position: from-font;
+      -webkit-text-decoration-skip: ink;
+    }
+
+    &:hover {
+      color: $gold;
+    }
+  }
+
+  &_booking.button {
     margin-top: auto;
 
     @include respond-to(lg) {
-      margin-top: 12px;
-      align-items: center;
+      margin-top: 8px;
     }
+  }
 
-    a {
-      width: fit-content;
-      border-bottom: 1px dotted $second;
-      display: inline-block;
-      font-family: $font-secondary;
-      font-size: 16px;
-      color: $second;
-      font-weight: 350;
-      line-height: 1;
+  &_bar {
+    border-top: 0.4px solid rgba(255, 195, 135, 0.16);
+  }
+
+  &_bar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 66px;
+    padding-top: 24px;
+    padding-bottom: 28px;
+    font-family: $font-main;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 14px;
+    color: rgba(255, 195, 135, 0.6);
+
+    @include respond-to(md) {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 
   &_copy {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-
-    @include respond-to(lg) {
-      display: none;
-    }
-
-    p {
-      font-size: 16px;
-      font-family: $font-main;
-      color: $prime;
-      font-weight: 350;
-      line-height: 1;
-      text-align: center;
-
-      span {
-        color: $light-gold;
-      }
-    }
-
-    &--alt {
-      display: none;
-      padding-bottom: 24px;
-      border-bottom: 1px solid $second;
-
-      @include respond-to(lg) {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        align-items: flex-start;
-      }
-
-      p {
-        font-size: 14px;
-      }
-    }
+    opacity: 0.8;
+    margin: 0;
   }
 
-  &_ornament {
-    width: 100%;
-    height: auto;
+  &_legal {
+    display: flex;
+    align-items: center;
+    gap: 40px;
 
-    img {
-      width: 100%;
+    @include respond-to(md) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    &-link {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      white-space: nowrap;
+
+      &:hover {
+        color: $gold;
+      }
     }
   }
 }

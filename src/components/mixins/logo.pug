@@ -1,3 +1,9 @@
-mixin Logo(props = {type: 'main'})
-  a.logo(href='/', class=`logo--${props.type}`)
-    img.logo_img(src=`assets/img/logo-${props.type}.webp`, alt="Княже - Банный комплекс")
+mixin Logo(props = { type: 'header' })
+  - const { type = 'header', variant = (type === 'header' ? 'kaifuso' : 'default') } = props || {}
+  - const useKaifuso = variant === 'kaifuso' && type === 'header'
+  if useKaifuso
+    a.logo.logo--header.logo--kaifuso(href='/index.html')
+      img.logo_img(src='assets/img/kaifuso/logo-header.svg' alt='KAIFUSO')
+  else
+    a.logo(href='/index.html' class=`logo--${type}`)
+      img.logo_img(src=`assets/img/logo-${type}.webp` alt='KAIFUSO')

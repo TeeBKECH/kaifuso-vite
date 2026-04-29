@@ -1,194 +1,192 @@
 .header {
-  width: 100%;
-  padding: 20px 0;
   position: fixed;
   top: 0;
   left: 0;
-  backdrop-filter: blur(10px);
-  transition: background 0.2s linear;
   z-index: 999;
+  width: 100%;
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.04);
+  border-bottom: 0.4px solid rgba(255, 195, 135, 0.16);
+  transition: background 0.2s linear;
 
-  // Светлая тема: светлые иконки/текст — только над тёмным интро (есть интро, нет скролла, меню закрыто)
-  [data-theme='light'][data-has-intro='true'] &:not(.scrolled):not(.menu-open) {
-    --color-prime: #fcf5ed;
-    --prime-rgb: 252, 245, 237;
-    --icon-filter: brightness(0) invert(1);
+  &.scrolled {
+    background: rgba(10, 5, 2, 0.92);
   }
 
-  // Светлая тема: при скролле, открытом меню или странице без интро — тёмные иконки/лого/бургер
-  [data-theme='light'] &.scrolled,
-  [data-theme='light'] &.menu-open,
-  [data-theme='light'][data-has-intro='false'] & {
-    --color-prime: #101010;
-    --prime-rgb: 16, 16, 16;
-    --icon-filter: brightness(0) saturate(100%) invert(35%) sepia(50%) saturate(600%)
-      hue-rotate(5deg);
-  }
-
-  // Страницы без интро: тот же фон, что при скролле (чтобы полупрозрачность не мешала)
-  [data-theme='light'][data-has-intro='false'] &:not(.scrolled) {
-    background: rgba(var(--second-rgb), 0.98);
-    border-bottom: 1px solid rgba(var(--light-gold-rgb), 0.2);
-  }
-
-  @include respond-to(lg) {
-    padding: 12px 0;
+  &.menu-open {
+    background: rgba(10, 5, 2, 0.96);
   }
 
   &_container {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 40px;
-    position: relative;
-
-    @include respond-to(xl) {
-      gap: 8px;
-    }
-
-    @include respond-to(lg) {
-      grid-template-columns: 1fr 120px 1fr;
-      gap: 16px;
-    }
-
-    @include respond-to(sm) {
-      grid-template-columns: 1fr 80px 1fr;
-      gap: 16px;
-    }
-  }
-
-  &_mobile {
-    display: none;
-
-    @include respond-to(lg) {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    &--right {
-      justify-content: flex-end;
-    }
-  }
-
-  &_left {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-
-    @include respond-to(lg) {
-      display: none;
-    }
-  }
-
-  &_center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    @include respond-to(lg) {
-      justify-content: flex-start;
-    }
-  }
-
-  &_right {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     gap: 24px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    max-width: $container-width;
+
+    @include respond-to(lg) {
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+  }
+
+  &_brand {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    min-width: 0;
 
     @include respond-to(xl) {
-      gap: 16px;
+      gap: 32px;
     }
 
     @include respond-to(lg) {
+      gap: 16px;
+      flex: 1;
+    }
+  }
+
+  &_nav-desktop {
+    @include respond-to(lg) {
       display: none;
+    }
+  }
+
+  .nav .menu {
+    gap: 40px;
+
+    .menu_item_link {
+      color: $gold;
+      font-family: $font-main;
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 18px;
+      letter-spacing: 0;
+      text-transform: none;
+      white-space: nowrap;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+
+  &_tray {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+
+    @include respond-to(xl) {
+      gap: 16px;
     }
   }
 
   &_contacts {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 40px;
 
     @include respond-to(xl) {
-      gap: 16px;
+      gap: 24px;
+    }
+
+    @include respond-to(lg) {
+      display: none;
     }
   }
 
-  &_contact {
-    &-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: default;
+  &_line {
+    font-family: $font-main;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 18px;
+    color: $gold;
+    text-decoration: none;
+    white-space: nowrap;
 
-      @include respond-to(xl-3) {
-        display: none;
-      }
-    }
-
-    @at-root a#{&}-item {
-      cursor: pointer;
-    }
-
-    &-icon {
-      width: 16px;
-      height: 16px;
-      opacity: 0.8;
-      filter: var(--icon-filter);
-      transition: filter 0.2s ease;
-
-      @include respond-to(xl) {
-        display: none;
-      }
-    }
-
-    &-text {
-      font-size: 18px;
-      color: $light-gold;
-      font-weight: 400;
-      white-space: nowrap;
-      text-decoration: none;
-      transition: color 0.2s ease;
-
-      &:hover {
-        color: #fff;
-      }
-
-      // Светлая тема: тёмные ссылки при скролле, меню или странице без интро
-      [data-theme='light'] .header.scrolled &,
-      [data-theme='light'] .header.menu-open &,
-      [data-theme='light'][data-has-intro='false'] .header & {
-        color: var(--color-prime);
-
-        &:hover {
-          color: var(--color-dark-gold);
-        }
-      }
+    &:hover {
+      color: #fff;
     }
   }
 
-  &_socials {
-    display: flex;
+  &_booking.button {
+    flex-shrink: 0;
+  }
+
+  &_burger {
+    // Как у .button--ghost-gold в шапке (плоский стеклянный фон, без градиента)
+    --burger-open-shift: 6px;
+
+    appearance: none;
+    -webkit-appearance: none;
+    flex-shrink: 0;
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    color: inherit;
+    cursor: pointer;
+    isolation: isolate;
+
+    background: rgba(255, 195, 135, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: none;
+
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 195, 135, 0.16);
+    }
+
+    &:active {
+      background: rgba(255, 195, 135, 0.24);
+    }
+
+    &_inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      gap: 4px;
+    }
+
+    .burger_item {
+      width: 15px;
+      height: 2px;
+      flex-shrink: 0;
+      border-radius: 999px;
+    }
+
+    // Два бургера: десктоп (≥ lg+1) — меню в модалке site-menu; мобильный — mobile-menu
+    &--site {
+      display: none;
+
+      @media (min-width: #{$breakpoint-lg + 1px}) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
 
     &--mobile {
       display: none;
 
       @include respond-to(lg) {
         display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
-  }
-
-  &.scrolled {
-    background: rgba(var(--second-rgb), 0.98);
-    border-bottom: 1px solid rgba(var(--light-gold-rgb), 0.2);
-  }
-
-  &.menu-open {
-    border-bottom: 1px solid rgba(var(--light-gold-rgb), 0.2);
   }
 }
