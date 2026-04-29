@@ -317,7 +317,7 @@ function cssAliasPlugin() {
   }
 }
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, command }) => {
   const isProd = mode === 'production'
   const isWpBuild = process.env.BUILD_TARGET === 'wp'
 
@@ -346,7 +346,7 @@ export default defineConfig(({ mode }) => {
     ],
 
     root: process.cwd(),
-    base: '/', // можно поменять при деплое на поддиректорию
+    base: command === 'build' ? '/kaifuso-vite/' : '/',
     publicDir: 'public', // кладите сюда только статические ассеты без обработки (например, public/assets)
 
     resolve: {
