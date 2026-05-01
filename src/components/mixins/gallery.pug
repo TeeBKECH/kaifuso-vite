@@ -16,7 +16,7 @@
 //-     galleryId: 'project-gallery'
 //-   })
 mixin Gallery(props)
-  - const {items = [], galleryId = null} = props
+  - const {items = [], galleryId = null, pagination = false} = props
   - const uniqueId = galleryId || 'gallery-default'
   - const fancyboxGroup = uniqueId
   
@@ -41,15 +41,13 @@ mixin Gallery(props)
             else
               a.gallery_item.gallery_item--image(href=itemSrc, data-fancybox=fancyboxGroup, data-caption=item.caption || '')
                 img.gallery_item-img(src=itemSrc, alt=item.alt || `Gallery image ${index + 1}`, loading="lazy")
+      if pagination
+        .gallery_pagination.swiper-pagination
     
     // Навигация для swiper
     .gallery_nav
       .swiper_nav
-        +BtnIcon({
-          icon: 'assets/img/arrow_left.svg',
-          styles: ['swiper_nav--light', 'lg']
-        })(class='swiper_nav_item-prev gallery_nav-prev')
-        +BtnIcon({
-          icon: 'assets/img/arrow_right.svg',
-          styles: ['swiper_nav--light', 'lg']
-        })(class='swiper_nav_item-next gallery_nav-next')
+        button.swiper_nav_item.swiper_nav_item-prev.gallery_nav-prev(type='button' aria-label='Назад')
+          span.gallery_nav_arrow.gallery_nav_arrow--left(aria-hidden='true')
+        button.swiper_nav_item.swiper_nav_item-next.gallery_nav-next(type='button' aria-label='Вперед')
+          span.gallery_nav_arrow.gallery_nav_arrow--right(aria-hidden='true')

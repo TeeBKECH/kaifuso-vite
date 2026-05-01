@@ -1,0 +1,48 @@
+-
+  const sectionProps = typeof contactsSection !== 'undefined' ? contactsSection : {}
+  const sectionClass = sectionProps.sectionClass || 'contacts'
+  const withHero = sectionProps.withHero === true
+  const titleId = sectionProps.titleId || (withHero ? 'contacts-title' : '')
+
+section(class=sectionClass aria-labelledby=titleId || false)
+  .contacts_bg(aria-hidden='true')
+  if withHero
+    +PageHero({
+      title: sectionProps.heroTitle || 'Контакты',
+      breadcrumbs: sectionProps.heroBreadcrumbs || ['Контакты'],
+      rootClass: sectionProps.heroRootClass || 'contacts_hero',
+      titleId
+    })
+  .contacts_body
+    .container.contacts_body_container
+      .contacts_info
+        .contacts_info-main
+          .contacts_info-address
+            h2.contacts_info-title ул. Кузнецкий мост, д.6/3
+            a.contacts_info-route(
+              href='https://yandex.ru/maps/?text=%D0%9A%D1%83%D0%B7%D0%BD%D0%B5%D1%86%D0%BA%D0%B8%D0%B9%20%D0%BC%D0%BE%D1%81%D1%82%2C%206%2F3'
+              target='_blank'
+              rel='noopener noreferrer nofollow'
+            )
+              span.contacts_info-route-text Построить маршрут
+              span.icon-external(aria-hidden='true')
+                img(src='assets/img/kaifuso/icon-arrow-external.svg' alt='' decoding='async')
+          .contacts_info-contact
+            a.contacts_info-phone(href='tel:+74957302277') 7 (495) 730 22 77
+            a.contacts_info-mail(href='mailto:info@kaifuso.rest') info@kaifuso.rest
+        .contacts_info-socials
+          a.contacts_info-social(href='#' target='_blank' rel='noopener noreferrer nofollow' aria-label='Telegram')
+            img(src='assets/img/kaifuso/icon-tg.svg' alt='')
+          a.contacts_info-social(href='#' target='_blank' rel='noopener noreferrer nofollow' aria-label='ВКонтакте')
+            img(src='assets/img/kaifuso/icon-vk.svg' alt='')
+          a.contacts_info-social(href='#' target='_blank' rel='noopener noreferrer nofollow' aria-label='YouTube')
+            img(src='assets/img/kaifuso/icon-youtube.svg' alt='')
+      .contacts_form
+        +BookingForm({
+          rootClass: 'contacts_form',
+          title: 'Забронировать стол',
+          fieldMode: 'contacts',
+          privacyVariant: sectionProps.privacyVariant === 'short' ? 'short' : 'full',
+          buttonText: 'Забронировать стол',
+          buttonStyles: ['ghost-gold', 'lg']
+        })

@@ -144,6 +144,41 @@ mixin PageHero(props)
       if subtitle
         p(class=`page-hero_subtitle ${rootClass}_subtitle`)= subtitle
 
+//- Переиспользуемый intro-блок для внутренних страниц
+//- @param {string} mediaType - image | video
+//- @param {string} mediaSrc - путь к файлу
+//- @param {string} kicker - маленький заголовок
+//- @param {string} title - h1 заголовок
+//- @param {string} text - описание
+//- @param {string} buttonText - текст action-кнопки
+//- @param {array} buttonStyles - стили кнопки
+//- @param {string} rootClass - модификатор корневого класса (по умолчанию page-intro)
+//- @param {string} actionModal - id модалки (по умолчанию modal-form)
+//- @param {string} titleId - id заголовка (опционально)
+//- @param {boolean} overlay - показывать ли оверлей (по умолчанию true)
+mixin PageIntro(props)
+  - const {mediaType = 'image', mediaSrc = '', kicker = '', title = '', text = '', buttonText = '', buttonStyles = ['ghost-gold', 'md'], rootClass = 'page-intro', actionModal = 'modal-form', titleId = '', overlay = true} = props || {}
+  section(class=`page-intro ${rootClass}` aria-labelledby=titleId || false)
+    .page-intro_bg(class=`${rootClass}_bg`)
+      if mediaType === 'video'
+        video(autoplay loop muted playsinline)
+          source(src=mediaSrc type='video/mp4')
+      else if mediaSrc
+        img(src=mediaSrc alt=title || 'intro')
+      if overlay
+        .page-intro_overlay.page-intro_overlay--radial
+        .page-intro_overlay.page-intro_overlay--fill
+    .container.page-intro_container(class=`${rootClass}_container`)
+      if kicker
+        .page-intro_kicker(class=`${rootClass}_kicker`)
+          span.page-intro_kicker-text(class=`${rootClass}_kicker-text`)= kicker
+          span.page-intro_kicker-line(class=`${rootClass}_kicker-line`)
+      h1.title.title-h1.page-intro_title(id=titleId || false class=`${rootClass}_title`)= title
+      if text
+        p.page-intro_text(class=`${rootClass}_text`)= text
+      if buttonText
+        +Button(buttonText, buttonStyles)(data-modal=actionModal data-modal-action='open' class=`${rootClass}_btn`)
+
 //- Миксин для полных intro секций (main, post, catalog)
 //- @param {string} bgImg - путь к фоновому изображению
 //- @param {string} sectionClass - класс модификатор для section (по умолчанию 'intro')

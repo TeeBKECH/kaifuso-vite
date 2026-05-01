@@ -9,6 +9,29 @@ body.page {
   display: flex;
   flex-direction: column;
 
+  .page-intro {
+    position: relative;
+    overflow: hidden;
+
+    &_bg {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+
+      img,
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &_container {
+      position: relative;
+      z-index: 3;
+    }
+  }
+
   .page-hero {
     &_container {
       display: flex;

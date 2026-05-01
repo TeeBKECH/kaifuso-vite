@@ -46,42 +46,14 @@ block content
               p Сразу после боя курантов гостей ждёт главный момент ночи - выступление ANNA ASTI, чьи хиты стали саундтреком к самым тёплым эмоциям.
               p Музыкальную ночь продолжит LESHA MIGROV (@MIRACLE) - артист, который стал одной из ключевых фигур петербургской сцены и клубной культуры.
         .event-page_form
-          h2.event-page_form-title Забронировать стол
-          form.event-page_form-body(action='#')
-            .event-page_form-grid
-              .event-page_form-field
-                input.event-page_form-input(type='text' name='name' placeholder='Ваше имя')
-              .event-page_form-field.event-page_form-field--icon
-                input.event-page_form-input(type='text' name='date' placeholder='Дата и время')
-                span.event-page_form-field-icon(aria-hidden='true')
-                  span.event-page_form-field-glyph.event-page_form-field-glyph--calendar
-              .event-page_form-field
-                +AppSelect({
-                  name: 'contact-channel',
-                  placeholder: 'Удобный канал связи',
-                  mode: 'light',
-                  items: [
-                    { value: 'phone', label: 'Телефон' },
-                    { value: 'whatsapp', label: 'WhatsApp' },
-                    { value: 'email', label: 'Email' },
-                    { value: 'telegram', label: 'Telegram' }
-                  ],
-                  selected: ['phone']
-                })
-              .event-page_form-field
-                input.event-page_form-input(type='text' name='contact-value' data-quiz-contact-field placeholder='Переменная')
-            .event-page_form-field.event-page_form-field--textarea
-              textarea.event-page_form-input.event-page_form-textarea(name='message' placeholder='Добавить комментарий')
-            .event-page_form-footer
-              label.event-page_form-privacy
-                input.event-page_form-privacy-checkbox(type='checkbox' name='privacy' checked required)
-                span.event-page_form-privacy-check(aria-hidden='true')
-                span.event-page_form-privacy-text
-                  | Я ознакомлен и согласен 
-                  br
-                  | с 
-                  a(href='privacy.html') политикой обработки персональных данных
-              +Button('Забронировать стол', ['ghost-gold', 'sm'], 'submit')(class='event-page_form-submit')
+          +BookingForm({
+            rootClass: 'event-page_form',
+            title: 'Забронировать стол',
+            fieldMode: 'channel',
+            privacyVariant: 'full',
+            buttonText: 'Забронировать стол',
+            buttonStyles: ['ghost-gold', 'sm']
+          })
 
     .event-page_related
       .container.event-page_related-container

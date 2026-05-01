@@ -1,26 +1,103 @@
 mixin FormModal()
-  .cb-form
-    .cb-form_header
-      .cb-form_title
-        h2.title.title-h2 Оставьте заявку
-        p Мы свяжемся с вами в ближайшее время
-    .cb-form_content
-      .cb-form_form
-        form.form.form--modal(action="#")
-          .form_controls.form_controls--alt
-            .form_control
-              input.form_input(type='text', name='name', placeholder='Ваше имя...', )
-            .form_control
-              input.form_input.form_input-tel(type='tel', name='tel', placeholder='+7 (___) ___-__-__',)
-            .form_control
-              textarea.form_input.form_input-text(name='message', placeholder='Ваше сообщение...',)
-            .form_control
-              +Button('Заказать Звонок', ['secondary', 'lg', 'fw'], 'submit')(class='form_submit')
-          .form_controls.form_controls--alt
-            .form_control
-              label.form_privacy
-                input.form_privacy-checkbox(type='checkbox', name='privacy', required)
-                span.form_privacy-text
-                  | Я согласен(а) с 
-                  a(href='privacy.html') политикой конфиденциальности
-                  |  и даю согласие на обработку персональных данных
+  .booking-modal
+    .booking-modal_inner
+      h2.booking-modal_title Забронировать стол
+      form.booking-modal_form(action="#")
+        .booking-modal_grid
+          .booking-modal_field
+            input.booking-modal_input(type='text', name='name', placeholder='Ваше имя')
+          .booking-modal_field
+            input.booking-modal_input.form_input-tel(type='tel', name='tel', placeholder='+7 (___) ___-__-__')
+          .booking-modal_field.booking-modal_field--icon
+            input.booking-modal_input(type='text', name='date', placeholder='Дата и время')
+            span.booking-modal_icon.booking-modal_icon--calendar(aria-hidden='true')
+          .booking-modal_field.booking-modal_field--icon
+            input.booking-modal_input(type='text', name='persons', placeholder='Количество персон')
+            span.booking-modal_icon.booking-modal_icon--down(aria-hidden='true')
+        .booking-modal_field.booking-modal_field--textarea
+          textarea.booking-modal_input.booking-modal_textarea(name='message', placeholder='Добавить комментарий')
+        .booking-modal_footer
+          label.booking-modal_privacy
+            input.booking-modal_privacy-checkbox(type='checkbox', name='privacy', checked, required)
+            span.booking-modal_privacy-check(aria-hidden='true')
+            span.booking-modal_privacy-text
+              | Я ознакомлен и согласен
+              br
+              | с
+              a(href='privacy.html') политикой обработки персональных данных
+          +Button('Забронировать стол', ['ghost-gold', 'lg'], 'submit')(class='booking-modal_submit')
+
+mixin FormModalSuccess()
+  .booking-success
+    .booking-success_inner
+      .booking-success_icon(aria-hidden='true')
+      h2.booking-success_title Бронь подтверждена!
+      p.booking-success_subtitle Ваш столик забронирован. Мы ждём вас!
+      .booking-success_details
+        .booking-success_details-item
+          p.booking-success_details-label Дата:
+          p.booking-success_details-value(data-booking-date) 14 Апреля 2026
+        .booking-success_details-item
+          p.booking-success_details-label Время:
+          p.booking-success_details-value(data-booking-time) 19:00
+        .booking-success_details-item
+          p.booking-success_details-label Кол-во персон:
+          p.booking-success_details-value(data-booking-persons) 4 чел.
+      +Button('Хорошо', ['ghost-gold', 'lg'], 'button')(class='booking-success_btn' data-close='modal-popup')
+      p.booking-success_note Подтверждение и детали брони отправлены на ваш номер телефона
+
+//- Универсальная форма бронирования для внутренних страниц
+//- fieldMode: 'contacts' | 'channel'
+mixin BookingForm(props)
+  - const {rootClass = 'contacts_form', title = 'Забронировать стол', action = '#', fieldMode = 'contacts', privacyVariant = 'full', buttonText = 'Забронировать стол', buttonStyles = ['ghost-gold', 'lg'], buttonType = 'submit'} = props || {}
+  - const c = (name = '') => (name ? `${rootClass}-${name}` : rootClass)
+  h2(class=c('title'))= title
+  form(action=action class=c('body'))
+    div(class=c('grid'))
+      div(class=c('field'))
+        input(type='text' name='name' placeholder='Ваше имя' class=c('input'))
+      div(class=[c('field'), c('field--icon')].join(' '))
+        input(type='text' name='date' placeholder='Дата и время' class=c('input'))
+        span(class=c('field-icon') aria-hidden='true')
+          span(class=[c('field-glyph'), c('field-glyph--calendar')].join(' '))
+      if fieldMode === 'channel'
+        div(class=c('field'))
+          +AppSelect({
+            name: 'contact-channel',
+            placeholder: 'Удобный канал связи',
+            mode: 'light',
+            items: [
+              { value: 'phone', label: 'Телефон' },
+              { value: 'whatsapp', label: 'WhatsApp' },
+              { value: 'email', label: 'Email' },
+              { value: 'telegram', label: 'Telegram' }
+            ],
+            selected: ['phone']
+          })
+        div(class=c('field'))
+          input(type='text' name='contact-value' data-quiz-contact-field placeholder='Переменная' class=c('input'))
+      else
+        div(class=[c('field'), c('field--icon')].join(' '))
+          input(type='text' name='persons' placeholder='Количество персон' class=c('input'))
+          span(class=c('field-icon') aria-hidden='true')
+            span(class=[c('field-glyph'), c('field-glyph--down')].join(' '))
+        div(class=c('field'))
+          input(type='tel' name='tel' placeholder='+7 (___) ___-__-__' class=[c('input'), 'form_input-tel'].join(' '))
+    div(class=[c('field'), c('field--textarea')].join(' '))
+      textarea(name='message' placeholder='Добавить комментарий' class=[c('input'), c('textarea')].join(' '))
+    div(class=c('footer'))
+      label(class=c('privacy'))
+        input(type='checkbox' name='privacy' checked required class=c('privacy-checkbox'))
+        span(class=c('privacy-check') aria-hidden='true')
+          span(class=c('privacy-glyph') aria-hidden='true')
+        span(class=c('privacy-text'))
+          if privacyVariant === 'short'
+            | Я согласен(а) с
+            a(href='privacy.html') политикой конфиденциальности
+            |  и даю согласие на обработку персональных данных
+          else
+            | Я ознакомлен и согласен
+            br
+            | с
+            a(href='privacy.html') политикой обработки персональных данных
+      +Button(buttonText, buttonStyles, buttonType)(class=c('submit'))

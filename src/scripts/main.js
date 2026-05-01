@@ -1,5 +1,5 @@
 import Swiper from 'swiper'
-import { Navigation } from 'swiper/modules'
+import { Navigation, Pagination } from 'swiper/modules'
 import { Fancybox } from '@fancyapps/ui/dist/fancybox/'
 import AOS from 'aos'
 
@@ -11,7 +11,14 @@ import {
 import { initSelects } from '@/scripts/components/select.js'
 import { initPhoneMasks } from '@/scripts/components/phone-mask.js'
 import { buildToc } from '@/scripts/components/toc.js'
-import { initModalSystem, registerModal, initPopupModal, isModalOpen, closeModal } from '@/scripts/components/modal.js'
+import {
+  initModalSystem,
+  registerModal,
+  initPopupModal,
+  isModalOpen,
+  closeModal,
+  openModal,
+} from '@/scripts/components/modal.js'
 import { initContactFields } from '@/scripts/components/contact-field.js'
 import { attachScrollVisibility } from '@/scripts/utils/scroll-visibility.js'
 import { truncateText } from '@/scripts/utils/truncText.js'
@@ -159,9 +166,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
     const gallery = root.closest('.gallery')
     const prevEl = gallery?.querySelector('.gallery_nav-prev')
     const nextEl = gallery?.querySelector('.gallery_nav-next')
+    const paginationEl = gallery?.querySelector('.gallery_pagination')
     return {
       Swiper,
-      modules: [Navigation],
+      modules: [Navigation, Pagination],
       itemsSelector: '.gallery_slide',
       breakpoint: '(max-width: 9999px)',
       slidesPerView: 1,
@@ -171,7 +179,13 @@ document.addEventListener('DOMContentLoaded', (e) => {
         nextEl,
         createInside: false,
       },
-      pagination: false,
+      pagination: paginationEl
+        ? {
+            el: paginationEl,
+            clickable: true,
+            createInside: false,
+          }
+        : false,
       loop: false,
       extendSwiperOptions: (opts) => ({
         ...opts,
@@ -219,6 +233,104 @@ document.addEventListener('DOMContentLoaded', (e) => {
         ...opts,
         speed: 500,
       }),
+    }
+  })
+
+  // Home page: about photos swiper
+  initResponsiveSwiperAll('.home-about_photos', (root) => {
+    const section = root.closest('.home-about_gallery')
+    const prevEl = section?.querySelector('.home-about_nav-prev')
+    const nextEl = section?.querySelector('.home-about_nav-next')
+    return {
+      Swiper,
+      modules: [Navigation],
+      itemsSelector: '.home-about_photo',
+      breakpoint: '(max-width: 9999px)',
+      slidesPerView: 3.2,
+      spaceBetween: 32,
+      navigation: {
+        prevEl,
+        nextEl,
+        createInside: false,
+      },
+      loop: false,
+      breakpoints: {
+        320: { slidesPerView: 1.2, spaceBetween: 16 },
+        768: { slidesPerView: 2.1, spaceBetween: 20 },
+        1200: { slidesPerView: 3.2, spaceBetween: 32 },
+      },
+    }
+  })
+
+  // Home page: afisha cards single-active behavior
+  document.querySelectorAll('.home-afisha').forEach((section) => {
+    const cards = Array.from(section.querySelectorAll('[data-afisha-card]'))
+    if (!cards.length) return
+
+    const setActive = (index) => {
+      cards.forEach((card, idx) => {
+        card.classList.toggle('home-afisha_card--active', idx === index)
+      })
+      section.dataset.afishaActive = String(index)
+    }
+
+    const currentActive = cards.findIndex((card) => card.classList.contains('home-afisha_card--active'))
+    setActive(currentActive >= 0 ? currentActive : 0)
+
+    cards.forEach((card, idx) => {
+      card.addEventListener('mouseenter', () => setActive(idx))
+      card.addEventListener('focusin', () => setActive(idx))
+      card.addEventListener('click', () => setActive(idx))
+    })
+
+    const prevBtn = section.querySelector('.home-afisha_nav-prev')
+    const nextBtn = section.querySelector('.home-afisha_nav-next')
+
+    prevBtn?.addEventListener('click', () => {
+      const active = Number(section.dataset.afishaActive || 0)
+      const nextIndex = active <= 0 ? cards.length - 1 : active - 1
+      setActive(nextIndex)
+    })
+
+    nextBtn?.addEventListener('click', () => {
+      const active = Number(section.dataset.afishaActive || 0)
+      const nextIndex = active >= cards.length - 1 ? 0 : active + 1
+      setActive(nextIndex)
+    })
+  })
+
+  // Home page: gallery swiper
+  initResponsiveSwiperAll('.home-gallery_slider', (root) => {
+    const section = root.closest('.home-gallery')
+    const prevEl = section?.querySelector('.home-gallery_nav-prev')
+    const nextEl = section?.querySelector('.home-gallery_nav-next')
+    const paginationEl = section?.querySelector('.home-gallery_pagination')
+    return {
+      Swiper,
+      modules: [Navigation, Pagination],
+      itemsSelector: '.home-gallery_slide',
+      breakpoint: '(max-width: 9999px)',
+      slidesPerView: 1,
+      centeredSlides: true,
+      spaceBetween: 32,
+      navigation: {
+        prevEl,
+        nextEl,
+        createInside: false,
+      },
+      pagination: paginationEl
+        ? {
+            el: paginationEl,
+            clickable: true,
+            createInside: false,
+          }
+        : false,
+      loop: false,
+      breakpoints: {
+        320: { slidesPerView: 1.06, spaceBetween: 12, centeredSlides: true },
+        768: { slidesPerView: 1.18, spaceBetween: 20, centeredSlides: true },
+        1200: { slidesPerView: 1.4, spaceBetween: 32, centeredSlides: true },
+      },
     }
   })
 
@@ -375,6 +487,37 @@ document.addEventListener('DOMContentLoaded', (e) => {
         }, 100)
       }
     },
+  })
+
+  registerModal('modal-popup', {
+    closeOnBackdrop: true,
+    closeOnEscape: true,
+    exclusive: true,
+  })
+
+  document.addEventListener('submit', (event) => {
+    const form = event.target.closest('.booking-modal_form')
+    if (!form) return
+
+    event.preventDefault()
+
+    const dateRaw = form.querySelector('input[name="date"]')?.value?.trim() || ''
+    const personsRaw = form.querySelector('input[name="persons"]')?.value?.trim() || ''
+
+    const dateTarget = document.querySelector('[data-booking-date]')
+    const timeTarget = document.querySelector('[data-booking-time]')
+    const personsTarget = document.querySelector('[data-booking-persons]')
+
+    const dateParts = dateRaw.split(/\s+/).filter(Boolean)
+    const timeFromInput = dateParts.find((part) => /^\d{1,2}:\d{2}$/.test(part))
+    const dateFromInput = dateRaw.replace(timeFromInput || '', '').trim()
+
+    if (dateTarget) dateTarget.textContent = dateFromInput || '14 Апреля 2026'
+    if (timeTarget) timeTarget.textContent = timeFromInput || '19:00'
+    if (personsTarget) personsTarget.textContent = personsRaw ? `${personsRaw} чел.` : '4 чел.'
+
+    closeModal('modal-form')
+    setTimeout(() => openModal('modal-popup'), 220)
   })
 
   // Popup-модалка: показ по таймеру и/или при уходе курсора (конфиг из WP или data-атрибутов)

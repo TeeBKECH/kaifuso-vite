@@ -47,39 +47,11 @@ block content
                 p.menu-detail_table_cell.menu-detail_table_cell--price= row.price
 
         .menu-detail_form
-          h2.menu-detail_form-title Забронировать стол
-          form.menu-detail_form-body(action='#')
-            .menu-detail_form-grid
-              .menu-detail_form-field
-                input.menu-detail_form-input(type='text' name='name' placeholder='Ваше имя')
-              .menu-detail_form-field.menu-detail_form-field--icon
-                input.menu-detail_form-input(type='text' name='date' placeholder='Дата и время')
-                span.menu-detail_form-field-icon(aria-hidden='true')
-                  span.menu-detail_form-field-glyph.menu-detail_form-field-glyph--calendar
-              .menu-detail_form-field
-                +AppSelect({
-                  name: 'contact-channel',
-                  placeholder: 'Удобный канал связи',
-                  mode: 'light',
-                  items: [
-                    { value: 'phone', label: 'Телефон' },
-                    { value: 'whatsapp', label: 'WhatsApp' },
-                    { value: 'email', label: 'Email' },
-                    { value: 'telegram', label: 'Telegram' }
-                  ],
-                  selected: ['phone']
-                })
-              .menu-detail_form-field
-                input.menu-detail_form-input(type='text' name='contact-value' data-quiz-contact-field placeholder='Переменная')
-            .menu-detail_form-field.menu-detail_form-field--textarea
-              textarea.menu-detail_form-input.menu-detail_form-textarea(name='message' placeholder='Добавить комментарий')
-            .menu-detail_form-footer
-              label.menu-detail_form-privacy
-                input.menu-detail_form-privacy-checkbox(type='checkbox' name='privacy' checked required)
-                span.menu-detail_form-privacy-check(aria-hidden='true')
-                span.menu-detail_form-privacy-text
-                  | Я ознакомлен и согласен
-                  br
-                  | с
-                  a(href='privacy.html') политикой обработки персональных данных
-              +Button('Забронировать стол', ['ghost-gold', 'sm'], 'submit')(class='menu-detail_form-submit')
+          +BookingForm({
+            rootClass: 'menu-detail_form',
+            title: 'Забронировать стол',
+            fieldMode: 'channel',
+            privacyVariant: 'full',
+            buttonText: 'Забронировать стол',
+            buttonStyles: ['ghost-gold', 'sm']
+          })

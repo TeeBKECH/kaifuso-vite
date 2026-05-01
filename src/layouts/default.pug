@@ -41,19 +41,14 @@ html(
   body.body
 
     // Modal Form
-    +Modal('modal-form')(class='modal--form')
+    +Modal('modal-form')(class='modal--form modal--booking')
       .modal_cls(data-close='')
       +FormModal()
     
     // Modal pop up (data-popup-delay, data-popup-on-leave для теста в верстке)
-    +Modal('modal-popup')(class='modal--popup' data-popup-delay='3' data-popup-on-leave='false')
+    +Modal('modal-popup')(class='modal--popup modal--booking-success' data-popup-delay='0' data-popup-on-leave='false')
       .modal_cls(data-close='')
-      .popup_content
-        h3.popup_title Билет на 3 часа в Мовню — 2900₽
-        .popup_text
-          p Понедельник-четверг с 10:00 до 13:00
-          p.notice Акция не суммируется с другими акциями и предложениями
-        +Button('Подробнее', ['secondary', 'lg', 'fw'])(data-modal='modal-form' data-modal-action='open')
+      +FormModalSuccess()
 
     // Меню в модалке: десктоп (бургер site) — основная навигация; мобильный — полноэкранное меню
     +Modal('site-menu')(class='modal--site-nav')

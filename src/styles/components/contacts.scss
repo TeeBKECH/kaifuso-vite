@@ -317,10 +317,18 @@
     }
 
     &-privacy {
+      $privacy: &;
       display: flex;
       align-items: center;
       gap: 14px;
       min-width: 0;
+      cursor: pointer;
+
+      &-checkbox {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
 
       &-check {
         width: 44px;
@@ -339,6 +347,16 @@
         border-left: 2px solid rgba(255, 195, 135, 0.8);
         border-bottom: 2px solid rgba(255, 195, 135, 0.8);
         transform: translateY(-1px) rotate(-45deg);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      #{$privacy}-checkbox:checked + #{$privacy}-check #{$privacy}-glyph {
+        opacity: 1;
+      }
+
+      #{$privacy}-checkbox:focus-visible + #{$privacy}-check {
+        outline: 1px solid rgba(255, 195, 135, 0.6);
       }
 
       &-text {

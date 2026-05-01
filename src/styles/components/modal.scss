@@ -165,6 +165,27 @@
     }
   }
 
+  &--booking {
+    #{$modal}_content {
+      padding: 0;
+      margin: 0;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(0.96);
+      background: transparent;
+      border: 0;
+      max-width: 808px;
+      max-height: none;
+      width: calc(100% - 40px);
+      overflow: visible;
+    }
+
+    &.open {
+      #{$modal}_content {
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+  }
+
   &--popup {
     z-index: 9999;
 
@@ -204,6 +225,27 @@
     &.open {
       #{$modal}_content {
         opacity: 1;
+        transform: translate(-50%, -50%) scale(1) !important;
+      }
+    }
+  }
+
+  &--booking-success {
+    #{$modal}_content {
+      padding: 0;
+      margin: 0;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(0.96);
+      background: transparent;
+      border: 0;
+      max-width: 808px;
+      max-height: none;
+      width: calc(100% - 40px);
+      overflow: visible;
+    }
+
+    &.open {
+      #{$modal}_content {
         transform: translate(-50%, -50%) scale(1) !important;
       }
     }
@@ -257,41 +299,6 @@
   &--site-nav.open {
     #{$modal}_content {
       transform: scale(1) !important;
-    }
-  }
-}
-
-.popup_content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  width: 100%;
-
-  .popup_title {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 600;
-    color: $prime;
-    font-family: $font-main;
-
-    @include respond-to(md) {
-      font-size: 20px;
-    }
-  }
-
-  .popup_text {
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.5;
-    color: rgba(var(--prime-rgb), 0.9);
-
-    p {
-      margin: 0 0 8px;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
     }
   }
 }

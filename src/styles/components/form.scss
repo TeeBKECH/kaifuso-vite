@@ -163,3 +163,309 @@
     }
   }
 }
+
+.booking-modal,
+.booking-success {
+  width: 100%;
+  border-radius: 60px;
+  padding: 100px 48px;
+  background: radial-gradient(60% 52% at 41% 20%, #3f0c00 0%, #270601 52%, #0f0101 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('@/assets/img/kaifuso/modal/booking-bg.png') center / cover no-repeat;
+    opacity: 0.2;
+    mix-blend-mode: color-dodge;
+    pointer-events: none;
+  }
+
+  &_inner {
+    position: relative;
+    z-index: 2;
+  }
+
+  @include respond-to(md) {
+    border-radius: 28px;
+    padding: 72px 20px 28px;
+  }
+}
+
+.booking-success {
+  &::before {
+    background-image: url('@/assets/img/kaifuso/modal/booking-success-bg.png');
+  }
+}
+
+.booking-modal {
+  &_title {
+    margin: 0;
+    text-align: center;
+    font-family: $font-heading;
+    font-size: 56px;
+    line-height: 1.28;
+    text-transform: uppercase;
+    font-weight: 400;
+    background: linear-gradient(151deg, #c4ae75 4%, #e2da9b 7%, #c8b375 9%, #ece7ac 14%, #c7ae6e 24%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  &_form {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  &_grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  &_field {
+    position: relative;
+
+    &--textarea {
+      grid-column: 1 / -1;
+    }
+  }
+
+  &_input {
+    width: 100%;
+    min-height: 52px;
+    border: 0;
+    border-radius: 16px;
+    padding: 17px 20px;
+    font-family: $font-main;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1;
+    color: rgba(255, 195, 135, 0.8);
+    background: rgba(255, 195, 135, 0.04);
+    outline: none;
+
+    &::placeholder {
+      color: rgba(255, 195, 135, 0.8);
+    }
+  }
+
+  &_textarea {
+    min-height: 100px;
+    padding-top: 24px;
+    line-height: 1.2;
+    resize: vertical;
+  }
+
+  &_icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    width: 24px;
+    height: 24px;
+    transform: translateY(-50%);
+
+    &--calendar::before {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      border: 1px solid rgba(255, 195, 135, 0.8);
+      border-radius: 3px;
+    }
+
+    &--calendar::after {
+      content: '';
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      top: 10px;
+      height: 1px;
+      background: rgba(255, 195, 135, 0.8);
+    }
+
+    &--down::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 7px;
+      width: 10px;
+      height: 10px;
+      border-right: 1px solid rgba(255, 195, 135, 0.8);
+      border-bottom: 1px solid rgba(255, 195, 135, 0.8);
+      transform: rotate(45deg);
+    }
+  }
+
+  &_footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  &_privacy {
+    $privacy: &;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+
+    &-checkbox {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &-check {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 195, 135, 0.08);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    &-check::before {
+      content: '';
+      width: 11px;
+      height: 7px;
+      border-left: 2px solid rgba(255, 195, 135, 0.8);
+      border-bottom: 2px solid rgba(255, 195, 135, 0.8);
+      transform: rotate(-45deg);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    #{$privacy}-checkbox:checked + #{$privacy}-check::before {
+      opacity: 1;
+    }
+
+    &-text {
+      margin: 0;
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 1.33;
+      color: rgba(255, 195, 135, 0.8);
+
+      a {
+        color: inherit;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &_submit.button {
+    min-height: 56px;
+    padding: 20px 24px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+}
+
+.booking-success {
+  &_inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  &_icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 195, 135, 0.9);
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 22px;
+      width: 20px;
+      height: 12px;
+      border-left: 2px solid rgba(255, 195, 135, 0.95);
+      border-bottom: 2px solid rgba(255, 195, 135, 0.95);
+      transform: rotate(-45deg);
+    }
+  }
+
+  &_title {
+    margin: 0;
+    text-align: center;
+    font-family: $font-heading;
+    font-size: 56px;
+    line-height: 1.28;
+    text-transform: uppercase;
+    font-weight: 400;
+    background: linear-gradient(151deg, #c4ae75 4%, #e2da9b 7%, #c8b375 9%, #ece7ac 14%, #c7ae6e 24%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  &_subtitle {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(255, 195, 135, 0.8);
+    text-align: center;
+  }
+
+  &_details {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 0.4px solid rgba(255, 195, 135, 0.2);
+    border-bottom: 0.4px solid rgba(255, 195, 135, 0.2);
+    padding: 24px 0;
+
+    &-item {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    &-label {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 300;
+      color: rgba(255, 195, 135, 0.8);
+    }
+
+    &-value {
+      margin: 0;
+      font-family: $font-heading;
+      font-size: 36px;
+      line-height: 1.33;
+      text-transform: uppercase;
+      background: linear-gradient(151deg, #c4ae75 4%, #e2da9b 7%, #c8b375 9%, #ece7ac 14%, #c7ae6e 24%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  &_btn.button {
+    width: 100%;
+    min-height: 56px;
+  }
+
+  &_note {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1;
+    color: rgba(255, 195, 135, 0.6);
+    text-align: center;
+  }
+}
