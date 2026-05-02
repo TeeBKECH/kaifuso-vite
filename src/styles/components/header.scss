@@ -57,6 +57,14 @@
   .nav .menu {
     gap: 40px;
 
+    @include respond-to(xl-2) {
+      gap: 28px;
+    }
+
+    @include respond-to(xl) {
+      gap: 20px;
+    }
+
     .menu_item_link {
       color: $gold;
       font-family: $font-main;
@@ -66,6 +74,11 @@
       letter-spacing: 0;
       text-transform: none;
       white-space: nowrap;
+
+      @include respond-to(xl) {
+        font-size: 16px;
+        line-height: 16px;
+      }
 
       &:hover {
         color: #fff;
@@ -82,6 +95,10 @@
     @include respond-to(xl) {
       gap: 16px;
     }
+
+    @include respond-to(lg) {
+      gap: 12px;
+    }
   }
 
   &_contacts {
@@ -89,8 +106,12 @@
     align-items: center;
     gap: 40px;
 
-    @include respond-to(xl) {
+    @include respond-to(xl-2) {
       gap: 24px;
+    }
+
+    @include respond-to(xl) {
+      gap: 16px;
     }
 
     @include respond-to(lg) {
@@ -107,8 +128,20 @@
     text-decoration: none;
     white-space: nowrap;
 
+    @include respond-to(xl) {
+      font-size: 16px;
+      line-height: 16px;
+    }
+
     &:hover {
       color: #fff;
+    }
+
+    // Адрес — длинная строка, прячем на средних разрешениях, чтобы избежать наезда
+    &--address {
+      @include respond-to(xl) {
+        display: none;
+      }
     }
   }
 
@@ -187,6 +220,45 @@
         align-items: center;
         justify-content: center;
       }
+    }
+  }
+
+  // Круглая кнопка-иконка (телефон) рядом с burger на мобиле
+  &_iconbtn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    color: $gold;
+    text-decoration: none;
+    cursor: pointer;
+    background: rgba(255, 195, 135, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: background 0.2s ease;
+
+    @include respond-to(lg) {
+      display: flex;
+    }
+
+    &:hover {
+      background: rgba(255, 195, 135, 0.16);
+    }
+
+    &:active {
+      background: rgba(255, 195, 135, 0.24);
+    }
+
+    &_icon {
+      display: block;
+      width: 20px;
+      height: 20px;
     }
   }
 }

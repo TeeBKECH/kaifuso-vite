@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Сравнение: главная — вёрстка vs Figma</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 24px; background: #111; color: #eee; }
+    h1 { font-size: 1.25rem; margin: 0 0 8px; }
+    p.note { color: #aaa; font-size: 0.9rem; max-width: 72rem; line-height: 1.5; margin: 0 0 24px; }
+    h2 { font-size: 1rem; margin: 32px 0 12px; color: #ccc; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; max-width: 100%; }
+    @media (max-width: 1100px) { .row { grid-template-columns: 1fr; } }
+    figure { margin: 0; background: #1a1a1a; padding: 12px; border-radius: 8px; }
+    figcaption { font-size: 0.8rem; color: #888; margin-top: 8px; }
+    img { max-width: 100%; height: auto; vertical-align: middle; border-radius: 4px; }
+    code { background: #333; padding: 2px 6px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Сравнение «Главная»</h1>
+  <p class="note">
+    Локально: <code>npm run build</code> → <code>npx vite preview --port 4175</code> → Playwright.
+    Figma: нода <code>449:17</code> «Главная» через MCP даёт очень узкий превью-экспорт; для героя взята дочерняя нода <code>589:4883</code> «Главный экран» (1024×593, пропорционально макету 1728×1000).
+  </p>
+
+  <h2>Герой (одинаковый логический кадр)</h2>
+  <div class="row">
+    <figure>
+      <figcaption>Figma — «Главный экран» (589:4883)</figcaption>
+      <img src="./figma-hero-589-4883.png" width="1024" height="593" alt="Figma hero" />
+    </figure>
+    <figure>
+      <figcaption>Вёрстка — viewport 1728×1000, <code>main.html</code></figcaption>
+      <img src="./local-hero-1728x1000.png" width="1728" height="1000" alt="Local hero" />
+    </figure>
+  </div>
+
+  <h2>Полная страница (вёрстка)</h2>
+  <figure>
+    <figcaption><code>local-main-fullpage.png</code> — полный скролл</figcaption>
+    <img src="./local-main-fullpage.png" alt="Local full page" />
+  </figure>
+
+  <h2>Figma: полный фрейм (низкое разрешение MCP)</h2>
+  <figure>
+    <figcaption><code>figma-node-449-17.png</code> — нода 449:17, ширина экспорта 257px (ограничение API)</figcaption>
+    <img src="./figma-node-449-17.png" width="257" height="1024" alt="Figma full frame low-res" />
+  </figure>
+</body>
+</html>

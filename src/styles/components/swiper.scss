@@ -3,6 +3,31 @@
   display: none;
 }
 
+// Стрелки навигации (тёмный фон): используется вместе с .swiper_nav_item + span.gallery_nav_arrow
+.gallery_nav_arrow {
+  display: block;
+  width: 18px;
+  height: 18px;
+  position: relative;
+  color: rgba(255, 195, 135, 0.95);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-top: 1.6px solid currentColor;
+    border-right: 1.6px solid currentColor;
+  }
+
+  &--left::before {
+    transform: rotate(-135deg);
+  }
+
+  &--right::before {
+    transform: rotate(45deg);
+  }
+}
+
 .swiper {
   width: 100%;
   $swpr: &;

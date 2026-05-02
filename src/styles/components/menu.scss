@@ -216,39 +216,50 @@
     }
   }
 
+  // Мобильное меню (Figma 2002:6689). Forum 28/36 uppercase с золотым градиентом.
+  // Hairline-разделители 0.8px полупрозрачным золотом.
   &--mobile {
     width: 100%;
-    // border-top: 1px solid $second;
-    border-bottom: 1px solid $second;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 
     #{$menu}_item {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      border-bottom: 1px solid rgba(var(--second-rgb), 0.2);
+      border-bottom: 0.8px solid rgba(255, 195, 135, 0.16);
 
       &_link {
-        gap: 12px;
-        padding: 12px 16px;
         flex: 1 1 auto;
         min-width: 0;
-        font-family: $font-main;
-        font-size: 20px;
-        font-weight: 500;
-        color: $prime;
-      }
-
-      &_text {
-        color: $prime;
+        padding: 24px 20px;
+        font-family: $font-heading;
+        font-size: 28px;
+        line-height: 36px;
+        font-weight: 400;
+        text-transform: uppercase;
+        background: linear-gradient(
+          140.72deg,
+          #c4ae75 4.14%,
+          #e2da9b 6.6%,
+          #c8b375 9.06%,
+          #ece7ac 13.98%,
+          #c7ae6e 23.83%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
       }
 
       // Кнопка раскрытия подменю (иконка-шеврон)
       &_icon {
         flex: 0 0 auto;
         order: 1;
-        width: 44px;
-        height: 44px;
+        width: 56px;
+        height: 56px;
         padding: 0;
+        margin-right: 12px;
         border: none;
         background: transparent;
         cursor: pointer;
@@ -265,20 +276,19 @@
           content: '';
           width: 10px;
           height: 10px;
-          border-right: 2px solid currentColor;
-          border-bottom: 2px solid currentColor;
+          border-right: 1.5px solid currentColor;
+          border-bottom: 1.5px solid currentColor;
           transform: rotate(45deg);
           margin-bottom: 4px;
         }
 
         &:hover {
-          color: $light-gold;
+          color: $gold;
         }
       }
 
       // Выпадающий список (подменю)
       .menu-drop {
-        $menu_drop: &;
         order: 2;
         width: 100%;
         max-height: 0;
@@ -286,29 +296,25 @@
         margin: 0;
         padding: 0;
         list-style: none;
-        border-bottom: 1px solid $second;
         transition: max-height 0.25s ease;
 
         &__item {
           margin: 0;
-          // border-bottom: 1px solid rgba(var(--prime-rgb), 0.2);
         }
 
         &__link {
           display: block;
-          padding: 10px 16px 10px 32px;
+          padding: 12px 20px 12px 40px;
           font-family: $font-main;
           font-size: 16px;
-          font-weight: 500;
-          color: $prime;
+          line-height: 1.4;
+          font-weight: 400;
+          color: $light-gold;
+          text-transform: uppercase;
         }
       }
 
       &--has-drop {
-        #{$menu}_item_link {
-          // border-right: 1px solid rgba(var(--prime-rgb), 0.2);
-        }
-
         &.is-open {
           .menu-drop {
             max-height: 80vh;

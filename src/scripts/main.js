@@ -20,9 +20,14 @@ import {
   openModal,
 } from '@/scripts/components/modal.js'
 import { initContactFields } from '@/scripts/components/contact-field.js'
+import { initBookingDatepickers } from '@/scripts/components/booking-datepicker.js'
 import { attachScrollVisibility } from '@/scripts/utils/scroll-visibility.js'
 import { truncateText } from '@/scripts/utils/truncText.js'
-import { initViewportHeight, setHeaderHeight } from '@/scripts/utils/viewport-height.js'
+import {
+  initViewportHeight,
+  setHeaderHeight,
+  setFooterHeight,
+} from '@/scripts/utils/viewport-height.js'
 // import { initThemeSwitcher } from '@/scripts/utils/theme-switcher.js'
 
 import '@/scripts/components/smooth-scroll.js'
@@ -77,7 +82,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
    * Toc for Single
    */
   buildToc({
-    root: '.single_content',
+    root: '.single_prose',
     toc: '#toc-list',
     // h2Sel: '.post__article-title',
     // h3Sel: '.post__article-subtitle',
@@ -101,6 +106,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
    * Contact Fields (динамическое обновление поля контакта)
    */
   initContactFields()
+
+  initBookingDatepickers()
 
   // Custom Scroll Bar for Selects
   selects.forEach((select) => {
@@ -194,6 +201,48 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
   })
 
+  // Single post: related blog posts swiper
+  initResponsiveSwiperAll('.blog-related_items', (root) => {
+    const section = root.closest('.blog-related')
+    const prevEl = section?.querySelector('.blog-related_nav-prev')
+    const nextEl = section?.querySelector('.blog-related_nav-next')
+
+    return {
+      Swiper,
+      modules: [Navigation],
+      itemsSelector: '.blog-related_slide',
+      breakpoint: '(max-width: 9999px)',
+      slidesPerView: 1.08,
+      spaceBetween: 16,
+      loop: false,
+      watchOverflow: true,
+      navigation: {
+        prevEl,
+        nextEl,
+        createInside: false,
+      },
+      pagination: false,
+      breakpoints: {
+        320: {
+          slidesPerView: 1.06,
+          spaceBetween: 12,
+        },
+        768: {
+          slidesPerView: 2.05,
+          spaceBetween: 20,
+        },
+        1200: {
+          slidesPerView: 3,
+          spaceBetween: 24,
+        },
+      },
+      extendSwiperOptions: (opts) => ({
+        ...opts,
+        speed: 500,
+      }),
+    }
+  })
+
   // Event page: related events swiper
   initResponsiveSwiperAll('.event-related_items', (root) => {
     const section = root.closest('.event-page_related')
@@ -236,83 +285,232 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
   })
 
-  // Home page: about photos swiper
-  initResponsiveSwiperAll('.home-about_photos', (root) => {
-    const section = root.closest('.home-about_gallery')
-    const prevEl = section?.querySelector('.home-about_nav-prev')
-    const nextEl = section?.querySelector('.home-about_nav-next')
+  // Home: полоса фотографий "О ресторане" — слайды разной ширины (slidesPerView: 'auto')
+  initResponsiveSwiperAll('.home-about-gallery_track', (root) => {
+    const section = root.closest('.home-about-gallery')
+    const prevEl = section?.querySelector('.home-about-gallery_nav-prev')
+    const nextEl = section?.querySelector('.home-about-gallery_nav-next')
     return {
       Swiper,
       modules: [Navigation],
-      itemsSelector: '.home-about_photo',
+      itemsSelector: '.home-about-gallery_slide',
       breakpoint: '(max-width: 9999px)',
-      slidesPerView: 3.2,
       spaceBetween: 32,
+      centeredSlides: false,
+      slidesOffsetBefore: 32,
+      slidesOffsetAfter: 32,
+      loop: false,
+      watchOverflow: true,
       navigation: {
         prevEl,
         nextEl,
         createInside: false,
       },
-      loop: false,
       breakpoints: {
-        320: { slidesPerView: 1.2, spaceBetween: 16 },
-        768: { slidesPerView: 2.1, spaceBetween: 20 },
-        1200: { slidesPerView: 3.2, spaceBetween: 32 },
+        320: { spaceBetween: 16, slidesOffsetBefore: 16, slidesOffsetAfter: 16 },
+        768: { spaceBetween: 20, slidesOffsetBefore: 24, slidesOffsetAfter: 24 },
+        1200: { spaceBetween: 32, slidesOffsetBefore: 32, slidesOffsetAfter: 32 },
       },
+      extendSwiperOptions: (opts) => ({
+        ...opts,
+        slidesPerView: 'auto',
+        speed: 600,
+      }),
     }
   })
 
-  // Home page: afisha cards single-active behavior
-  document.querySelectorAll('.home-afisha').forEach((section) => {
-    const cards = Array.from(section.querySelectorAll('[data-afisha-card]'))
-    if (!cards.length) return
+  // Home: афиша. Две принципиально разные конфигурации в зависимости от устройства:
+  //   1) HOVER (мышь, десктоп): slidesPerView:'auto', все слайды с фиксированной шириной,
+  //      активный шире (CSS). Hover на слайд → CSS открывает его без свайпа карусели.
+  //      Свайп пальцем отключён (allowTouchMove:false). Стрелки — кастомные с расчётом
+  //      translate под финальные ширины + clamp по maxTranslate.
+  //   2) TOUCH (нет hover): slidesPerView:1 — один слайд = ширина контейнера. Стандартный
+  //      Swiper, свайп пальцем ровно на 1 слайд (snapGrid одинаковый). Стрелки — стандарт.
+  //      Click на любой слайд (если их вдруг видно несколько) делает его активным.
+  initResponsiveSwiperAll('.home-afisha_list', (root) => {
+    const section = root.closest('.home-afisha')
+    const prevEl = section?.querySelector('.home-afisha_nav-prev')
+    const nextEl = section?.querySelector('.home-afisha_nav-next')
+    const hasHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches
 
-    const setActive = (index) => {
-      cards.forEach((card, idx) => {
-        card.classList.toggle('home-afisha_card--active', idx === index)
-      })
-      section.dataset.afishaActive = String(index)
+    const common = {
+      Swiper,
+      modules: [Navigation],
+      itemsSelector: '.home-afisha_slide',
+      breakpoint: '(max-width: 9999px)',
+      watchOverflow: true,
+      pagination: false,
     }
 
-    const currentActive = cards.findIndex((card) => card.classList.contains('home-afisha_card--active'))
-    setActive(currentActive >= 0 ? currentActive : 0)
+    if (hasHover) {
+      // ── DESKTOP / HOVER ───────────────────────────────────────────────────
+      return {
+        ...common,
+        slidesPerView: 'auto',
+        spaceBetween: 32,
+        navigation: false,
+        breakpoints: {
+          0: { spaceBetween: 16 },
+          769: { spaceBetween: 24 },
+          992: { spaceBetween: 24 },
+          1200: { spaceBetween: 32 },
+        },
+        extendSwiperOptions: (opts) => ({
+          ...opts,
+          speed: 600,
+          allowTouchMove: false,
+          on: {
+            init(swiper) {
+              if (!prevEl && !nextEl) return
+              const SPEED = 600
 
-    cards.forEach((card, idx) => {
-      card.addEventListener('mouseenter', () => setActive(idx))
-      card.addEventListener('focusin', () => setActive(idx))
-      card.addEventListener('click', () => setActive(idx))
-    })
+              const goTo = (newIdx) => {
+                const slides = swiper.slides
+                const total = slides.length
+                if (!total) return
+                const oldIdx = swiper.activeIndex
+                const target = Math.max(0, Math.min(total - 1, newIdx))
+                if (target === oldIdx) return
 
-    const prevBtn = section.querySelector('.home-afisha_nav-prev')
-    const nextBtn = section.querySelector('.home-afisha_nav-next')
+                // 1) Меняем активный класс — CSS триггерит transition ширины
+                slides[oldIdx]?.classList.remove('swiper-slide-active')
+                slides[target]?.classList.add('swiper-slide-active')
 
-    prevBtn?.addEventListener('click', () => {
-      const active = Number(section.dataset.afishaActive || 0)
-      const nextIndex = active <= 0 ? cards.length - 1 : active - 1
-      setActive(nextIndex)
-    })
+                // 2) translate под ФИНАЛЬНЫЕ ширины (активный = был широким = largeW, остальные = smallW)
+                const largeW = slides[oldIdx].getBoundingClientRect().width
+                const closedRef = slides.find((s, i) => i !== oldIdx) || slides[oldIdx]
+                const smallW = closedRef.getBoundingClientRect().width
+                const space = swiper.params.spaceBetween || 0
 
-    nextBtn?.addEventListener('click', () => {
-      const active = Number(section.dataset.afishaActive || 0)
-      const nextIndex = active >= cards.length - 1 ? 0 : active + 1
-      setActive(nextIndex)
-    })
+                let translate = -(target * (smallW + space))
+
+                // Клампим к maxTranslate (нет пустоты слева в крайних позициях)
+                const wrapperW = largeW + smallW * (total - 1) + space * (total - 1)
+                const containerW = root.getBoundingClientRect().width
+                const maxNeg = -Math.max(0, wrapperW - containerW)
+                if (translate < maxNeg) translate = maxNeg
+
+                // 3) Применяем
+                swiper.activeIndex = target
+                swiper.snapIndex = target
+                swiper.setTransition(SPEED)
+                swiper.setTranslate(translate)
+                // НЕ вызываем swiper.update() — он откатил бы activeIndex к ближайшему snap.
+              }
+
+              prevEl?.addEventListener('click', (e) => {
+                e.preventDefault()
+                goTo(swiper.activeIndex - 1)
+              })
+              nextEl?.addEventListener('click', (e) => {
+                e.preventDefault()
+                goTo(swiper.activeIndex + 1)
+              })
+            },
+          },
+        }),
+      }
+    }
+
+    // ── TOUCH / NO-HOVER ─────────────────────────────────────────────────────
+    // ≤ md (768): slidesPerView 2.1, gap 16, info в карточке скрыт — видна только media.
+    //              Стрелки скрыты CSS — управление только свайпом.
+    // > md: slidesPerView 1 — один слайд = ширина контейнера (стрелки видны).
+    return {
+      ...common,
+      slidesPerView: 1,
+      spaceBetween: 16,
+      slidesOffsetBefore: 16,
+      slidesOffsetAfter: 16,
+      navigation: { prevEl, nextEl, createInside: false },
+      breakpoints: {
+        0: {
+          slidesPerView: 2.1,
+          spaceBetween: 16,
+          slidesOffsetBefore: 16,
+          slidesOffsetAfter: 16,
+        },
+        // Включается на md+1 (769) — десктоп-вариант touch
+        769: {
+          slidesPerView: 1,
+          spaceBetween: 16,
+          slidesOffsetBefore: 16,
+          slidesOffsetAfter: 16,
+        },
+      },
+      extendSwiperOptions: (opts) => ({
+        ...opts,
+        speed: 500,
+      }),
+    }
   })
 
-  // Home page: gallery swiper
-  initResponsiveSwiperAll('.home-gallery_slider', (root) => {
-    const section = root.closest('.home-gallery')
-    const prevEl = section?.querySelector('.home-gallery_nav-prev')
-    const nextEl = section?.querySelector('.home-gallery_nav-next')
-    const paginationEl = section?.querySelector('.home-gallery_pagination')
+  // Home: О ресторане — параллакс декоративных птиц по направлению движения мыши.
+  // Слушаем mousemove на window (по всей странице), считаем velocity и плавно затухаем.
+  // Пишем CSS-переменные --home-about-mx/--home-about-my (-1..1) в :root, читаются в SCSS.
+  ;(() => {
+    if (!document.querySelector('.home-about')) return
+    const mqHover = window.matchMedia('(hover: hover) and (pointer: fine)')
+    const mqReduced = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (!mqHover.matches || mqReduced.matches) return
+
+    const root = document.documentElement
+    let lastX = null
+    let lastY = null
+    let velX = 0
+    let velY = 0
+    let curX = 0
+    let curY = 0
+
+    window.addEventListener(
+      'mousemove',
+      (e) => {
+        if (lastX !== null) {
+          // Усреднение velocity для плавности
+          velX = velX * 0.5 + (e.clientX - lastX) * 0.5
+          velY = velY * 0.5 + (e.clientY - lastY) * 0.5
+        }
+        lastX = e.clientX
+        lastY = e.clientY
+      },
+      { passive: true },
+    )
+
+    const tick = () => {
+      // Цель: смещение пропорционально velocity, ограниченное [-1, 1]
+      const targetX = Math.max(-1, Math.min(1, velX * 0.06))
+      const targetY = Math.max(-1, Math.min(1, velY * 0.06))
+
+      // Lerp текущего к target — плавный «эластичный» отклик
+      curX += (targetX - curX) * 0.08
+      curY += (targetY - curY) * 0.08
+
+      // Затухание velocity (импульс гаснет когда мышь стоит)
+      velX *= 0.86
+      velY *= 0.86
+
+      root.style.setProperty('--home-about-mx', curX.toFixed(3))
+      root.style.setProperty('--home-about-my', curY.toFixed(3))
+
+      requestAnimationFrame(tick)
+    }
+    requestAnimationFrame(tick)
+  })()
+
+  // Home: галерея — full-bleed карусель, slidesPerView 'auto', центрирование
+  initResponsiveSwiperAll('.home-gallery_track', (root) => {
+    const stage = root.closest('.home-gallery_stage')
+    const prevEl = stage?.querySelector('.home-gallery_nav-prev')
+    const nextEl = stage?.querySelector('.home-gallery_nav-next')
+    const paginationEl = stage?.querySelector('.home-gallery_pagination')
     return {
       Swiper,
       modules: [Navigation, Pagination],
       itemsSelector: '.home-gallery_slide',
       breakpoint: '(max-width: 9999px)',
-      slidesPerView: 1,
-      centeredSlides: true,
       spaceBetween: 32,
+      centeredSlides: true,
+      loop: true,
       navigation: {
         prevEl,
         nextEl,
@@ -325,12 +523,11 @@ document.addEventListener('DOMContentLoaded', (e) => {
             createInside: false,
           }
         : false,
-      loop: false,
-      breakpoints: {
-        320: { slidesPerView: 1.06, spaceBetween: 12, centeredSlides: true },
-        768: { slidesPerView: 1.18, spaceBetween: 20, centeredSlides: true },
-        1200: { slidesPerView: 1.4, spaceBetween: 32, centeredSlides: true },
-      },
+      extendSwiperOptions: (opts) => ({
+        ...opts,
+        slidesPerView: 'auto',
+        speed: 650,
+      }),
     }
   })
 
@@ -360,7 +557,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
   const galleryGroups = new Set()
   document
     .querySelectorAll(
-      '.gallery [data-fancybox], .gallery-mosaic [data-fancybox], .room_gallery [data-fancybox], .meropriyaiya_gallery [data-fancybox], .meropriyaiya_gallery-skip [data-fancybox], .meropriyaiya_rental-visual [data-fancybox], .meropriyaiya_floor-tabs [data-fancybox^="meropriyaiya-floor-"]',
+      '.gallery [data-fancybox], .gallery-mosaic [data-fancybox], .room_gallery [data-fancybox], .meropriyaiya_gallery [data-fancybox], .meropriyaiya_gallery-skip [data-fancybox], .meropriyaiya_rental-visual [data-fancybox], .meropriyaiya_floor-tabs [data-fancybox^="meropriyaiya-floor-"], .home-gallery [data-fancybox]',
     )
     .forEach((el) => {
       const group = el.getAttribute('data-fancybox')
@@ -431,10 +628,15 @@ document.addEventListener('DOMContentLoaded', (e) => {
     onOpen: () => {
       burgerSite?.classList.add('active')
       syncHeaderMenuState()
+      // Footer должен быть виден над модалкой (Figma 2002:5808). Пересчёт высоты —
+      // на случай если страница длинная и footer ещё не был измерен.
+      setFooterHeight()
+      document.body.classList.add('has-site-menu')
     },
     onClose: () => {
       burgerSite?.classList.remove('active')
       syncHeaderMenuState()
+      document.body.classList.remove('has-site-menu')
     },
   })
 
@@ -484,6 +686,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
       if (form) {
         setTimeout(() => {
           initContactFields()
+          initBookingDatepickers(modal)
         }, 100)
       }
     },
@@ -501,20 +704,30 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
     event.preventDefault()
 
-    const dateRaw = form.querySelector('input[name="date"]')?.value?.trim() || ''
-    const personsRaw = form.querySelector('input[name="persons"]')?.value?.trim() || ''
+    const dateRaw = form.querySelector('[name="booking-datetime"]')?.value?.trim() || ''
+    const personsRaw =
+      form.querySelector('input[name="booking-persons"]')?.value?.trim() ||
+      form.querySelector('[name="booking-persons"]')?.value?.trim() ||
+      ''
 
     const dateTarget = document.querySelector('[data-booking-date]')
     const timeTarget = document.querySelector('[data-booking-time]')
     const personsTarget = document.querySelector('[data-booking-persons]')
 
-    const dateParts = dateRaw.split(/\s+/).filter(Boolean)
-    const timeFromInput = dateParts.find((part) => /^\d{1,2}:\d{2}$/.test(part))
-    const dateFromInput = dateRaw.replace(timeFromInput || '', '').trim()
+    const parts = dateRaw.split(',').map((p) => p.trim())
+    const dateFromInput = parts[0] || ''
+    const timeFromInput = parts[1] || ''
 
-    if (dateTarget) dateTarget.textContent = dateFromInput || '14 Апреля 2026'
-    if (timeTarget) timeTarget.textContent = timeFromInput || '19:00'
-    if (personsTarget) personsTarget.textContent = personsRaw ? `${personsRaw} чел.` : '4 чел.'
+    if (dateTarget) dateTarget.textContent = dateFromInput || '—'
+    if (timeTarget) timeTarget.textContent = timeFromInput || '—'
+    if (personsTarget) {
+      const selectRoot = form.querySelector('.c-select[data-name="booking-persons"]')
+      const valueEl = selectRoot?.querySelector('[data-ref="value"]')
+      const ph = (selectRoot?.dataset.placeholder || '').trim()
+      const labelText = (valueEl?.textContent || '').trim()
+      personsTarget.textContent =
+        labelText && labelText !== ph ? labelText : personsRaw ? `${personsRaw} чел.` : '—'
+    }
 
     closeModal('modal-form')
     setTimeout(() => openModal('modal-popup'), 220)

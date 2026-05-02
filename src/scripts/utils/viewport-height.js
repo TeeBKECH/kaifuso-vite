@@ -32,6 +32,16 @@ export function setHeaderHeight() {
 }
 
 /**
+ * Устанавливает CSS переменную --footer-h с реальной высотой футера
+ */
+export function setFooterHeight() {
+  const footer = document.querySelector('.footer')
+  if (footer) {
+    document.documentElement.style.setProperty('--footer-h', `${footer.offsetHeight}px`)
+  }
+}
+
+/**
  * Инициализирует отслеживание высоты viewport и хедера
  */
 export function initViewportHeight() {
@@ -55,6 +65,7 @@ export function initViewportHeight() {
     fixedViewportHeight = 0
     setViewportHeight()
     setHeaderHeight()
+    setFooterHeight()
 
     // На мобильных делаем несколько попыток для фиксации максимального значения
     if (isMobile) {
@@ -79,6 +90,7 @@ export function initViewportHeight() {
       setTimeout(() => {
         setViewportHeight()
         setHeaderHeight()
+        setFooterHeight()
       }, 100)
     })
   }
@@ -102,6 +114,7 @@ export function initViewportHeight() {
       resizeTimeout = setTimeout(() => {
         setViewportHeight()
         setHeaderHeight()
+        setFooterHeight()
       }, 100)
     }
   })
@@ -112,6 +125,7 @@ export function initViewportHeight() {
     setTimeout(() => {
       setViewportHeight()
       setHeaderHeight()
+      setFooterHeight()
     }, 100)
   })
 

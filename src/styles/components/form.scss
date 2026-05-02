@@ -159,7 +159,11 @@
 
   &_submit {
     height: 72px;
+
+    // На устройствах меньше md submit во всю ширину
     @include respond-to(md) {
+      width: 100%;
+      align-self: stretch;
     }
   }
 }
@@ -234,6 +238,33 @@
     &--textarea {
       grid-column: 1 / -1;
     }
+
+    &--icon {
+      .booking-modal_input {
+        padding-right: 52px;
+      }
+    }
+
+    @include kaifuso-booking-form-c-select;
+  }
+
+  &_field-suffix {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    width: 24px;
+    height: 24px;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
   }
 
   &_input {
@@ -262,50 +293,17 @@
     resize: vertical;
   }
 
-  &_icon {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    width: 24px;
-    height: 24px;
-    transform: translateY(-50%);
-
-    &--calendar::before {
-      content: '';
-      position: absolute;
-      inset: 5px;
-      border: 1px solid rgba(255, 195, 135, 0.8);
-      border-radius: 3px;
-    }
-
-    &--calendar::after {
-      content: '';
-      position: absolute;
-      left: 8px;
-      right: 8px;
-      top: 10px;
-      height: 1px;
-      background: rgba(255, 195, 135, 0.8);
-    }
-
-    &--down::before {
-      content: '';
-      position: absolute;
-      left: 7px;
-      top: 7px;
-      width: 10px;
-      height: 10px;
-      border-right: 1px solid rgba(255, 195, 135, 0.8);
-      border-bottom: 1px solid rgba(255, 195, 135, 0.8);
-      transform: rotate(45deg);
-    }
-  }
-
   &_footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 32px;
+
+    @include respond-to(md) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 20px;
+    }
   }
 
   &_privacy {
@@ -366,6 +364,12 @@
     padding: 20px 24px;
     border-radius: 100px;
     white-space: nowrap;
+
+    // На устройствах меньше md submit-кнопка модалки бронирования во всю ширину
+    @include respond-to(md) {
+      width: 100%;
+      align-self: stretch;
+    }
   }
 }
 

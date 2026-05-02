@@ -1,0 +1,51 @@
+// Тема Air Datepicker под KAIFUSO (поверх модалок)
+// Документация: https://air-datepicker.com/docs
+
+.air-datepicker-global-container {
+  z-index: 12000;
+}
+
+.air-datepicker.kaifuso {
+  --adp-font-family: #{$font-main};
+  --adp-font-size: 14px;
+  --adp-width: 280px;
+  --adp-z-index: 12001;
+  --adp-padding: 6px;
+  --adp-background-color: #1f0a06;
+  --adp-background-color-hover: rgba(255, 195, 135, 0.12);
+  --adp-background-color-active: rgba(255, 195, 135, 0.18);
+  --adp-color: rgba(255, 195, 135, 0.92);
+  --adp-color-secondary: rgba(255, 195, 135, 0.55);
+  --adp-accent-color: #e59a50;
+  --adp-color-current-date: #ffc387;
+  --adp-color-other-month: rgba(255, 195, 135, 0.28);
+  --adp-color-disabled: rgba(255, 195, 135, 0.25);
+  --adp-border-color: rgba(255, 195, 135, 0.16);
+  --adp-border-color-inner: rgba(255, 195, 135, 0.1);
+  --adp-border-radius: 12px;
+  --adp-nav-arrow-color: rgba(255, 195, 135, 0.75);
+  --adp-day-name-color: rgba(255, 195, 135, 0.55);
+  --adp-day-name-color-hover: #ffc387;
+  --adp-cell-background-color-hover: rgba(255, 195, 135, 0.1);
+  --adp-cell-background-color-selected: rgba(229, 154, 80, 0.45);
+  --adp-cell-background-color-selected-hover: rgba(229, 154, 80, 0.6);
+  --adp-btn-color: #ffc387;
+  --adp-btn-color-hover: #ffc387;
+  --adp-btn-background-color-hover: rgba(255, 195, 135, 0.1);
+  --adp-btn-background-color-active: rgba(255, 195, 135, 0.16);
+  --adp-time-track-color: rgba(255, 195, 135, 0.25);
+  --adp-time-track-color-hover: rgba(255, 195, 135, 0.45);
+
+  border-color: rgba(255, 195, 135, 0.2);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+}
+
+.air-datepicker.kaifuso .air-datepicker--pointer::after {
+  background: var(--adp-background-color);
+  border-top-color: rgba(255, 195, 135, 0.2);
+  border-right-color: rgba(255, 195, 135, 0.2);
+}
+
+.air-datepicker.kaifuso .air-datepicker-cell.-selected- {
+  color: #1a0804;
+}

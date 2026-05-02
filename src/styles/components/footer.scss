@@ -24,6 +24,12 @@
       padding-top: 40px;
       padding-bottom: 40px;
     }
+
+    @include respond-to(md) {
+      align-items: center;
+      text-align: center;
+      gap: 32px;
+    }
   }
 
   &_nav {
@@ -34,6 +40,11 @@
 
     @include respond-to(lg) {
       gap: 20px;
+    }
+
+    @include respond-to(md) {
+      align-items: center;
+      gap: 16px;
     }
 
     &-link {
@@ -176,6 +187,11 @@
       margin-left: 0;
     }
 
+    @include respond-to(md) {
+      align-items: center;
+      gap: 16px;
+    }
+
     &-block {
       display: flex;
       flex-direction: column;
@@ -184,6 +200,11 @@
 
       @include respond-to(lg) {
         align-items: flex-start;
+      }
+
+      @include respond-to(md) {
+        align-items: center;
+        gap: 12px;
       }
     }
 
@@ -197,6 +218,10 @@
       @include respond-to(lg) {
         text-align: left;
         font-size: 22px;
+      }
+
+      @include respond-to(md) {
+        text-align: center;
       }
     }
 
@@ -235,6 +260,7 @@
   &_route {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.35em;
     font-family: $font-main;
     font-size: 18px;
@@ -264,6 +290,10 @@
     @include respond-to(lg) {
       margin-top: 8px;
     }
+
+    @include respond-to(md) {
+      align-self: center;
+    }
   }
 
   &_bar {
@@ -286,7 +316,9 @@
 
     @include respond-to(md) {
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
     }
   }
 
@@ -302,7 +334,7 @@
 
     @include respond-to(md) {
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
       gap: 12px;
     }
 

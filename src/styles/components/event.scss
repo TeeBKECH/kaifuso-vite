@@ -145,71 +145,7 @@
         }
       }
 
-      .c-select {
-        width: 100%;
-        display: block;
-        min-width: 0;
-        box-sizing: border-box;
-
-        &__toggle {
-          width: 100%;
-          min-width: 0;
-          box-sizing: border-box;
-          height: 54px;
-          border: 0;
-          border-radius: 8px;
-          padding: 18px 20px;
-          background: rgba(255, 195, 135, 0.04);
-        }
-
-        &__value {
-          color: rgba(255, 195, 135, 0.8);
-          font-family: $font-main;
-          font-size: 18px;
-          font-weight: 300;
-          line-height: 1;
-
-          &.has-value {
-            color: rgba(255, 195, 135, 0.8);
-          }
-        }
-
-        &__caret {
-          width: 14px;
-          height: 14px;
-          filter: var(--icon-filter);
-          opacity: 0.8;
-        }
-
-        &__dropdown {
-          background: #1f0501;
-          border-radius: 8px;
-          overflow: hidden;
-        }
-
-        &__option {
-          border: 0;
-          padding: 10px 14px;
-          color: rgba(255, 195, 135, 0.8);
-          font-family: $font-main;
-          font-size: 16px;
-          font-weight: 300;
-
-          &.is-selected {
-            background: rgba(255, 195, 135, 0.14);
-            color: #ffc387;
-          }
-        }
-      }
-
-      .c-select.c-select--light {
-        width: 100%;
-
-        .c-select__toggle {
-          width: 100%;
-          background: rgba(255, 195, 135, 0.04);
-        }
-      }
+      @include kaifuso-booking-form-c-select;
 
       &-icon {
         position: absolute;
@@ -479,20 +415,9 @@
         align-items: center;
         justify-content: center;
       }
-    }
 
-    &-arrow {
-      width: 7px;
-      height: 7px;
-      border-top: 1.4px solid #ffc387;
-      border-right: 1.4px solid #ffc387;
-
-      &--left {
-        transform: rotate(-135deg);
-      }
-
-      &--right {
-        transform: rotate(45deg);
+      .gallery_nav_arrow {
+        color: rgba(255, 195, 135, 0.95);
       }
     }
   }

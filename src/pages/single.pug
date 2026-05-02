@@ -1,40 +1,132 @@
-//- @title: Страница Шаблонная
-//- @description: Страница Шаблонная описание
+//- @title: Кухня как театр: от сезонного меню до подачи
+//- @description: Материалы блога KAIFUSO — кухня, сервис, события
 //- @page_class: single
 //- @has_intro: false
 extends ../layouts/default.pug
 
 block content
-  +Intro({
-    title: 'Страница Шаблонная',
-    breadcrumbs: ['Страница Шаблонная']
+  -
+    const img = (n) => {
+      const pool = [
+        'assets/img/kaifuso/about/interior.jpg',
+        'assets/img/kaifuso/about/kitchen.jpg',
+        'assets/img/kaifuso/about/club.jpg',
+        'assets/img/kaifuso/main/club.jpg',
+        'assets/img/kaifuso/main/about-left.png',
+        'assets/img/kaifuso/main/about-right-bird.png',
+      ]
+      return pool[n % pool.length]
+    }
+    const relatedPosts = [
+      { href: 'single.html', title: 'Винная карта: с чего начать', excerpt: 'Пара сочетаний с кантонскими блюдами — коротко и по делу.', image: img(1), date: '3 мая 2026', readTime: '8 мин' },
+      { href: 'single.html', title: 'Интерьер и свет в зале', excerpt: 'Как ритм освещения поддерживает настроение вечера.', image: img(2), date: '28 апреля 2026', readTime: '5 мин' },
+      { href: 'single.html', title: 'Клуб KAIFUSO: форматы вечеров', excerpt: 'Камерные встречи и приватность — что важно знать гостю.', image: img(3), date: '19 апреля 2026', readTime: '7 мин' },
+      { href: 'single.html', title: 'Чайная церемония и десерты', excerpt: 'Пара чаёв к финальной тарелке ужина.', image: img(4), date: '8 апреля 2026', readTime: '4 мин' },
+      { href: 'single.html', title: 'Сезонность на тарелке', excerpt: 'Откуда продукты и почему меню меняется.', image: img(5), date: '1 апреля 2026', readTime: '9 мин' },
+      { href: 'single.html', title: 'Бар: сигнатуры и классика', excerpt: 'Коктейли с азиатскими нотами к вашему столу.', image: img(0), date: '22 марта 2026', readTime: '6 мин' },
+    ]
+  +PageHero({
+    title: 'Кухня как театр: от сезонного меню до подачи',
+    breadcrumbs: ['Блог', 'Кухня как театр'],
+    rootClass: 'single-page_hero',
+    titleId: 'single-hero-title'
   })
 
   section.section.section--single
     .container.single_container
       .single_content
-        .single_preview
-          img(src="assets/img/rest-bg.webp", alt="Страница Шаблонная")
-        h2 Общие положения
-        p Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006. № 152-ФЗ «О персональных данных» (далее — Закон о персональных данных) и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных, предпринимаемые Индивидуальный предприниматель Кострицкая Оксана Алексеевна (далее — Оператор).
+        article.single_article
+          figure.single_lead
+            img(src='assets/img/kaifuso/about/kitchen.jpg' alt='Кухня KAIFUSO' width='1200' height='675' loading='eager' decoding='async')
 
-        .single_text
-          h2 Какой-то заголовок h2 в блоке текста с обрамлением
-          p Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006. № 152-ФЗ «О персональных данных» (далее — Закон о персональных данных) и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных, предпринимаемые Индивидуальный предприниматель Кострицкая Оксана Алексеевна (далее — Оператор).
-        h2 Еще какой-то заголовок
-        p Lorem ipsum dolor sit amet 
-          a(href="#") consectetur adipisicing 
-          | elit. Delectus fuga facilis atque dolorum dolores modi alias pariatur beatae obcaecati perspiciatis. Excepturi exercitationem, optio iste minus, dignissimos quas consequatur consectetur beatae libero, eum nisi pariatur assumenda sit provident corrupti deleniti eius saepe odio suscipit modi ut!
+          .single_prose.entry-content
+            p.single_lead-text
+              | Текст ниже сверстан под типичную вёрстку Gutenberg: заголовки, списки, цитата, код, таблица и медиа. В WordPress достаточно вывести
+              code  the_content()
+              |  внутри контейнера с классами
+              code  entry-content
+              |  (и при необходимости обёрткой
+              code  is-layout-constrained
+              | ).
 
-        .single_gallery
-          h2 Галерея изображений
-          .single_gallery-items
-        ul
-          li Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Они, за.
-          li Далеко-далеко за словесными горами в стране гласных
-          li Далеко-далеко за словесными горам и согласных живут рыбные тексты. Они, за.
-          li Далекои в стране гласных и согласных живут рыбные тексты. Они, за.
+            h2 Вступление и смысл блока
+            p
+              | Мы рассматриваем подачу блюда как часть спектакля: свет, тишина между столами, точность официанта и темп кухни. Ниже — структурированный текст, удобный для проверки типографики и оглавления.
+
+            h3 Подзаголовок уровня H3
+            p
+              | Второй абзац с
+              strong  акцентом
+              |  и
+              em  интонацией
+              | . Ссылка ведёт на
+              a(href='blog.html') разводящую блога
+              | .
+
+            h3 Маркированный список
+            ul
+              li Сезонное меню обновляется каждые 6–8 недель.
+              li Команда зала знает состав сетов и может подсказать пару к вину.
+              li Для аллергий и ограничений заранее оставьте пометку при бронировании.
+
+            h3 Нумерованный список
+            ol
+              li Выберите дату и время визита.
+              li Согласуйте формат: à la carte или дегустация.
+              li Получите подтверждение и напоминание по SMS.
+
+            blockquote.single_blockquote
+              p «Гость не обязан замечать сервис — он обязан чувствовать заботу».
+
+            h2 Код и технические детали
+            pre.single_pre: code.single_code.
+              // Пример: хук после контента
+              add_action('wp_footer', function () {
+                if (is_single()) {
+                  echo '&lt;script&gt;initRelatedPostsSwiper()&lt;/script&gt;';
+                }
+              });
+
+            h2 Таблица
+            .single_table-wrap
+              table.single_table
+                thead
+                  tr
+                    th Этап
+                    th Описание
+                tbody
+                  tr
+                    td Подготовка
+                    td Мизанплас, температура тарелок, финальная сборка.
+                  tr
+                    td Подача
+                    td Краткое представление блюда без лекции за столом.
+
+            figure.single_figure
+              img(src='assets/img/kaifuso/about/interior.jpg' alt='Зал ресторана' loading='lazy' decoding='async')
+              figcaption Интерьер главного зала — тёплые тона и приглушённый свет.
+
+            h2 Заключение
+            p
+              | Если нужен другой набор блоков Gutenberg — заголовки внутри
+              code  .single_prose
+              |  автоматически попадут в оглавление справа (до трёх уровней можно расширить в скрипте).
+
       aside.single_sidebar
         .widget
-          .widget-title Оглавление
-          ul.toc-list#toc-list
+          .widget-title Содержание
+          ul#toc-list.toc-list
+
+  section.blog-related(aria-labelledby='blog-related-title')
+    .container.blog-related_container
+      .blog-related_head
+        h2#blog-related-title.blog-related_title Ещё записи
+        .swiper_nav.blog-related_nav
+          button.swiper_nav_item.blog-related_nav-prev(type='button' aria-label='Назад')
+            span.gallery_nav_arrow.gallery_nav_arrow--left(aria-hidden='true')
+          button.swiper_nav_item.blog-related_nav-next(type='button' aria-label='Вперед')
+            span.gallery_nav_arrow.gallery_nav_arrow--right(aria-hidden='true')
+      .blog-related_items
+        each post in relatedPosts
+          .blog-related_slide
+            +BlogPostCard(post)

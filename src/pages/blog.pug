@@ -1,0 +1,57 @@
+//- @title: Блог
+//- @description: Лента публикаций KAIFUSO
+//- @page_class: blog
+//- @has_intro: false
+extends ../layouts/default.pug
+
+block content
+  -
+    const img = (n) => {
+      const pool = [
+        'assets/img/kaifuso/about/interior.jpg',
+        'assets/img/kaifuso/about/kitchen.jpg',
+        'assets/img/kaifuso/about/club.jpg',
+        'assets/img/kaifuso/main/club.jpg',
+        'assets/img/kaifuso/main/about-left.png',
+        'assets/img/kaifuso/main/about-right-bird.png',
+      ]
+      return pool[n % pool.length]
+    }
+    const blogPosts = [
+      { href: 'single.html', title: 'Кухня как театр: от сезонного меню до подачи', excerpt: 'Как шеф и команда зала выстраивают опыт гостя — от первого блюда до финального штриха сервиса.', image: img(0), date: '12 мая 2026', readTime: '6 мин' },
+      { href: 'single.html', title: 'KAIFUSO и винная карта: с чего начать дегустацию', excerpt: 'Пара правил сочетания кантонской кухни с винами Европы и Нового Света — без занудства, для удовольствия.', image: img(1), date: '3 мая 2026', readTime: '8 мин' },
+      { href: 'single.html', title: 'Интерьер, свет и акустика: три опоры вечера', excerpt: 'Почему в зале важен ритм освещения и тишина между столами — и как это чувствуется с первых минут.', image: img(2), date: '28 апреля 2026', readTime: '5 мин' },
+      { href: 'single.html', title: 'Клуб KAIFUSO: камерные встречи и приватность', excerpt: 'Форматы вечеров, гостевой этикет и то, ради чего стоит бронировать стол заранее.', image: img(3), date: '19 апреля 2026', readTime: '7 мин' },
+      { href: 'single.html', title: 'Чайная церемония и десерты: восточный финал ужина', excerpt: 'От улунов до молочных чаёв — как мы подбираем пару к десертной тарелке.', image: img(4), date: '8 апреля 2026', readTime: '4 мин' },
+      { href: 'single.html', title: 'Поставщики и сезонность: откуда продукты на тарелке', excerpt: 'Кратко о фермах, рыбе и специях: прозрачность без маркетинговой шелухи.', image: img(5), date: '1 апреля 2026', readTime: '9 мин' },
+      { href: 'single.html', title: 'Барное меню: сигнатуры и классика на новый лад', excerpt: 'Коктейли с азиатскими нотами и безалкогольные пары к дегустационному сету.', image: img(0), date: '22 марта 2026', readTime: '6 мин' },
+      { href: 'single.html', title: 'Частный банкет: сроки, меню и сценарий вечера', excerpt: 'Чек-лист для организатора: от пробного ужина до рассадки и музыки.', image: img(1), date: '10 марта 2026', readTime: '10 мин' },
+      { href: 'single.html', title: 'Новогодняя ночь в KAIFUSO: как это было', excerpt: 'Фотоотчёт, плейлист и пара слов от команды — чтобы сохранить настроение праздника.', image: img(2), date: '2 января 2026', readTime: '5 мин' },
+    ]
+  section.blog-page(aria-labelledby='blog-title')
+    .blog-page_bg(aria-hidden='true')
+    +PageHero({
+      title: 'Блог',
+      breadcrumbs: ['Блог'],
+      rootClass: 'blog-page_hero',
+      titleId: 'blog-title'
+    })
+    .blog-page_body
+      .container.blog-page_body_container
+        .blog-page_cards
+          each post in blogPosts
+            +BlogPostCard(post)
+        .blog-page_footer
+          button.blog-page_load(type='button')
+            span.blog-page_load-text Загрузить еще
+            img.blog-page_load-icon(src='assets/img/kaifuso/icon-arrow-up.svg' width='18' height='18' alt='' aria-hidden='true')
+          nav.blog-page_pager(aria-label='Пагинация блога')
+            button.blog-page_pager-btn(type='button' aria-label='Назад')
+              span.blog-page_pager-btn-arrow.blog-page_pager-btn-arrow--left(aria-hidden='true')
+            button.blog-page_pager-btn.blog-page_pager-btn--active(type='button' aria-current='page') 1
+            button.blog-page_pager-btn(type='button') 2
+            button.blog-page_pager-btn(type='button') 3
+            button.blog-page_pager-btn(type='button') 4
+            button.blog-page_pager-btn(type='button') 5
+            button.blog-page_pager-btn(type='button' aria-label='Вперед')
+              span.blog-page_pager-btn-arrow.blog-page_pager-btn-arrow--right(aria-hidden='true')

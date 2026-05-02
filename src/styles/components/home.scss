@@ -1,196 +1,478 @@
-.home-hero {
-  position: relative;
-  min-height: 1000px;
-  border-radius: 0 0 60px 60px;
-  overflow: hidden;
+// === Главная страница (Figma 2002:4460) ===
 
-  &_bg {
+$img: '@/assets/img';
+
+// === О ресторане (Figma 2002:4479) ===
+// overflow-x: clip — декор-птицы вылезают за карточку (визуально), но не вызывают
+// горизонтального скролла страницы (clip обрезает по X, оставляя Y видимым).
+// z-index: 2 — выше home-about-gallery (z:1), чтобы декор не перекрывался.
+// Parallax — img.style.transform управляется JS через CSS-переменные --mx/--my (-1..1).
+.home-about {
+  $home-about: &;
+
+  position: relative;
+  z-index: 2;
+  padding: 100px 0;
+  overflow: hidden;
+  background:
+    radial-gradient(72% 80% at 50% 40%, rgba(63, 12, 0, 0.64) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
+
+  @include respond-to(lg) {
+    padding: 64px 0;
+  }
+
+  @include respond-to(md) {
+    padding: 48px 0;
+  }
+
+  &_card {
+    position: relative;
+    z-index: 4;
+    border-radius: 80px;
+    padding: 88px 60px 88px 420px;
+    isolation: isolate;
+
+    // Картинка-фон карточки — фон через подложку, не overflow:hidden,
+    // чтобы декор-птицы могли выходить за её углы.
     &::before {
       content: '';
       position: absolute;
       inset: 0;
-      z-index: 2;
+      z-index: 0;
+      border-radius: inherit;
+      background: inherit;
       pointer-events: none;
-      background: linear-gradient(90deg, rgba(15, 1, 1, 0.68) 0%, rgba(15, 1, 1, 0) 100%);
+    }
+
+    @include respond-to(xl-2) {
+      padding: 80px 48px 80px clamp(320px, 30vw, 420px);
+      border-radius: 60px;
+    }
+
+    @include respond-to(xl) {
+      padding: 64px 40px 64px clamp(220px, 24vw, 300px);
+    }
+
+    @include respond-to(lg) {
+      padding: 56px 32px;
+      border-radius: 40px;
+    }
+
+    @include respond-to(md) {
+      padding: 48px 24px;
+      border-radius: 32px;
+    }
+
+    @include respond-to(sm) {
+      padding: 40px 20px;
+      border-radius: 24px;
     }
   }
 
-  &_container {
-    min-height: 1000px;
-    justify-content: center;
-    padding-top: 88px;
-    max-width: 1728px;
-  }
-
-  &_kicker {
+  &_text {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    max-width: 808px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 42px;
 
-    &-text {
-      color: rgba(255, 195, 135, 0.8);
-      font-size: 14px;
-      line-height: 1;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
+    @include respond-to(xl-2) {
+      max-width: 620px;
     }
 
-    &-line {
-      width: 40px;
-      height: 1px;
-      background: rgba(255, 195, 135, 0.6);
+    @include respond-to(xl) {
+      max-width: 100%;
+    }
+
+    @include respond-to(lg) {
+      gap: 24px;
     }
   }
 
   &_title {
     margin: 0;
-  }
+    font-family: $font-heading;
+    font-size: 56px;
+    line-height: 72px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    background: linear-gradient(
+      144.52deg,
+      #c4ae75 4.14%,
+      #e2da9b 6.6%,
+      #c8b375 9.06%,
+      #ece7ac 13.98%,
+      #c7ae6e 23.83%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 
-  &_text {
-    max-width: 528px;
-    color: rgba(255, 195, 135, 0.8);
-    line-height: 1.77;
-  }
-
-  &_btn {
-    margin-top: 24px;
-  }
-
-  .page-intro_overlay {
-    z-index: 1;
-
-    &--radial {
-      opacity: 0.6;
-      mix-blend-mode: soft-light;
-      background:
-        radial-gradient(50% 86.4% at 50% 50%, rgba(26, 26, 26, 0) 0%, #1a1a1a 100%),
-        linear-gradient(90deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.08) 100%);
+    @include respond-to(lg) {
+      font-size: clamp(32px, 6vw, 48px);
+      line-height: 1.2;
     }
 
-    &--fill {
-      background: transparent;
+    @include respond-to(sm) {
+      font-size: 28px;
     }
   }
-}
 
-.home-about {
-  padding: 100px 0 80px;
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
-  background:
-    radial-gradient(72% 80% at 50% 40%, rgba(63, 12, 0, 0.64) 0%, rgba(15, 1, 1, 1) 100%),
-    #0f0101;
-
-  &_top {
-    position: relative;
-    border-radius: 80px;
-    padding: 88px 60px 88px 420px;
-    overflow: hidden;
-  }
-
-  &_content {
-    max-width: 808px;
+  &_paragraphs {
     display: flex;
     flex-direction: column;
-    gap: 24px;
-    position: relative;
-    z-index: 2;
-  }
-
-  &_title {
-    margin: 0 0 18px;
-  }
-
-  &_text {
+    gap: 0;
     color: rgba(229, 154, 80, 0.8);
+    font-family: $font-main;
     font-size: 20px;
-    line-height: 1.6;
+    font-weight: 400;
+    line-height: 32px;
+
+    @include respond-to(lg) {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    @include respond-to(sm) {
+      font-size: 14px;
+    }
   }
 
+  &_paragraph {
+    margin: 0;
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  // Декор-птицы. Позиционирование от карточки — но т.к. секция overflow-x:clip,
+  // часть, выходящая за viewport, обрезается без горизонтального скролла.
   &_decor {
     position: absolute;
     z-index: 1;
     pointer-events: none;
+    user-select: none;
+    will-change: transform;
+
+    &__wrapper {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+
+      &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 2;
+        background: radial-gradient(
+          40% 60% at 22% 35%,
+          rgba(63, 12, 0, 0.5) 0%,
+          rgba(15, 1, 1, 0.5) 100%
+        );
+      }
+    }
 
     img {
       width: 100%;
       height: 100%;
+      max-width: none;
       object-fit: contain;
+      display: block;
+      transform: translate3d(
+        calc(var(--home-about-mx, 0) * var(--decor-shift-x, 24px)),
+        calc(var(--home-about-my, 0) * var(--decor-shift-y, 16px)),
+        0
+      );
     }
 
     &--left {
-      left: -32px;
-      top: -60px;
-      width: 548px;
-      height: 822px;
+      width: auto;
+      height: 120%;
+      left: -148px;
+      top: 50%;
+      transform: translateY(-50%);
+      --decor-shift-x: 18px;
+      --decor-shift-y: 14px;
     }
 
     &--right {
-      right: -32px;
-      top: -24px;
-      width: 573px;
-      height: 742px;
+      width: auto;
+      height: 130%;
+      right: -120px;
+      top: 50%;
+      transform: translateY(-58%);
+      --decor-shift-x: -16px;
+      --decor-shift-y: -12px;
+    }
+
+    @include respond-to(xl-2) {
+      &--left {
+        width: clamp(260px, 26vw, 380px);
+        height: auto;
+        aspect-ratio: 548 / 822;
+        left: clamp(-100px, -6vw, -56px);
+      }
+
+      &--right {
+        width: clamp(260px, 26vw, 380px);
+        height: auto;
+        aspect-ratio: 573 / 742;
+        right: clamp(-100px, -6vw, -56px);
+      }
+    }
+
+    @include respond-to(xl) {
+      &--left {
+        width: clamp(220px, 24vw, 320px);
+        left: clamp(-72px, -4vw, -32px);
+      }
+
+      &--right {
+        width: clamp(220px, 24vw, 320px);
+        right: clamp(-72px, -4vw, -32px);
+      }
+    }
+
+    @include respond-to(lg) {
+      opacity: 0.4;
+
+      &--left,
+      &--right {
+        width: clamp(180px, 28vw, 240px);
+      }
+
+      &--left {
+        left: -32px;
+      }
+
+      &--right {
+        right: -32px;
+      }
+    }
+
+    @include respond-to(md) {
+      opacity: 0.22;
+
+      &--left,
+      &--right {
+        width: clamp(140px, 30vw, 200px);
+      }
+
+      &--left {
+        left: -16px;
+      }
+
+      &--right {
+        right: -16px;
+      }
+    }
+
+    @include respond-to(sm) {
+      opacity: 0.15;
+
+      &--left,
+      &--right {
+        width: clamp(120px, 32vw, 160px);
+      }
+    }
+  }
+}
+
+// === Полоса фотографий (Figma 2002:4788)
+// 4 карточки разной ширины (388/668/388/388), h 600, gap 32, radius 60.
+// z-index: 1 — ниже home-about, чтобы декоративные птицы наезжали сверху.
+.home-about-gallery {
+  $home-about-gallery: &;
+
+  position: relative;
+  z-index: 1;
+  padding: 0 0 80px;
+  background:
+    radial-gradient(72% 80% at 50% 40%, rgba(63, 12, 0, 0.64) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
+
+  @include respond-to(lg) {
+    padding: 0 0 56px;
+  }
+
+  &_stage {
+    position: relative;
+    width: 100%;
+  }
+
+  &_track {
+    width: 100%;
+
+    .swiper-wrapper {
+      align-items: stretch;
     }
   }
 
-  &_gallery {
-    position: relative;
-  }
-
-  &_photos {
-    display: flex;
-    gap: 32px;
-  }
-
-  &_photo {
-    border-radius: 60px;
-    overflow: hidden;
-    flex: 0 0 auto;
+  &_slide {
     width: 388px;
     height: 600px;
-    position: relative;
+    border-radius: 60px;
+    overflow: hidden;
+    flex-shrink: 0;
 
-    &:nth-child(2) {
+    &--wide {
       width: 668px;
+    }
+
+    @include respond-to(xl) {
+      width: clamp(280px, 28vw, 388px);
+      height: clamp(420px, 46vw, 600px);
+      border-radius: clamp(36px, 4vw, 60px);
+
+      &--wide {
+        width: clamp(420px, 46vw, 668px);
+      }
+    }
+
+    @include respond-to(md) {
+      width: 78vw;
+      height: 380px;
+      border-radius: 32px;
+
+      &--wide {
+        width: 86vw;
+      }
     }
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      mix-blend-mode: soft-light;
-      background:
-        radial-gradient(50% 50% at 50% 50%, rgba(26, 26, 26, 0) 0%, #1a1a1a 100%),
-        linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%);
+      display: block;
     }
   }
 
   &_nav {
     position: absolute;
-    inset: 50% 24px auto;
+    z-index: 4;
+    top: 50%;
+    left: 0;
+    right: 0;
     transform: translateY(-50%);
+    display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 0 clamp(40px, 4vw, 80px);
+    pointer-events: none;
+
+    @include respond-to(md) {
+      padding: 0 16px;
+    }
+
+    .swiper_nav_item {
+      pointer-events: auto;
+      width: 50px;
+      height: 50px;
+      border: 0;
+      border-radius: 100px;
+      background: rgba(229, 154, 80, 0.2);
+      backdrop-filter: blur(10px);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: rgba(255, 195, 135, 0.95);
+      transition:
+        background 0.25s ease,
+        transform 0.25s ease;
+
+      &-next {
+        background: rgba(0, 0, 0, 0.1);
+      }
+
+      &:hover {
+        background: rgba(255, 195, 135, 0.32);
+        transform: scale(1.05);
+      }
+    }
   }
 }
 
+// === Афиша (Figma 2002:4819)
+// Заголовок 56/72, кнопка «Все события» + стрелки (50×48). Активная карточка раскрыта (388 + 420), неактивные — 388.
 .home-afisha {
+  $home-afisha: &;
+
+  position: relative;
   padding: 80px 0 100px;
   background:
-    radial-gradient(40% 40% at 22% 55%, rgba(63, 12, 0, 0.5) 0%, rgba(15, 1, 1, 1) 100%),
-    #0f0101;
+    radial-gradient(40% 40% at 22% 55%, rgba(63, 12, 0, 0.5) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
+
+  @include respond-to(lg) {
+    padding: 56px 0 72px;
+  }
+
+  .container {
+    @include respond-to(xl-3) {
+      padding: 0;
+    }
+  }
+
+  &_inner {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    @include respond-to(lg) {
+      gap: 24px;
+    }
+  }
 
   &_head {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 40px;
+    gap: 24px;
+
+    @include respond-to(xl-3) {
+      padding: 0 32px;
+    }
+
+    @include respond-to(md) {
+      gap: 12px;
+    }
+  }
+
+  &_title {
+    margin: 0;
+    font-family: $font-heading;
+    font-size: 56px;
+    line-height: 72px;
+    font-weight: 400;
+    text-transform: uppercase;
+    background: linear-gradient(
+      108.44deg,
+      #c4ae75 4.14%,
+      #e2da9b 6.6%,
+      #c8b375 9.06%,
+      #ece7ac 13.98%,
+      #c7ae6e 23.83%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    @include respond-to(lg) {
+      font-size: clamp(32px, 6vw, 48px);
+      line-height: 1.2;
+    }
+
+    @include respond-to(md) {
+      font-size: 24px;
+      line-height: 1.15;
+    }
   }
 
   &_actions {
@@ -200,6 +482,7 @@
   }
 
   &_nav {
+    display: flex;
     gap: 4px;
 
     .swiper_nav_item {
@@ -208,81 +491,370 @@
       border: 0;
       border-radius: 100px;
       background: rgba(255, 195, 135, 0.08);
+      backdrop-filter: blur(10px);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      color: rgba(255, 195, 135, 0.95);
+
+      &:hover {
+        background: rgba(255, 195, 135, 0.16);
+      }
+    }
+
+    // На md и меньше стрелки скрываем — управление только свайпом (по требованию ТЗ)
+    @include respond-to(md) {
+      display: none;
     }
   }
 
-  &_slider {
+  // ──────────────────────────────────────────────────────────────────────
+  // Карточки афиши.
+  // Hover-устройства: slidesPerView:'auto', активный слайд раскрыт по CSS.
+  //   Hover на любой слайд → он раскрывается, остальные закрываются.
+  //   Hover НЕ двигает карусель: меняется только width, wrapper остаётся на месте.
+  // Touch-устройства (no hover): slidesPerView:1 (см. JS), один слайд = ширина контейнера,
+  //   active по swiper.slideTo, info-панель появляется на активном.
+  // Карточка ВСЕГДА горизонтальная (фото слева, контент справа), даже на мобиле.
+  // Все размеры — через respond-to (md/lg/xl/xl-2/xl-3).
+  // ──────────────────────────────────────────────────────────────────────
+  &_list {
+    width: 100%;
+    isolation: isolate;
+  }
+
+  &_slide {
+    position: relative;
+    flex: 0 0 auto;
+    // ≥1400 (default): media 388 + info 420 = 808 в открытом
+    width: 388px;
+    height: 690px;
+    border-radius: 60px;
+    overflow: hidden;
+    background: rgba(255, 195, 135, 0.04);
     display: flex;
-    gap: 32px;
+    align-items: stretch;
+    transition:
+      width 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.45s ease,
+      filter 0.45s ease;
+    will-change: width, opacity;
+
+    &.swiper-slide-active {
+      width: 808px;
+    }
+
+    // Hover: при наведении на список все слайды закрываются и тускнеют,
+    // hovered — открывается. Никакого свайпа — wrapper не двигается.
+    @media (hover: hover) {
+      #{$home-afisha}_list:hover & {
+        width: 388px;
+        opacity: 0.55;
+        filter: saturate(0.65);
+      }
+
+      #{$home-afisha}_list:hover &:hover {
+        width: 808px;
+        opacity: 1;
+        filter: none;
+        z-index: 2;
+      }
+    }
+
+    // 1200–1400: media 320 + info 400 = 720
+    @include respond-to(xl-2) {
+      width: 320px;
+      height: 640px;
+      border-radius: 48px;
+
+      &.swiper-slide-active {
+        width: 720px;
+      }
+
+      @media (hover: hover) {
+        #{$home-afisha}_list:hover & {
+          width: 320px;
+        }
+
+        #{$home-afisha}_list:hover &:hover {
+          width: 720px;
+        }
+      }
+    }
+
+    // 992–1200: media 280 + info 380 = 660
+    @include respond-to(xl) {
+      width: 280px;
+      height: 580px;
+      border-radius: 40px;
+
+      &.swiper-slide-active {
+        width: 660px;
+      }
+
+      @media (hover: hover) {
+        #{$home-afisha}_list:hover & {
+          width: 280px;
+        }
+
+        #{$home-afisha}_list:hover &:hover {
+          width: 660px;
+        }
+      }
+    }
+
+    // 768–992: media 220 + info 340 = 560 (один открытый + 1 закрытый сбоку)
+    @include respond-to(lg) {
+      width: 220px;
+      height: 520px;
+      border-radius: 32px;
+
+      &.swiper-slide-active {
+        width: 560px;
+      }
+
+      @media (hover: hover) {
+        #{$home-afisha}_list:hover & {
+          width: 220px;
+        }
+
+        #{$home-afisha}_list:hover &:hover {
+          width: 560px;
+        }
+      }
+    }
+
+    // ≤768 — Swiper: slidesPerView:2.1 + spaceBetween:16 (см. main.js).
+    // Карточка остаётся горизонтальной, но info/контент скрыт — видно ТОЛЬКО media.
+    // Размеры слайда задаёт Swiper (width:auto), мы фиксируем aspect-ratio для media.
+    @include respond-to(md) {
+      width: auto;
+      height: auto;
+      min-height: 0;
+      aspect-ratio: 388 / 558;
+      border-radius: 28px;
+      transition: none;
+
+      &.swiper-slide-active {
+        width: auto;
+      }
+    }
+
+    @include respond-to(sm) {
+      border-radius: 24px;
+    }
+
+    @include respond-to(xs) {
+      border-radius: 20px;
+    }
   }
 
   &_card {
-    flex: 1 1 0;
-    min-width: 0;
-    border-radius: 60px;
-    overflow: hidden;
     position: relative;
-    height: 690px;
-    transition: flex 0.35s ease;
-
-    &--active {
-      flex: 2.2 1 0;
-    }
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    border-radius: inherit;
+    overflow: hidden;
 
     &-media {
       position: relative;
+      display: block;
+      width: 388px;
       height: 100%;
+      flex-shrink: 0;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+
+      @include respond-to(xl-2) {
+        width: 320px;
+      }
+
+      @include respond-to(xl) {
+        width: 280px;
+      }
+
+      @include respond-to(lg) {
+        width: 220px;
+      }
+
+      // На md+ карточка сжимается до медиа (info скрыто), media занимает всю карточку
+      @include respond-to(md) {
+        width: 100%;
+        height: 100%;
+        flex: 1 1 auto;
+      }
 
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        display: block;
       }
 
       &::after {
         content: '';
         position: absolute;
         inset: 0;
-        background: rgba(0, 0, 0, 0.24);
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.4) 100%);
+        mix-blend-mode: soft-light;
+        pointer-events: none;
       }
     }
 
-    &-body {
+    &-badge {
       position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      width: 52%;
+      top: 32px;
+      left: 32px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 24px;
+      border-radius: 100px;
+      background: rgba(255, 195, 135, 0.08);
+      backdrop-filter: blur(20px);
+      color: $gold;
+      font-family: $font-main;
+      font-size: 16px;
+      line-height: 16px;
+      white-space: nowrap;
+      opacity: 1;
+      transition:
+        opacity 0.35s ease,
+        visibility 0.35s ease;
+
+      &-dot {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: currentColor;
+        opacity: 0.6;
+      }
+
+      // Активный (раскрытый) — meta перекочёвывает в info, бейдж скрываем
+      #{$home-afisha}_slide.swiper-slide-active & {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      // При hover на список «активный» бейдж снова виден (открыт hovered, не active)
+      @media (hover: hover) {
+        #{$home-afisha}_list:hover #{$home-afisha}_slide.swiper-slide-active & {
+          opacity: 1;
+          visibility: visible;
+        }
+
+        #{$home-afisha}_list:hover #{$home-afisha}_slide:hover & {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+
+      @include respond-to(lg) {
+        top: 20px;
+        left: 20px;
+        padding: 10px 16px;
+        font-size: 14px;
+        gap: 10px;
+      }
+
+      // На md и меньше бейдж скрываем — карточка показывает только фото-обложку
+      @include respond-to(md) {
+        display: none;
+      }
+    }
+
+    // Info-панель: flex 1 заполняет остаток слайда (растёт по мере раскрытия).
+    // Не используем фиксированную ширину — благодаря этому смена ширины слайда
+    // плавно «открывает» панель без скачков.
+    &-info {
+      flex: 1 1 0;
+      min-width: 0;
       padding: 44px 40px 44px 32px;
+      background: rgba(0, 0, 0, 0.32);
+      backdrop-filter: blur(50px);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: 24px;
-      background: rgba(0, 0, 0, 0.32);
-      backdrop-filter: blur(32px);
       opacity: 0;
-      pointer-events: none;
-      transform: translateX(24px);
+      visibility: hidden;
       transition:
-        opacity 0.3s ease,
-        transform 0.3s ease;
+        opacity 0.4s ease,
+        visibility 0.4s ease;
+
+      // Дефолт — info на активном
+      #{$home-afisha}_slide.swiper-slide-active & {
+        opacity: 1;
+        visibility: visible;
+        transition-delay: 0.2s;
+      }
+
+      // На hover-списке — info переезжает к hovered, прячется на активном
+      @media (hover: hover) {
+        #{$home-afisha}_list:hover #{$home-afisha}_slide.swiper-slide-active & {
+          opacity: 0;
+          visibility: hidden;
+          transition-delay: 0s;
+        }
+
+        #{$home-afisha}_list:hover #{$home-afisha}_slide:hover & {
+          opacity: 1;
+          visibility: visible;
+          transition-delay: 0.2s;
+        }
+      }
+
+      @include respond-to(xl-2) {
+        padding: 36px 32px 36px 28px;
+        gap: 20px;
+      }
+
+      @include respond-to(xl) {
+        padding: 28px 24px 28px 20px;
+        gap: 18px;
+      }
+
+      @include respond-to(lg) {
+        padding: 24px 20px 24px 18px;
+        gap: 16px;
+      }
+
+      // На md и меньше info полностью скрываем — в карточке видна только media.
+      @include respond-to(md) {
+        display: none;
+      }
     }
 
     &-meta {
-      min-height: 44px;
-      padding: 14px 24px;
-      border-radius: 100px;
-      background: rgba(255, 195, 135, 0.08);
       display: inline-flex;
       align-items: center;
       gap: 16px;
-      color: #ffc387;
+      padding: 14px 24px;
+      border-radius: 100px;
+      background: rgba(255, 195, 135, 0.08);
+      backdrop-filter: blur(20px);
+      width: 100%;
+      justify-content: space-between;
+      color: $gold;
+      font-family: $font-main;
       font-size: 16px;
-      line-height: 1;
+      line-height: 16px;
+
+      @include respond-to(lg) {
+        padding: 10px 16px;
+        font-size: 14px;
+      }
+
+      // На мобиле meta скрыта — дата/время показываются бейджем на media
+      @include respond-to(md) {
+        display: none;
+      }
     }
 
     &-meta-dot {
@@ -290,178 +862,454 @@
       height: 4px;
       border-radius: 50%;
       background: currentColor;
+      opacity: 0.6;
+    }
+
+    &-headline {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+
+      @include respond-to(xl-2) {
+        gap: 20px;
+      }
+
+      @include respond-to(lg) {
+        gap: 14px;
+      }
+
+      @include respond-to(sm) {
+        gap: 8px;
+      }
     }
 
     &-title {
       margin: 0;
-      color: transparent;
       font-family: $font-heading;
       font-size: 36px;
+      line-height: 48px;
       font-weight: 400;
-      line-height: 1.33;
       text-transform: uppercase;
-      background: linear-gradient(121deg, #c4ae75 4%, #e2da9b 7%, #c8b375 9%, #ece7ac 14%, #c7ae6e 24%);
+      background: linear-gradient(
+        121deg,
+        #c4ae75 4%,
+        #e2da9b 7%,
+        #c8b375 9%,
+        #ece7ac 14%,
+        #c7ae6e 24%
+      );
       -webkit-background-clip: text;
       background-clip: text;
+      color: transparent;
+
+      @include respond-to(xl-2) {
+        font-size: 28px;
+        line-height: 1.2;
+      }
+
+      @include respond-to(xl) {
+        font-size: 24px;
+      }
+
+      @include respond-to(lg) {
+        font-size: 22px;
+      }
+
+      @include respond-to(sm) {
+        font-size: 18px;
+      }
     }
 
     &-text {
       margin: 0;
       color: rgba(255, 195, 135, 0.8);
+      font-family: $font-main;
       font-size: 18px;
-      line-height: 1.56;
+      font-weight: 300;
+      line-height: 28px;
+      max-height: 84px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+
+      @include respond-to(xl-2) {
+        font-size: 15px;
+        line-height: 22px;
+        max-height: 66px;
+      }
+
+      @include respond-to(lg) {
+        font-size: 13px;
+        line-height: 20px;
+        max-height: 60px;
+      }
+
+      @include respond-to(sm) {
+        font-size: 12px;
+        line-height: 18px;
+        -webkit-line-clamp: 2;
+        max-height: 36px;
+      }
     }
 
     &-line {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 16px;
+
+      @include respond-to(lg) {
+        gap: 8px;
+      }
     }
 
     &-line-label {
-      color: transparent;
-      background: linear-gradient(163deg, #c4ae75 4%, #e2da9b 7%, #c8b375 9%, #ece7ac 14%, #c7ae6e 24%);
-      -webkit-background-clip: text;
-      background-clip: text;
       font-family: $font-heading;
       font-size: 20px;
-      line-height: 1;
+      line-height: 20px;
+      font-weight: 400;
       text-transform: uppercase;
+      background: linear-gradient(
+        163deg,
+        #c4ae75 4%,
+        #e2da9b 7%,
+        #c8b375 9%,
+        #ece7ac 14%,
+        #c7ae6e 24%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+
+      @include respond-to(xl-2) {
+        font-size: 16px;
+      }
+
+      @include respond-to(lg) {
+        font-size: 14px;
+      }
+
+      @include respond-to(sm) {
+        font-size: 12px;
+      }
     }
 
     &-line-value {
       margin: 0;
-      color: #ffc387;
+      color: $gold;
+      font-family: $font-main;
       font-size: 18px;
-      line-height: 1.56;
+      font-weight: 350;
+      line-height: 28px;
+
+      @include respond-to(xl-2) {
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      @include respond-to(lg) {
+        font-size: 13px;
+        line-height: 18px;
+      }
+
+      @include respond-to(sm) {
+        font-size: 12px;
+        line-height: 16px;
+      }
     }
 
     &-more {
+      align-self: flex-start;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      min-height: 48px;
-      padding: 14px 20px;
+      gap: 4px;
+      height: 48px;
+      padding: 15px 20px;
       border-radius: 100px;
       background: rgba(255, 195, 135, 0.08);
-      color: #ffc387;
-      width: fit-content;
+      backdrop-filter: blur(10px);
+      color: $gold;
+      font-family: $font-main;
+      font-size: 18px;
+      line-height: 18px;
 
       &-arrow {
-        width: 6px;
-        height: 6px;
+        width: 8px;
+        height: 8px;
         border-right: 1px solid currentColor;
         border-top: 1px solid currentColor;
         transform: rotate(45deg);
       }
-    }
 
-    &--active {
-      .home-afisha_card-body {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateX(0);
+      &:hover {
+        background: rgba(255, 195, 135, 0.16);
+      }
+
+      @include respond-to(lg) {
+        height: 38px;
+        padding: 10px 14px;
+        font-size: 14px;
+      }
+
+      @include respond-to(sm) {
+        height: 32px;
+        padding: 8px 12px;
+        font-size: 12px;
       }
     }
   }
 }
 
+// === Клуб + форма CTA (Figma 2002:4886)
 .home-club {
-  padding: 0 0 80px;
+  $home-club: &;
+
+  position: relative;
+  padding: 80px 0 60px;
   display: flex;
   flex-direction: column;
   gap: 120px;
   background:
-    radial-gradient(40% 30% at 45% 50%, rgba(63, 12, 0, 0.44) 0%, rgba(15, 1, 1, 1) 100%),
-    #0f0101;
+    radial-gradient(40% 30% at 45% 50%, rgba(63, 12, 0, 0.44) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
+
+  @include respond-to(lg) {
+    padding: 56px 0 32px;
+    gap: 64px;
+  }
 
   &_intro {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 956px;
     gap: 32px;
     align-items: center;
+
+    @include respond-to(xl) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    }
+
+    @include respond-to(lg) {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
   }
 
   &_content {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 40px;
+    min-width: 0;
+  }
+
+  &_title {
+    margin: 0;
+    font-family: $font-heading;
+    font-size: 56px;
+    line-height: 72px;
+    font-weight: 400;
+    text-transform: uppercase;
+    background: linear-gradient(
+      139.57deg,
+      #c4ae75 4.14%,
+      #e2da9b 6.6%,
+      #c8b375 9.06%,
+      #ece7ac 13.98%,
+      #c7ae6e 23.83%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    @include respond-to(lg) {
+      font-size: clamp(32px, 6vw, 48px);
+      line-height: 1.2;
+    }
+  }
+
+  &_body {
+    display: flex;
+    flex-direction: column;
+    gap: 52px;
+
+    @include respond-to(lg) {
+      gap: 32px;
+    }
+  }
+
+  &_paragraphs {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
   &_text {
-    color: #ffc387;
-    line-height: 1.77;
+    margin: 0;
+    color: $gold;
+    font-family: $font-main;
+    font-size: 18px;
+    font-weight: 320;
+    line-height: 32px;
+
+    @include respond-to(lg) {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+  }
+
+  &_more.button {
+    align-self: flex-start;
   }
 
   &_media {
+    height: 600px;
     border-radius: 60px;
     overflow: hidden;
-    height: 600px;
+    position: relative;
+
+    @include respond-to(lg) {
+      height: 360px;
+      border-radius: 32px;
+    }
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.2);
+      mix-blend-mode: soft-light;
+      pointer-events: none;
     }
   }
 
+  &_form-wrap {
+    width: 100%;
+  }
+
   &_form {
-    border-radius: 60px;
-    padding: 80px 60px 88px;
     display: grid;
     grid-template-columns: 756px minmax(0, 1fr);
     gap: 32px;
+    padding: 80px 60px 88px;
+    border-radius: 60px;
     background:
-      radial-gradient(35% 55% at 38% 65%, rgba(63, 12, 0, 1) 0%, rgba(39, 6, 1, 1) 50%, rgba(15, 1, 1, 1) 100%),
+      radial-gradient(
+        35% 55% at 38% 65%,
+        rgba(63, 12, 0, 1) 0%,
+        rgba(39, 6, 1, 1) 50%,
+        rgba(15, 1, 1, 1) 100%
+      ),
       #0f0101;
+    backdrop-filter: blur(50px);
+    overflow: hidden;
+    isolation: isolate;
+
+    @include respond-to(xl) {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      padding: 64px 40px 64px;
+    }
+
+    @include respond-to(lg) {
+      grid-template-columns: 1fr;
+      padding: 40px 24px;
+      border-radius: 32px;
+      gap: 24px;
+    }
 
     &-head {
+      align-self: stretch;
+      padding-top: 20px;
+      width: 100%;
+      max-width: 756px;
       display: flex;
       flex-direction: column;
       gap: 24px;
     }
 
+    &-title {
+      margin: 0;
+      font-family: $font-heading;
+      font-size: 56px;
+      line-height: 72px;
+      font-weight: 400;
+      text-transform: uppercase;
+      background: linear-gradient(
+        123.28deg,
+        #c4ae75 4.14%,
+        #e2da9b 6.6%,
+        #c8b375 9.06%,
+        #ece7ac 13.98%,
+        #c7ae6e 23.83%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+
+      @include respond-to(lg) {
+        font-size: clamp(32px, 6vw, 48px);
+        line-height: 1.2;
+      }
+    }
+
     &-subtitle {
+      margin: 0;
       color: rgba(255, 195, 135, 0.6);
-      line-height: 1.56;
+      font-family: $font-main;
+      font-size: 18px;
+      font-weight: 320;
+      line-height: 28px;
     }
 
     &-body {
-      .home-club-booking-title {
-        display: none;
-      }
+      min-width: 0;
+      width: 100%;
     }
   }
 }
 
-.home-club-booking {
-  &-body {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
+// === CTA-форма «Ваше мероприятие» (3 поля: имя+тел в строку, textarea, согласие+кнопка)
+// Реализация на классах contacts_form (CF7-ready), но grid одноколоночный
+.cta-event-form.contacts_form-body {
+  gap: 40px;
 
-  &-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  @include respond-to(md) {
     gap: 24px;
   }
 
-  &-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .contacts_form-grid {
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
-  }
 
-  &-submit {
-    min-width: 186px;
+    @include respond-to(md) {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .contacts_form-field--textarea {
+      grid-column: 1 / -1;
+    }
   }
 }
 
+// === Галерея (Figma 2002:4932)
+// Full-bleed карусель: высота 920, gap 32, radius 60, стрелки в центре, пагинация полосок снизу.
 .home-gallery {
+  $home-gallery: &;
+
   position: relative;
   padding: 80px 0;
+  background:
+    radial-gradient(40% 40% at 22% 55%, rgba(63, 12, 0, 0.5) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
+
+  @include respond-to(lg) {
+    padding: 48px 0;
+  }
 
   .sr-only {
     position: absolute;
@@ -475,55 +1323,106 @@
     border: 0;
   }
 
-  &_slider {
-    display: flex;
+  &_stage {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &_track {
+    width: 100%;
   }
 
   &_slide {
-    flex: 0 0 auto;
+    width: 1380px;
     height: 920px;
-    width: 71%;
     border-radius: 60px;
     overflow: hidden;
     position: relative;
+    flex-shrink: 0;
+
+    @include respond-to(xl) {
+      width: clamp(720px, 80vw, 1380px);
+      height: clamp(520px, 60vw, 920px);
+      border-radius: clamp(36px, 4vw, 60px);
+    }
+
+    @include respond-to(md) {
+      width: 92vw;
+      height: 480px;
+      border-radius: 32px;
+    }
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.2);
+      mix-blend-mode: soft-light;
+      pointer-events: none;
     }
   }
 
   &_nav {
     position: absolute;
+    z-index: 4;
     top: 50%;
-    left: 50%;
-    width: min(1368px, calc(100% - 80px));
-    transform: translate(-50%, -50%);
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
     justify-content: space-between;
-    z-index: 3;
+    align-items: center;
+    padding: 0 clamp(40px, 4vw, 80px);
+    pointer-events: none;
+
+    @include respond-to(md) {
+      padding: 0 16px;
+    }
 
     .swiper_nav_item {
+      pointer-events: auto;
       width: 50px;
       height: 48px;
       border: 0;
       border-radius: 100px;
       background: rgba(255, 195, 135, 0.24);
+      backdrop-filter: blur(10px);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      color: rgba(255, 195, 135, 0.95);
+      transition:
+        background 0.25s ease,
+        transform 0.25s ease;
+
+      &:hover {
+        background: rgba(255, 195, 135, 0.36);
+        transform: scale(1.05);
+      }
     }
   }
 
   &_pagination {
     position: absolute;
-    top: 140px;
+    bottom: 60px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 4;
     display: inline-flex;
     gap: 8px;
+
+    @include respond-to(md) {
+      bottom: 24px;
+    }
   }
 
   .swiper-pagination-bullet {
@@ -532,10 +1431,15 @@
     border-radius: 1px;
     margin: 0 !important;
     background: rgba(255, 187, 119, 0.2);
+    backdrop-filter: blur(10px);
     opacity: 1;
+
+    @include respond-to(md) {
+      width: 36px;
+    }
   }
 
   .swiper-pagination-bullet-active {
-    background: #ffc387;
+    background: $gold;
   }
 }

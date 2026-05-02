@@ -157,9 +157,13 @@ mixin PageHero(props)
 //- @param {string} titleId - id заголовка (опционально)
 //- @param {boolean} overlay - показывать ли оверлей (по умолчанию true)
 mixin PageIntro(props)
-  - const {mediaType = 'image', mediaSrc = '', kicker = '', title = '', text = '', buttonText = '', buttonStyles = ['ghost-gold', 'md'], rootClass = 'page-intro', actionModal = 'modal-form', titleId = '', overlay = true} = props || {}
-  section(class=`page-intro ${rootClass}` aria-labelledby=titleId || false)
-    .page-intro_bg(class=`${rootClass}_bg`)
+  - const {mediaType = 'image', mediaSrc = '', kicker = '', title = '', text = '', textHtml = '', buttonText = '', buttonStyles = ['ghost-gold', 'md'], rootClass = 'page-intro', actionModal = 'modal-form', titleId = '', overlay = true} = props || {}
+  //- rootClass может содержать несколько классов через пробел; baseClass — первый, для интерполяции BEM-элементов
+  - const _parts = String(rootClass).split(/\s+/).filter(Boolean)
+  - const _baseClass = _parts[0] || 'page-intro'
+  - const _allClasses = _parts.join(' ')
+  section(class=`page-intro ${_allClasses}` aria-labelledby=titleId || false)
+    .page-intro_bg(class=`${_baseClass}_bg`)
       if mediaType === 'video'
         video(autoplay loop muted playsinline)
           source(src=mediaSrc type='video/mp4')
@@ -168,16 +172,18 @@ mixin PageIntro(props)
       if overlay
         .page-intro_overlay.page-intro_overlay--radial
         .page-intro_overlay.page-intro_overlay--fill
-    .container.page-intro_container(class=`${rootClass}_container`)
+    .container.page-intro_container(class=`${_baseClass}_container`)
       if kicker
-        .page-intro_kicker(class=`${rootClass}_kicker`)
-          span.page-intro_kicker-text(class=`${rootClass}_kicker-text`)= kicker
-          span.page-intro_kicker-line(class=`${rootClass}_kicker-line`)
-      h1.title.title-h1.page-intro_title(id=titleId || false class=`${rootClass}_title`)= title
-      if text
-        p.page-intro_text(class=`${rootClass}_text`)= text
+        .page-intro_kicker(class=`${_baseClass}_kicker`)
+          span.page-intro_kicker-text(class=`${_baseClass}_kicker-text`)= kicker
+          span.page-intro_kicker-line(class=`${_baseClass}_kicker-line`)
+      h1.title.title-h1.page-intro_title(id=titleId || false class=`${_baseClass}_title`)= title
+      if textHtml
+        p.page-intro_text(class=`${_baseClass}_text`)!= textHtml
+      else if text
+        p.page-intro_text(class=`${_baseClass}_text`)= text
       if buttonText
-        +Button(buttonText, buttonStyles)(data-modal=actionModal data-modal-action='open' class=`${rootClass}_btn`)
+        +Button(buttonText, buttonStyles)(data-modal=actionModal data-modal-action='open' class=`${_baseClass}_btn`)
 
 //- Миксин для полных intro секций (main, post, catalog)
 //- @param {string} bgImg - путь к фоновому изображению

@@ -57,17 +57,15 @@ html(
     
     +Modal('mobile-menu')(class='modal--mobile')
       +NavMobile()
-    
-    // Modal Video Player (для страницы комнаты и карточек с видео)
-    +ModalVideoPlayer()
+
 
     // Bottom Nav
-    +NavBottom({items: [
-      {icon: 'tg', text: 'Telegram'},
-      {icon: 'max', text: 'MAX'},
-      {icon: 'vk', text: 'Vkonakte'},
-      {icon: 'tel', text: 'Позвонить'},
-    ]})
+    //- +NavBottom({items: [
+    //-   {icon: 'tg', text: 'Telegram'},
+    //-   {icon: 'max', text: 'MAX'},
+    //-   {icon: 'vk', text: 'Vkonakte'},
+    //-   {icon: 'tel', text: 'Позвонить'},
+    //- ]})
 
     // Scroll to top (миксин Button с иконкой, вид как у кнопки навигации свайпера)
     +Button('Наверх', ['primary'], { icon: 'assets/img/kaifuso/icon-arrow-up.svg', iconOnly: true })(class='scroll-to-top' type='button' aria-label='Наверх')

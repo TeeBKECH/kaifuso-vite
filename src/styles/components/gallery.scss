@@ -73,30 +73,7 @@
     }
 
     .gallery_nav_arrow {
-      display: block;
-      width: 20px;
-      height: 20px;
-      position: relative;
-
-      &::before {
-        content: '';
-        position: absolute;
-        inset: 5px;
-        border-top: 1.4px solid rgba($prime, 0.9);
-        border-right: 1.4px solid rgba($prime, 0.9);
-      }
-
-      &--left {
-        &::before {
-          transform: rotate(-135deg);
-        }
-      }
-
-      &--right {
-        &::before {
-          transform: rotate(45deg);
-        }
-      }
+      color: rgba($prime, 0.95);
     }
   }
 }

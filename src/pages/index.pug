@@ -12,11 +12,12 @@ block content
       { link: '/menu.html', ver: 80, title: 'Меню', note: 'Hero и три карточки категорий: меню блюд, винная карта, барное меню.' },
       { link: '/menu-detail.html', ver: 60, title: 'Меню (внутренняя)', note: 'Черновик: hero, grid-таблица позиций и форма бронирования (ACF repeater-ready).' },
       { link: '/events.html', ver: 85, title: 'Афиша', note: 'Hero, фильтры, карточки-афиша через отдельный миксин, футер и пагинация.' },
+      { link: '/blog.html', ver: 80, title: 'Блог', note: 'Разводящая в духе афиши: сетка 3×N, карточка с фото сверху, мета, пагинация и «Загрузить еще».' },
       { link: '/event.html', ver: 85, title: 'Событие', note: 'Hero, постер, форма бронирования с выбором канала связи, блок описания и swiper «Другие события».' },
       { link: '/contacts.html', ver: 25, title: 'Контакты', note: 'Контактная информация и форма.' },
       { link: '/404.html', ver: 90, title: '404', note: 'Страница ошибки.' },
       { link: '/privacy.html', ver: 15, title: 'Политика конфиденциальности', note: 'Типовой юридический текст (нужна адаптация под KAIFUSO).' },
-      { link: '/single.html', ver: 10, title: 'Блог', note: 'Страница записи / статьи.' },
+      { link: '/single.html', ver: 75, title: 'Запись блога', note: 'PageHero, типографика под Gutenberg (.entry-content), оглавление, swiper из 6 карточек как на блоге.' },
     ]
     const totalVer = linksPages.reduce((acc, p) => acc + p.ver, 0)
     const avgVer = linksPages.length ? Math.round(totalVer / linksPages.length) : 0

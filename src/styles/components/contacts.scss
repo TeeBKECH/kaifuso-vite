@@ -209,6 +209,10 @@
         grid-template-columns: 1fr;
         gap: 16px;
       }
+
+      .contacts_form-field--textarea {
+        grid-column: 1 / -1;
+      }
     }
 
     &-field {
@@ -238,6 +242,13 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+      }
+
+      &-icon-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
       }
 
       &-glyph {
@@ -277,6 +288,8 @@
           transform: rotate(45deg);
         }
       }
+
+      @include kaifuso-booking-form-c-select;
     }
 
     &-input {
@@ -313,6 +326,15 @@
         flex-direction: column;
         align-items: stretch;
         gap: 20px;
+      }
+    }
+
+    // Submit-кнопка форм на md и меньше — во всю ширину
+    &-submit.button {
+      @include respond-to(md) {
+        width: 100%;
+        align-self: stretch;
+        justify-content: center;
       }
     }
 

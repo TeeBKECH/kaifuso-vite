@@ -1,0 +1,194 @@
+// Полноэкранный media-intro (KAIFUSO): главная, «О нас» и др. — один набор стилей (DRY).
+// Разметка: +PageIntro({ rootClass: 'page-intro--kaifuso home-hero', ... })
+.page-intro--kaifuso {
+  position: relative;
+  // Не короче окна; при длинном тексте блок вырастет по контенту
+  min-height: calc(var(--vh, 1vh) * 100);
+
+  @supports (height: 100dvh) {
+    min-height: 100dvh;
+  }
+
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  // Скругление нижней кромки фона (hero на главной)
+  &.home-hero .page-intro_bg {
+    border-radius: 0 0 60px 60px;
+    overflow: hidden;
+
+    @include respond-to(md) {
+      border-radius: 0 0 28px 28px;
+    }
+  }
+
+  .page-intro_bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    img,
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .page-intro_overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+
+    &--radial {
+      background: radial-gradient(50% 50% at 50% 50%, rgba(26, 26, 26, 0) 0%, rgba(26, 26, 26, 0.6) 100%);
+      mix-blend-mode: soft-light;
+    }
+
+    &--fill {
+      background: linear-gradient(90deg, rgba(15, 1, 1, 0.68) 0%, rgba(15, 1, 1, 0) 100%);
+    }
+  }
+
+  .page-intro_container {
+    position: relative;
+    z-index: 3;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 48px;
+    width: 100%;
+    max-width: 1728px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: calc(var(--height-h, 92px) + 24px);
+    padding-bottom: 48px;
+    box-sizing: border-box;
+
+    @include respond-to(lg) {
+      gap: 32px;
+      padding-top: calc(var(--height-h, 92px) + 16px);
+    }
+  }
+
+  .page-intro_kicker {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .page-intro_kicker-text {
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(255, 195, 135, 0.8);
+  }
+
+  .page-intro_kicker-line {
+    width: 40px;
+    height: 1px;
+    background: rgba(255, 195, 135, 0.6);
+  }
+
+  .page-intro_title {
+    margin: 0;
+    max-width: 1200px;
+  }
+
+  .page-intro_text {
+    margin: 0;
+    max-width: 528px;
+    font-size: 18px;
+    line-height: 1.78;
+    font-weight: 300;
+    color: rgba(255, 195, 135, 0.82);
+  }
+
+  .page-intro_btn {
+    margin-top: 8px;
+  }
+}
+
+// Главная — hero по Figma (2002:4462 «Главный экран»): колонка текста по центру по вертикали, отступы 40px, типографика
+.page-intro--kaifuso.home-hero {
+  .page-intro_container {
+    flex: 1;
+    min-height: 0;
+    justify-content: center;
+    gap: 0;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: calc(var(--height-h, 88px));
+    padding-bottom: 48px;
+
+    @include respond-to(md) {
+      align-items: center;
+      text-align: center;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+
+  .page-intro_kicker {
+    margin-bottom: 24px;
+
+    @include respond-to(md) {
+      align-items: center;
+    }
+  }
+
+  .page-intro_kicker-text {
+    line-height: 14px;
+    letter-spacing: 4px;
+  }
+
+  .page-intro_title.title-h1 {
+    margin: 0 0 16px;
+    max-width: 100%;
+    font-size: clamp(42px, 6.5vw, 80px);
+    line-height: clamp(48px, 7.1vw, 88px);
+    letter-spacing: 0;
+    background: linear-gradient(
+      156.87deg,
+      #c4ae75 4.14%,
+      #e2da9b 6.6%,
+      #c8b375 9.06%,
+      #ece7ac 13.98%,
+      #c7ae6e 23.83%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    @include respond-to(md) {
+      font-size: clamp(36px, 9vw, 56px);
+      line-height: 1.08;
+    }
+  }
+
+  .page-intro_text {
+    margin: 0 0 48px;
+    max-width: 528px;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 32px;
+    color: #ffc387;
+
+    @include respond-to(md) {
+      margin: 0 0 32px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+  }
+
+  .page-intro_btn {
+    margin-top: 0;
+  }
+}

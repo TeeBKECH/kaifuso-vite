@@ -60,10 +60,10 @@ block content
         .event-page_related-head
           h2.event-page_related-title Другие события
           .swiper_nav.event-page_related-nav
-            button.swiper_nav_item.event-page_related-nav-prev(type='button' aria-label='Назад')
-              span.event-page_related-arrow.event-page_related-arrow--left(aria-hidden='true')
-            button.swiper_nav_item.event-page_related-nav-next(type='button' aria-label='Вперед')
-              span.event-page_related-arrow.event-page_related-arrow--right(aria-hidden='true')
+            button.swiper_nav_item.swiper_nav_item-prev.event-page_related-nav-prev(type='button' aria-label='Назад')
+              span.gallery_nav_arrow.gallery_nav_arrow--left(aria-hidden='true')
+            button.swiper_nav_item.swiper_nav_item-next.event-page_related-nav-next(type='button' aria-label='Вперед')
+              span.gallery_nav_arrow.gallery_nav_arrow--right(aria-hidden='true')
         .event-related_items
           each item in relatedEvents
             +EventsPosterCard(item)(class='event-related_item')

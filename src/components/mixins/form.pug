@@ -1,3 +1,10 @@
+//- Поля для CF7: имена ниже совпадают с типичными shortcodes.
+//- Пример: [text* your-name] [tel your-phone] [text booking-datetime] [select booking-persons "1 гость" "2 гостя" ...] [textarea your-message] [acceptance privacy-policy] [submit "Забронировать стол"]
+//- Календарь: input[data-booking-datetime] — booking-datepicker.js (клик). Нельзя дату раньше сегодня; время 8:00–23:00, шаг 30 мин (дефолт).
+//- Админка WP: до подключения бандла задайте window.kaifusoBookingDatetime = { minHour, minMinute, maxHour, maxMinute, minutesStep }.
+//- Либо data-booking-min-hour / data-booking-max-hour / data-booking-max-minute / data-booking-minutes-step на том же input.
+//- После CF7 + AJAX: initBookingDatepickers(контейнер) и initSelects().
+
 mixin FormModal()
   .booking-modal
     .booking-modal_inner
@@ -5,20 +12,47 @@ mixin FormModal()
       form.booking-modal_form(action="#")
         .booking-modal_grid
           .booking-modal_field
-            input.booking-modal_input(type='text', name='name', placeholder='Ваше имя')
+            input.booking-modal_input(type='text', name='your-name', placeholder='Ваше имя', autocomplete='name')
           .booking-modal_field
-            input.booking-modal_input.form_input-tel(type='tel', name='tel', placeholder='+7 (___) ___-__-__')
+            input.booking-modal_input.form_input-tel(type='tel', name='your-phone', placeholder='+7 (___) ___-__-__', autocomplete='tel')
           .booking-modal_field.booking-modal_field--icon
-            input.booking-modal_input(type='text', name='date', placeholder='Дата и время')
-            span.booking-modal_icon.booking-modal_icon--calendar(aria-hidden='true')
-          .booking-modal_field.booking-modal_field--icon
-            input.booking-modal_input(type='text', name='persons', placeholder='Количество персон')
-            span.booking-modal_icon.booking-modal_icon--down(aria-hidden='true')
+            input.booking-modal_input(
+              type='text'
+              name='booking-datetime'
+              placeholder='Дата и время'
+              data-booking-datetime
+              readonly
+              autocomplete='off'
+            )
+            span.booking-modal_field-suffix(aria-hidden='true')
+              img(src='assets/img/kaifuso/icon-calendar.svg' width='24' height='24' alt='')
+          .booking-modal_field
+            +AppSelect({
+              id: 'booking-persons-modal',
+              name: 'booking-persons',
+              placeholder: 'Количество персон',
+              mode: 'light',
+              items: [
+                { value: '1', label: '1 гость' },
+                { value: '2', label: '2 гостя' },
+                { value: '3', label: '3 гостя' },
+                { value: '4', label: '4 гостя' },
+                { value: '5', label: '5 гостей' },
+                { value: '6', label: '6 гостей' },
+                { value: '7', label: '7 гостей' },
+                { value: '8', label: '8 гостей' },
+                { value: '9', label: '9 гостей' },
+                { value: '10', label: '10 гостей' },
+                { value: '11', label: '11 гостей' },
+                { value: '12', label: '12 гостей' }
+              ],
+              selected: []
+            })
         .booking-modal_field.booking-modal_field--textarea
-          textarea.booking-modal_input.booking-modal_textarea(name='message', placeholder='Добавить комментарий')
+          textarea.booking-modal_input.booking-modal_textarea(name='your-message', placeholder='Добавить комментарий')
         .booking-modal_footer
           label.booking-modal_privacy
-            input.booking-modal_privacy-checkbox(type='checkbox', name='privacy', checked, required)
+            input.booking-modal_privacy-checkbox(type='checkbox', name='privacy-policy', checked, required)
             span.booking-modal_privacy-check(aria-hidden='true')
             span.booking-modal_privacy-text
               | Я ознакомлен и согласен
@@ -48,18 +82,53 @@ mixin FormModalSuccess()
 
 //- Универсальная форма бронирования для внутренних страниц
 //- fieldMode: 'contacts' | 'channel'
+//- personItems — опционально; иначе дефолтный список гостей (для CF7 совпадает с [select booking-persons ...])
 mixin BookingForm(props)
-  - const {rootClass = 'contacts_form', title = 'Забронировать стол', action = '#', fieldMode = 'contacts', privacyVariant = 'full', buttonText = 'Забронировать стол', buttonStyles = ['ghost-gold', 'lg'], buttonType = 'submit'} = props || {}
+  -
+    const {
+      rootClass = 'contacts_form',
+      title = 'Забронировать стол',
+      action = '#',
+      fieldMode = 'contacts',
+      privacyVariant = 'full',
+      buttonText = 'Забронировать стол',
+      buttonStyles = ['ghost-gold', 'lg'],
+      buttonType = 'submit',
+      personItems = null,
+      personsSelectId = 'booking-persons',
+    } = props || {}
+    const bookingPersonItems = personItems || [
+      { value: '1', label: '1 гость' },
+      { value: '2', label: '2 гостя' },
+      { value: '3', label: '3 гостя' },
+      { value: '4', label: '4 гостя' },
+      { value: '5', label: '5 гостей' },
+      { value: '6', label: '6 гостей' },
+      { value: '7', label: '7 гостей' },
+      { value: '8', label: '8 гостей' },
+      { value: '9', label: '9 гостей' },
+      { value: '10', label: '10 гостей' },
+      { value: '11', label: '11 гостей' },
+      { value: '12', label: '12 гостей' },
+    ]
   - const c = (name = '') => (name ? `${rootClass}-${name}` : rootClass)
   h2(class=c('title'))= title
   form(action=action class=c('body'))
     div(class=c('grid'))
       div(class=c('field'))
-        input(type='text' name='name' placeholder='Ваше имя' class=c('input'))
+        input(type='text' name='your-name' placeholder='Ваше имя' autocomplete='name' class=c('input'))
       div(class=[c('field'), c('field--icon')].join(' '))
-        input(type='text' name='date' placeholder='Дата и время' class=c('input'))
+        input(
+          type='text'
+          name='booking-datetime'
+          placeholder='Дата и время'
+          class=c('input')
+          data-booking-datetime
+          readonly
+          autocomplete='off'
+        )
         span(class=c('field-icon') aria-hidden='true')
-          span(class=[c('field-glyph'), c('field-glyph--calendar')].join(' '))
+          img(src='assets/img/kaifuso/icon-calendar.svg' width='24' height='24' alt='' class=c('field-icon-img'))
       if fieldMode === 'channel'
         div(class=c('field'))
           +AppSelect({
@@ -77,17 +146,59 @@ mixin BookingForm(props)
         div(class=c('field'))
           input(type='text' name='contact-value' data-quiz-contact-field placeholder='Переменная' class=c('input'))
       else
-        div(class=[c('field'), c('field--icon')].join(' '))
-          input(type='text' name='persons' placeholder='Количество персон' class=c('input'))
-          span(class=c('field-icon') aria-hidden='true')
-            span(class=[c('field-glyph'), c('field-glyph--down')].join(' '))
         div(class=c('field'))
-          input(type='tel' name='tel' placeholder='+7 (___) ___-__-__' class=[c('input'), 'form_input-tel'].join(' '))
+          +AppSelect({
+            id: personsSelectId,
+            name: 'booking-persons',
+            placeholder: 'Количество персон',
+            mode: 'light',
+            items: bookingPersonItems,
+            selected: []
+          })
+        div(class=c('field'))
+          input(type='tel' name='your-phone' placeholder='+7 (___) ___-__-__' class=[c('input'), 'form_input-tel'].join(' ') autocomplete='tel')
     div(class=[c('field'), c('field--textarea')].join(' '))
-      textarea(name='message' placeholder='Добавить комментарий' class=[c('input'), c('textarea')].join(' '))
+      textarea(name='your-message' placeholder='Добавить комментарий' class=[c('input'), c('textarea')].join(' '))
     div(class=c('footer'))
       label(class=c('privacy'))
-        input(type='checkbox' name='privacy' checked required class=c('privacy-checkbox'))
+        input(type='checkbox' name='privacy-policy' checked required class=c('privacy-checkbox'))
+        span(class=c('privacy-check') aria-hidden='true')
+          span(class=c('privacy-glyph') aria-hidden='true')
+        span(class=c('privacy-text'))
+          if privacyVariant === 'short'
+            | Я согласен(а) с
+            a(href='privacy.html') политикой конфиденциальности
+            |  и даю согласие на обработку персональных данных
+          else
+            | Я ознакомлен и согласен
+            br
+            | с
+            a(href='privacy.html') политикой обработки персональных данных
+      +Button(buttonText, buttonStyles, buttonType)(class=c('submit'))
+
+//- Короткая форма заявки (3 поля): имя, телефон, сообщение — те же классы, что у contacts_form (CF7-ready).
+mixin CtaEventForm(props)
+  -
+    const {
+      rootClass = 'contacts_form',
+      action = '#',
+      privacyVariant = 'full',
+      buttonText = 'Отправить заявку',
+      buttonStyles = ['ghost-gold', 'lg'],
+      buttonType = 'submit',
+    } = props || {}
+  - const c = (name = '') => (name ? `${rootClass}-${name}` : rootClass)
+  form(action=action class=[c('body'), 'cta-event-form'].join(' '))
+    div(class=c('grid'))
+      div(class=c('field'))
+        input(type='text' name='your-name' placeholder='Ваше имя' autocomplete='name' class=c('input'))
+      div(class=c('field'))
+        input(type='tel' name='your-phone' placeholder='+7 (___) ___-__-__' class=[c('input'), 'form_input-tel'].join(' ') autocomplete='tel')
+      div(class=[c('field'), c('field--textarea')].join(' '))
+        textarea(name='your-message' placeholder='Добавить комментарий' class=[c('input'), c('textarea')].join(' '))
+    div(class=c('footer'))
+      label(class=c('privacy'))
+        input(type='checkbox' name='privacy-policy' checked required class=c('privacy-checkbox'))
         span(class=c('privacy-check') aria-hidden='true')
           span(class=c('privacy-glyph') aria-hidden='true')
         span(class=c('privacy-text'))

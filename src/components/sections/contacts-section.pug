@@ -44,5 +44,6 @@ section(class=sectionClass aria-labelledby=titleId || false)
           fieldMode: 'contacts',
           privacyVariant: sectionProps.privacyVariant === 'short' ? 'short' : 'full',
           buttonText: 'Забронировать стол',
-          buttonStyles: ['ghost-gold', 'lg']
+          buttonStyles: ['ghost-gold', 'lg'],
+          personsSelectId: sectionProps.personsSelectId || 'booking-persons-contacts'
         })

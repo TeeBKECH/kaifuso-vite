@@ -18,6 +18,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.21",
     "fast-glob": "^3.3.3",
+    "playwright": "^1.59.1",
     "prettier": "^3.6.2",
     "pug": "^3.0.3",
     "sass": "^1.93.2",
@@ -26,6 +27,7 @@
   },
   "dependencies": {
     "@fancyapps/ui": "^6.0.34",
+    "air-datepicker": "^3.6.0",
     "aos": "^2.3.4",
     "swiper": "^12.0.2"
   }

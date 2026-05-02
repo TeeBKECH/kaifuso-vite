@@ -83,11 +83,14 @@ textarea {
 @import '@/styles/components/socials';
 @import '@/styles/components/swiper';
 @import '@/styles/components/cta';
+@import 'air-datepicker/air-datepicker.css';
+@import '@/styles/components/air-datepicker-theme';
 @import '@/styles/components/form';
 @import '@/styles/components/select';
 @import '@/styles/components/breadcrumbs';
 @import '@/styles/components/modal';
 @import '@/styles/components/gallery';
+@import '@/styles/components/page-intro-kaifuso';
 @import '@/styles/components/events';
 @import '@/styles/components/menu-page';
 @import '@/styles/components/menu-detail';
