@@ -1,0 +1,45 @@
+.route-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35em;
+  font-family: $font-main;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.25;
+  color: $gold;
+  text-decoration: none;
+
+  &_text {
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    text-decoration-skip-ink: auto;
+    text-underline-offset: 0.28em;
+    text-decoration-thickness: max(1px, 0.06em);
+    text-underline-position: from-font;
+    -webkit-text-decoration-skip: ink;
+  }
+  &_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    overflow: hidden;
+    vertical-align: middle;
+
+    img {
+      width: 8px;
+      height: 8px;
+      display: block;
+      object-fit: contain;
+      object-position: center;
+      opacity: 0.85;
+    }
+  }
+
+  &:hover {
+    color: #fff;
+  }
+}

@@ -3,7 +3,6 @@
   background: #0f0101;
 
   &_hero {
-    border-bottom: 0.4px solid rgba(255, 187, 119, 0.16);
   }
 
   &_body {
@@ -36,6 +35,7 @@
     @include respond-to(md) {
       border-radius: 24px;
       min-height: 360px;
+      border: 1px solid rgba($gold, 0.1);
     }
 
     &_media {
@@ -87,7 +87,14 @@
     &_title {
       margin: 0;
       color: transparent;
-      background: linear-gradient(141deg, #c4ae75 4%, #e2da9b 7%, #c8b375 9%, #ece7ac 14%, #c7ae6e 24%);
+      background: linear-gradient(
+        141deg,
+        #c4ae75 4%,
+        #e2da9b 7%,
+        #c8b375 9%,
+        #ece7ac 14%,
+        #c7ae6e 24%
+      );
       -webkit-background-clip: text;
       background-clip: text;
       font-family: $font-heading;
@@ -97,7 +104,7 @@
       text-transform: uppercase;
 
       @include respond-to(md) {
-        font-size: 30px;
+        font-size: 24px;
         line-height: 1.25;
       }
     }

@@ -41,9 +41,9 @@ block content
             each row in menuCategory.rows
               .menu-detail_table_row
                 p.menu-detail_table_cell.menu-detail_table_cell--name= row.name
-                p.menu-detail_table_cell= row.region
-                p.menu-detail_table_cell= row.vintage
-                p.menu-detail_table_cell= row.volume
+                p.menu-detail_table_cell.menu-detail_table_cell--region(data-label='Регион')= row.region
+                p.menu-detail_table_cell.menu-detail_table_cell--vintage(data-label='Год')= row.vintage
+                p.menu-detail_table_cell.menu-detail_table_cell--volume(data-label='Объём')= row.volume
                 p.menu-detail_table_cell.menu-detail_table_cell--price= row.price
 
         .menu-detail_form

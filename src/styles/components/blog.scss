@@ -182,6 +182,11 @@
     padding: 22px 20px 24px;
     flex: 1;
     min-height: 0;
+
+    @include respond-to(md) {
+      gap: 12px;
+      padding: 18px 16px 20px;
+    }
   }
 
   &_title {
@@ -248,43 +253,11 @@
     white-space: nowrap;
   }
 
-  &_more {
+  // .blog-post-card_more — это .button.button--ghost-gold.button--sm.button--arrow
+  // (см. mixins/blog.pug). Здесь — только обёрточные правила позиционирования.
+  &_more.button {
     align-self: flex-start;
     margin-top: 4px;
-    min-height: 44px;
-    border-radius: 65px;
-    padding: 14px 16px;
-    background: rgba(255, 195, 135, 0.08);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    text-decoration: none;
-    color: #ffc387;
-    width: fit-content;
-
-    &-text {
-      font-family: $font-main;
-      font-size: 16px;
-      font-weight: 350;
-      line-height: 1;
-      opacity: 0.85;
-    }
-
-    &-arrow {
-      width: 16px;
-      height: 16px;
-      position: relative;
-
-      &::before {
-        content: '';
-        position: absolute;
-        inset: 3px 5px;
-        border-right: 1.5px solid currentColor;
-        border-bottom: 1.5px solid currentColor;
-        transform: rotate(-45deg);
-      }
-    }
   }
 
   @include onlyDescHover() {
@@ -338,6 +311,37 @@
 
   &_nav {
     flex-shrink: 0;
+    gap: 12px;
+
+    @include respond-to(md) {
+      gap: 8px;
+    }
+
+    .swiper_nav_item {
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 195, 135, 0.08);
+      color: #ffc387;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition:
+        background 0.25s ease,
+        transform 0.25s ease;
+
+      &:hover {
+        background: rgba(255, 195, 135, 0.18);
+      }
+
+      &:disabled,
+      &.swiper-button-disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+    }
   }
 
   &_items {

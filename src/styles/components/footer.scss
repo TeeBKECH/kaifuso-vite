@@ -232,6 +232,7 @@
       text-transform: uppercase;
       color: $gold;
       text-decoration: none;
+      transition: color 0.2s ease;
 
       @include respond-to(lg) {
         font-size: 22px;
@@ -247,40 +248,14 @@
       font-size: 18px;
       font-weight: 300;
       line-height: 18px;
-      color: rgba(255, 195, 135, 0.8);
+      color: rgba($gold, 0.8);
       text-decoration: underline;
       text-underline-offset: 2px;
+      transition: color 0.2s ease;
 
       &:hover {
         color: $gold;
       }
-    }
-  }
-
-  &_route {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.35em;
-    font-family: $font-main;
-    font-size: 18px;
-    font-weight: 300;
-    line-height: 1.25;
-    color: rgba(255, 195, 135, 0.8);
-    text-decoration: none;
-
-    &_text {
-      text-decoration: underline;
-      text-decoration-color: currentColor;
-      text-decoration-skip-ink: auto;
-      text-underline-offset: 0.28em;
-      text-decoration-thickness: max(1px, 0.06em);
-      text-underline-position: from-font;
-      -webkit-text-decoration-skip: ink;
-    }
-
-    &:hover {
-      color: $gold;
     }
   }
 

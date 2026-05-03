@@ -7,17 +7,17 @@ extends ../layouts/default.pug
 block content
   -
     const linksPages = [
-      { link: '/main.html', ver: 75, title: 'Главная', note: 'Собраны секции: hero, о ресторане, афиша (swiper), клуб+форма и галерея (swiper), добавлен блок контактов.' },
+      { link: '/main.html', ver: 100, title: 'Главная', note: 'Atmospheric: тёплый курсор + warm-glow с задержкой, затемнение фона hero «свечой», 4-конечные мерцающие звёзды, scroll-parallax фона и медиа клуба, 3D tilt медиа, stagger-появление карточек афиши, Lenis smooth scroll. Эффекты — глобально на всём сайте.' },
       { link: '/about.html', ver: 85, title: 'О нас', note: 'PageIntro-миксин, 3 контент-блока, арт-баннер с оверлеями, gallery-swiper и переиспользуемая секция контактов.' },
-      { link: '/menu.html', ver: 80, title: 'Меню', note: 'Hero и три карточки категорий: меню блюд, винная карта, барное меню.' },
-      { link: '/menu-detail.html', ver: 60, title: 'Меню (внутренняя)', note: 'Черновик: hero, grid-таблица позиций и форма бронирования (ACF repeater-ready).' },
-      { link: '/events.html', ver: 85, title: 'Афиша', note: 'Hero, фильтры, карточки-афиша через отдельный миксин, футер и пагинация.' },
-      { link: '/blog.html', ver: 80, title: 'Блог', note: 'Разводящая в духе афиши: сетка 3×N, карточка с фото сверху, мета, пагинация и «Загрузить еще».' },
-      { link: '/event.html', ver: 85, title: 'Событие', note: 'Hero, постер, форма бронирования с выбором канала связи, блок описания и swiper «Другие события».' },
-      { link: '/contacts.html', ver: 25, title: 'Контакты', note: 'Контактная информация и форма.' },
-      { link: '/404.html', ver: 90, title: '404', note: 'Страница ошибки.' },
-      { link: '/privacy.html', ver: 15, title: 'Политика конфиденциальности', note: 'Типовой юридический текст (нужна адаптация под KAIFUSO).' },
-      { link: '/single.html', ver: 75, title: 'Запись блога', note: 'PageHero, типографика под Gutenberg (.entry-content), оглавление, swiper из 6 карточек как на блоге.' },
+      { link: '/menu.html', ver: 100, title: 'Меню', note: 'Hero и три карточки категорий: меню блюд, винная карта, барное меню.' },
+      { link: '/menu-detail.html', ver: 80, title: 'Меню (внутренняя)', note: 'Hero, grid-таблица позиций (адаптив: на mobile превращается в карточки) и форма бронирования (ACF repeater-ready).' },
+      { link: '/events.html', ver: 90, title: 'Афиша', note: 'Hero, фильтры, карточки-афиша через отдельный миксин, футер и пагинация. Карточки адаптированы под мобильные.' },
+      { link: '/blog.html', ver: 90, title: 'Блог', note: 'Разводящая в духе афиши: сетка 3×N, карточка с фото сверху, мета, пагинация и «Загрузить еще». Кнопка-стрелка «Подробнее» вынесена в миксин Button (модификатор link-arrow).' },
+      { link: '/event.html', ver: 90, title: 'Событие', note: 'Hero, постер, форма бронирования с выбором канала связи, блок описания и swiper «Другие события».' },
+      { link: '/contacts.html', ver: 100, title: 'Контакты', note: 'Контактная информация и форма.' },
+      { link: '/404.html', ver: 90, title: '404', note: 'Страница ошибки по дизайну Figma 2002:5788.' },
+      { link: '/privacy.html', ver: 80, title: 'Политика конфиденциальности', note: 'Типовая структура single: PageHero, типографика под Gutenberg.' },
+      { link: '/single.html', ver: 90, title: 'Запись блога', note: 'PageHero, типографика под Gutenberg (.entry-content), оглавление, swiper «Похожие записи». Контент включает примеры всех типов: параграфы, заголовки, списки, ссылки, жирный/наклонный текст.' },
     ]
     const totalVer = linksPages.reduce((acc, p) => acc + p.ver, 0)
     const avgVer = linksPages.length ? Math.round(totalVer / linksPages.length) : 0

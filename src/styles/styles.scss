@@ -64,11 +64,11 @@ textarea {
   font-family: $font-main;
 }
 
+@import '@/styles/components/route';
 @import '@/styles/components/page';
 @import '@/styles/components/title';
 @import '@/styles/components/scroll-bar';
 @import '@/styles/components/container';
-@import '@/styles/components/icon-external';
 @import '@/styles/components/header';
 @import '@/styles/components/theme-switcher';
 @import '@/styles/components/main';
@@ -99,9 +99,11 @@ textarea {
 @import '@/styles/components/event';
 @import '@/styles/components/about';
 @import '@/styles/components/home';
+@import '@/styles/components/effects';
 @import '@/styles/components/error';
 @import '@/styles/components/contacts';
 @import '@/styles/components/single';
+@import '@/styles/components/privacy';
 @import '@/styles/components/widget';
 @import '@/styles/components/toc';
 @import '@/styles/components/bottom-nav';

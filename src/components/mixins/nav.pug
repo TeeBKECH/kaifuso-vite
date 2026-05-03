@@ -110,9 +110,14 @@ mixin NavMobile(props = {})
       .nav_contacts
         .nav_contacts-group
           a.nav_contacts-title(href=yandexMaps target='_blank' rel='noopener noreferrer nofollow') ул. Кузнецкий мост, д.6/3
-          a.nav_contacts-sub(href=yandexMaps target='_blank' rel='noopener noreferrer nofollow')
-            span Построить маршрут
-            span.nav_contacts-sub-arrow(aria-hidden='true')
+          a.nav_contacts-sub.route-link(
+            href='https://yandex.ru/maps/?text=%D0%9A%D1%83%D0%B7%D0%BD%D0%B5%D1%86%D0%BA%D0%B8%D0%B9%20%D0%BC%D0%BE%D1%81%D1%82%2C%206%2F3'
+            target='_blank'
+            rel='noopener noreferrer nofollow'
+          ) 
+            span.route-link_text Построить маршрут
+            span.route-link_icon(aria-hidden='true')
+              img(src='assets/img/kaifuso/icon-arrow-external.svg' alt='' decoding='async')
         .nav_contacts-group
           a.nav_contacts-title(href='tel:+74957302277') 7 (495) 730 22 77
           a.nav_contacts-sub(href='mailto:info@kaifuso.rest') info@kaifuso.rest

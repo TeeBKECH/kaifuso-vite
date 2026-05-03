@@ -1,0 +1,297 @@
+// === Глобальные «atmospheric» эффекты (для всего сайта) =================
+// Тёплая палитра. Курсор-огонёк + warm-glow с задержкой за курсором.
+// Затемнение «свечи» в hero — только под фоном (внутри .page-intro_bg).
+// 4-конечные звёзды в hero. Scroll-parallax фона hero. Stagger карточек афиши
+// (триггер — IntersectionObserver на секции).
+
+// ── Курсор (тёплая янтарная палитра) ─────────────────────────────────────
+.home-anim_has-cursor {
+  cursor: none;
+
+  a,
+  button,
+  [role='button'] {
+    cursor: none;
+  }
+}
+
+.home-anim_cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 9990;
+  pointer-events: none;
+
+  &.is-hidden {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  &-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(255, 178, 95, 0.95);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition:
+      width 0.25s ease,
+      height 0.25s ease,
+      border-color 0.25s ease,
+      background 0.25s ease;
+    mix-blend-mode: difference;
+  }
+
+  &-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 207, 145, 1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 8px rgba(255, 178, 95, 0.7);
+    mix-blend-mode: difference;
+  }
+
+  &.is-hover #{&}-ring {
+    width: 56px;
+    height: 56px;
+    border-color: rgba(255, 200, 130, 1);
+    background: rgba(255, 178, 95, 0.18);
+  }
+}
+
+// ── Тёплое запаздывающее свечение (всегда видимо) ───────────────────────
+.home-anim_glow {
+  --gx: 50%;
+  --gy: 50%;
+
+  position: fixed;
+  inset: 0;
+  z-index: 9985;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: radial-gradient(
+    400px circle at var(--gx) var(--gy),
+    rgba(255, 178, 95, 0.28) 0%,
+    rgba(255, 178, 95, 0.14) 24%,
+    rgba(255, 178, 95, 0.06) 48%,
+    transparent 72%
+  );
+}
+
+// ── Hero: лёгкая тёплая дымка над фоном (под контентом) ─────────────────
+.page-intro {
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.page-intro::after {
+  content: '';
+  position: absolute;
+  inset: -10%;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    radial-gradient(50% 40% at 50% 90%, rgba(255, 167, 80, 0.1) 0%, transparent 70%),
+    radial-gradient(35% 30% at 20% 30%, rgba(255, 195, 135, 0.05) 0%, transparent 60%);
+  mix-blend-mode: soft-light;
+  animation: home-anim-fog 22s ease-in-out infinite alternate;
+}
+
+// ── Затемнение под фоном hero (внутри .page-intro_bg) ───────────────────
+.page-intro_bg {
+  --cx: 50%;
+  --cy: 50%;
+}
+
+.home-anim_dim {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: rgba(8, 5, 3, 0.78);
+  mask-image: radial-gradient(
+    circle 320px at var(--cx) var(--cy),
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 35%,
+    rgba(0, 0, 0, 0.85) 75%,
+    black 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle 320px at var(--cx) var(--cy),
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 35%,
+    rgba(0, 0, 0, 0.85) 75%,
+    black 100%
+  );
+}
+
+// ── Параллакс фона hero (img внутри .page-intro_bg) ─────────────────────
+// Высота +80px и width 100%, чтобы при сдвиге не было пустых краёв.
+.page-intro_bg img {
+  height: calc(100% + 80px);
+  width: 100%;
+  object-fit: cover;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+.home-club_media {
+  will-change: transform;
+}
+
+// ── Soft fade-up для hero-контента ──────────────────────────────────────
+.home-anim_fade {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--i, 0) * 130ms + 200ms);
+
+  &.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ── Stagger карточек афиши ──────────────────────────────────────────────
+// Swiper позиционирует .home-afisha_slide через свой transform — НЕ трогаем
+// slide. Анимируем внутреннюю карточку (.home-afisha_card).
+.home-afisha_card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--i, 0) * 110ms);
+}
+
+.home-afisha.is-revealed .home-afisha_slide .home-afisha_card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+// ── 4-конечные звёзды в hero (мерцают, без перемещения) ─────────────────
+.home-anim_stars {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.home-anim_star {
+  --size: 14px;
+
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  background: rgba(255, 217, 165, 1);
+  clip-path: polygon(
+    50% 0%,
+    54% 46%,
+    100% 50%,
+    54% 54%,
+    50% 100%,
+    46% 54%,
+    0% 50%,
+    46% 46%
+  );
+  filter: drop-shadow(0 0 6px rgba(255, 178, 95, 0.85))
+    drop-shadow(0 0 14px rgba(255, 178, 95, 0.4));
+  opacity: 0;
+  will-change: transform, opacity;
+  // Анимация назначается из JS через element.style.animation
+  // (один цикл с собственной длительностью, fill-mode: both).
+}
+
+// === Keyframes ============================================================
+@keyframes home-anim-twinkle {
+  0% {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.4);
+  }
+
+  35% {
+    opacity: 1;
+    transform: rotate(45deg) scale(1);
+  }
+
+  65% {
+    opacity: 1;
+    transform: rotate(60deg) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.5);
+  }
+}
+
+@keyframes home-anim-fog {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(2%, -1.5%);
+  }
+}
+
+// === Reduced motion =======================================================
+@media (prefers-reduced-motion: reduce) {
+  .home-anim_cursor,
+  .home-anim_glow,
+  .home-anim_stars,
+  .home-anim_dim {
+    display: none !important;
+  }
+
+  .home-anim_has-cursor {
+    cursor: auto;
+  }
+
+  .page-intro::after {
+    animation: none;
+  }
+
+  .page-intro_bg img,
+  .home-club_media {
+    transform: none !important;
+  }
+
+  .home-anim_fade,
+  .home-afisha_card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+// === No-hover устройства (без custom cursor / glow / звёзд) ==============
+@media (hover: none), (pointer: coarse) {
+  .home-anim_cursor,
+  .home-anim_glow,
+  .home-anim_stars {
+    display: none !important;
+  }
+
+  .home-anim_has-cursor {
+    cursor: auto;
+  }
+
+  // На тачах оставляем затемнение, но без mask — статичное лёгкое
+  .home-anim_dim {
+    background: rgba(8, 5, 3, 0.5);
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}

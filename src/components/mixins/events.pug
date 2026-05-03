@@ -34,6 +34,4 @@ mixin EventsPosterCard(props = {})
       .events-card_line
         span.events-card_line-label line up
         p.events-card_line-value= lineup
-      a.events-card_more(href=href)
-        span.events-card_more-text Подробнее
-        span.events-card_more-arrow(aria-hidden='true')
+      +Button('Подробнее', ['ghost-gold', 'sm'], { arrow: 'right' })(href=href class='events-card_more')

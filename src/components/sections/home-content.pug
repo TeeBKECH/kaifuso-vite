@@ -1,0 +1,197 @@
+//- Общий контент главной страницы (используется в main.pug и в main-1/2/3.pug — анимационных вариантах).
+//- Параметр variant — необязательный модификатор-класс на корневом враппере (например 'home-anim--1').
+
+mixin HomeContent(variantClass = '')
+  -
+    const afishaCards = [
+      {
+        date: '22 марта',
+        time: 'Сбор гостей в 20:00',
+        title: 'PERFOMANCE<br>SHOW',
+        text: 'Особенный вечер, в котором аутентичная кухня, атмосфера и внимание к деталям соединяются в единое впечатление',
+        lineup: 'LOVA SHOW, DJ BLANC',
+        image: 'assets/img/kaifuso/main/afisha-main.jpg',
+        href: '/event.html',
+        open: true
+      },
+      {
+        date: '18/03',
+        time: 'Сбор гостей в 22:00',
+        title: 'THE GREAT<br>SHOW',
+        text: 'Особенный вечер, в котором аутентичная кухня, атмосфера и внимание к деталям соединяются в единое впечатление',
+        lineup: 'DJ BLANC',
+        image: 'assets/img/kaifuso/main/afisha-card-3.jpg',
+        href: '/event.html'
+      },
+      {
+        date: '31/12',
+        time: 'Сбор гостей в 22:00',
+        title: 'НОВОГОДНЯЯ<br>НОЧЬ 2026',
+        text: 'Особенный вечер, в котором аутентичная кухня, атмосфера и внимание к деталям соединяются в единое впечатление',
+        lineup: 'ANNA ASTI, ASET',
+        image: 'assets/img/kaifuso/main/afisha-card-2.jpg',
+        href: '/event.html'
+      },
+      {
+        date: '14/02',
+        time: 'Сбор гостей в 21:00',
+        title: 'VALENTINE<br>SPECIAL',
+        text: 'Камерный вечер с авторским сетом, живой музыкой и атмосферой, в которой хочется задержаться',
+        lineup: 'LIVE BAND, DJ SET',
+        image: 'assets/img/kaifuso/main/afisha-main.jpg',
+        href: '/event.html'
+      },
+      {
+        date: '08/04',
+        time: 'Сбор гостей в 20:30',
+        title: 'SPRING<br>SESSION',
+        text: 'Сезонное меню, винная пара и лёгкий вечер без спешки — для тех, кто ценит вкус и тишину',
+        lineup: "CHEF'S TABLE",
+        image: 'assets/img/kaifuso/main/afisha-card-2.jpg',
+        href: '/event.html'
+      }
+    ]
+
+    const aboutPhotos = [
+      { src: 'assets/img/kaifuso/main/about-photo-1.jpg', mod: '' },
+      { src: 'assets/img/kaifuso/main/about-photo-2.jpg', mod: 'wide' },
+      { src: 'assets/img/kaifuso/main/about-photo-3.jpg', mod: '' },
+      { src: 'assets/img/kaifuso/main/about-photo-4.jpg', mod: '' },
+      { src: 'assets/img/kaifuso/main/about-photo-1.jpg', mod: '' },
+      { src: 'assets/img/kaifuso/main/about-photo-2.jpg', mod: 'wide' },
+      { src: 'assets/img/kaifuso/main/about-photo-3.jpg', mod: '' },
+      { src: 'assets/img/kaifuso/main/about-photo-4.jpg', mod: '' }
+    ]
+
+    const gallerySlides = [
+      'assets/img/kaifuso/main/gallery-1.jpg',
+      'assets/img/kaifuso/main/club.jpg',
+      'assets/img/kaifuso/about/interior.jpg',
+      'assets/img/kaifuso/main/gallery-1.jpg',
+      'assets/img/kaifuso/about/kitchen.jpg',
+      'assets/img/kaifuso/about/hero.jpg'
+    ]
+
+  div(class=variantClass ? `home-anim ${variantClass}` : '')
+    +PageIntro({
+      mediaType: 'image',
+      mediaSrc: 'assets/img/kaifuso/main/hero.jpg',
+      kicker: 'Азиатский ресторан-клуб',
+      title: 'KAIFUSO',
+      textHtml: 'Ресторан-клуб с авторской азиатской кухней, живой музыкой<br>и атмосферой, которую сложно забыть. Место, куда хочется возвращаться.',
+      buttonText: 'Забронировать',
+      buttonStyles: ['ghost-gold', 'lg'],
+      rootClass: 'page-intro--kaifuso home-hero',
+      actionModal: 'modal-form',
+      overlay: true
+    })
+
+    section.home-about(aria-labelledby='home-about-title')
+      .home-about_decor__wrapper
+        .home-about_decor.home-about_decor--left(aria-hidden='true')
+          img(src='assets/img/kaifuso/main/about-left.png' alt='')
+        .home-about_decor.home-about_decor--right(aria-hidden='true')
+          img(src='assets/img/kaifuso/main/about-right-bird.png' alt='')
+      .container
+        .home-about_card
+          .home-about_text
+            h2#home-about-title.home-about_title мир изысканных вкусов
+            .home-about_paragraphs
+              p.home-about_paragraph KAIFUSO — это ресторан и клубное пространство, в котором гастрономия, эстетика и атмосфера соединяются в единое впечатление. Здесь важна не только кухня, но и то, как вы себя чувствуете в моменте — от первого шага в зал до последних минут вечера.
+              p.home-about_paragraph Авторская кухня, выверенная подача и внимательное отношение к деталям формируют основу опыта, в котором вкус, визуальная эстетика и сервис работают как единое целое. Пространство продумано так, чтобы создавать ощущение уюта, приватности и одновременно — легкой динамики живого города.
+              p.home-about_paragraph Это пространство, куда приходят не только за ужином, а за состоянием.
+
+    section.home-about-gallery(aria-label='Фотографии пространства ресторана')
+      .home-about-gallery_stage
+        .home-about-gallery_track
+          each photo in aboutPhotos
+            .home-about-gallery_slide(class=photo.mod ? `home-about-gallery_slide--${photo.mod}` : '')
+              img(src=photo.src alt='Интерьер KAIFUSO')
+        nav.home-about-gallery_nav.swiper_nav(aria-label='Навигация по фото')
+          button.swiper_nav_item.swiper_nav_item-prev.home-about-gallery_nav-prev(type='button' aria-label='Назад')
+            span.gallery_nav_arrow.gallery_nav_arrow--left(aria-hidden='true')
+          button.swiper_nav_item.swiper_nav_item-next.home-about-gallery_nav-next(type='button' aria-label='Вперёд')
+            span.gallery_nav_arrow.gallery_nav_arrow--right(aria-hidden='true')
+
+    section.home-afisha(aria-labelledby='home-afisha-title')
+      .container
+        .home-afisha_inner
+          .home-afisha_head
+            h2#home-afisha-title.home-afisha_title Афиша
+            .home-afisha_actions
+              +Button('Все события', ['ghost-gold', 'sm'])(href='/events.html')
+              .home-afisha_nav.swiper_nav(role='group' aria-label='Переключение события')
+                button.swiper_nav_item.swiper_nav_item-prev.home-afisha_nav-prev(type='button' aria-label='Предыдущее событие')
+                  span.gallery_nav_arrow.gallery_nav_arrow--left(aria-hidden='true')
+                button.swiper_nav_item.swiper_nav_item-next.home-afisha_nav-next(type='button' aria-label='Следующее событие')
+                  span.gallery_nav_arrow.gallery_nav_arrow--right(aria-hidden='true')
+          .home-afisha_list(data-afisha-list)
+            each item, idx in afishaCards
+              .home-afisha_slide(data-afisha-slide data-afisha-index=idx)
+                article.home-afisha_card
+                  a.home-afisha_card-media(href=item.href aria-label=item.title.replace(/<br\s*\/?>/g, ' '))
+                    img(src=item.image alt=item.title.replace(/<br\s*\/?>/g, ' '))
+                  .home-afisha_card-badge
+                    span= item.date
+                    span.home-afisha_card-badge-dot
+                    span= item.time
+                  .home-afisha_card-info
+                    .home-afisha_card-meta
+                      span= item.date
+                      span.home-afisha_card-meta-dot(aria-hidden='true')
+                      span= item.time
+                    .home-afisha_card-headline
+                      h3.home-afisha_card-title!= item.title
+                      p.home-afisha_card-text= item.text
+                    .home-afisha_card-line
+                      span.home-afisha_card-line-label Line up
+                      p.home-afisha_card-line-value= item.lineup
+                    a.home-afisha_card-more(href=item.href)
+                      span Подробнее
+                      span.home-afisha_card-more-arrow(aria-hidden='true')
+
+    section.home-club(aria-labelledby='home-club-title')
+      .container
+        .home-club_intro
+          .home-club_content
+            h2#home-club-title.home-club_title Клуб
+            .home-club_body
+              .home-club_paragraphs
+                p.home-club_text.
+                  Клуб создан для тех, кто ценит приватность, атмосферу и уровень. Здесь проходят камерные вечера, живые выступления, интеллектуальные встречи и события, в которых важна не массовость, а качество аудитории и впечатления.
+                  Пространство KAIFUSO продумано до мелочей: свет, звук, материалы и ритм зала создают ощущение уюта и одновременно статуса.
+                p.home-club_text.
+                  KAIFUSO — это клуб для тех, кто выбирает не место, а окружение.
+                  Пространство, где пересекаются идеи, люди и энергия нового времени.
+              +Button('Подробнее', ['ghost-gold', 'md'])(class='home-club_more' href='/about.html')
+          .home-club_media
+            img(src='assets/img/kaifuso/main/club.jpg' alt='Клуб KAIFUSO')
+      .container
+        .home-club_form-wrap
+          .home-club_form
+            .home-club_form-head
+              h2.home-club_form-title!= 'Ваше мероприятие<br>в KAIFUSO'
+              p.home-club_form-subtitle Проведите ваше событие в атмосфере изысканной китайской кухни и безупречного сервиса
+            .home-club_form-body
+              +CtaEventForm({
+                action: '#',
+                privacyVariant: 'full',
+                buttonText: 'Отправить заявку',
+                buttonStyles: ['ghost-gold', 'lg']
+              })
+
+    section.home-gallery(aria-labelledby='home-gallery-title')
+      h2#home-gallery-title.sr-only Галерея
+      .home-gallery_stage
+        .home-gallery_track
+          each slide in gallerySlides
+            a.home-gallery_slide(href=slide data-fancybox='home-gallery')
+              img(src=slide alt='KAIFUSO gallery')
+        nav.home-gallery_nav.swiper_nav(aria-label='Навигация по галерее')
+          button.swiper_nav_item.swiper_nav_item-prev.home-gallery_nav-prev(type='button' aria-label='Назад')
+            span.gallery_nav_arrow.gallery_nav_arrow--left(aria-hidden='true')
+          button.swiper_nav_item.swiper_nav_item-next.home-gallery_nav-next(type='button' aria-label='Вперёд')
+            span.gallery_nav_arrow.gallery_nav_arrow--right(aria-hidden='true')
+        .home-gallery_pagination.swiper-pagination
+
+    include ./contacts-section.pug

@@ -270,7 +270,7 @@
         #0f0101;
 
       @include respond-to(lg) {
-        padding-top: 72px;
+        padding-top: var(--height-h, 81px);
       }
     }
   }
@@ -312,7 +312,6 @@
 
     .nav--site-modal {
       width: 100%;
-      max-width: $container-width;
       margin: 0 auto;
       padding: 0 40px;
       box-sizing: border-box;

@@ -147,7 +147,9 @@
       line-height: 600px;
       font-weight: 400;
       letter-spacing: 0;
-      color: #fff;
+      // На тёмно-красном фоне overlay c приглушённым белым даёт тёплое
+      // сквозное свечение цифр (как в Figma 2002:5806 — тёмная заливка).
+      color: rgba(255, 255, 255, 0.5);
       text-transform: uppercase;
       white-space: nowrap;
       mix-blend-mode: overlay;

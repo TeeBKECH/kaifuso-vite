@@ -23,6 +23,11 @@ export function attachCustomScrollbar(
   // Скрываем визуально нативный скролл, но оставляем функциональность
   container.classList.add('u-hide-native-scroll')
 
+  // Lenis (глобальный smooth-scroll) перехватывает wheel-событие у window и
+  // не пропускает его во вложенные скроллируемые контейнеры. Этот атрибут
+  // штатный — Lenis игнорирует wheel/touch-события внутри элемента.
+  container.setAttribute('data-lenis-prevent', '')
+
   // Создаём DOM кастомного скролла
   const sc = document.createElement('div')
   sc.className = 'cs-scroll'
@@ -229,6 +234,7 @@ export function attachCustomScrollbarHorizontal(
   wrap.appendChild(container)
 
   container.classList.add('u-hide-native-scroll-x')
+  container.setAttribute('data-lenis-prevent-horizontal', '')
 
   const sc = document.createElement('div')
   sc.className = 'cs-scroll cs-scroll--horizontal'

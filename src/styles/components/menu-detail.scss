@@ -2,13 +2,13 @@
   position: relative;
   background: #0f0101;
 
-  &_hero {
-    border-bottom: 0.4px solid rgba(255, 187, 119, 0.16);
-  }
-
   &_body {
     padding-top: 16px;
     padding-bottom: 60px;
+
+    @include respond-to(md) {
+      padding-bottom: 40px;
+    }
 
     &_container {
       display: grid;
@@ -18,6 +18,10 @@
       @include respond-to(xl) {
         grid-template-columns: 1fr;
       }
+
+      @include respond-to(md) {
+        gap: 24px;
+      }
     }
   }
 
@@ -26,10 +30,26 @@
     border: 1px solid rgba(255, 195, 135, 0.08);
     padding: 60px 48px;
 
-    &_title {
+    @include respond-to(md) {
+      border-radius: 28px;
+      padding: 32px 24px;
+    }
+
+    @include respond-to(sm) {
+      padding: 24px 16px;
+    }
+
+    &-title {
       margin: 0;
       color: transparent;
-      background: linear-gradient(141deg, #c4ae75 4%, #e2da9b 7%, #c8b375 9%, #ece7ac 14%, #c7ae6e 24%);
+      background: linear-gradient(
+        141deg,
+        #c4ae75 4%,
+        #e2da9b 7%,
+        #c8b375 9%,
+        #ece7ac 14%,
+        #c7ae6e 24%
+      );
       -webkit-background-clip: text;
       background-clip: text;
       font-family: $font-heading;
@@ -37,6 +57,14 @@
       font-weight: 400;
       line-height: 1.33;
       text-transform: uppercase;
+
+      @include respond-to(md) {
+        font-size: 28px;
+      }
+
+      @include respond-to(sm) {
+        font-size: 24px;
+      }
     }
 
     &_head,
@@ -44,16 +72,17 @@
       display: grid;
       grid-template-columns: 312px 172px 50px 108px 140px;
       column-gap: 19px;
-
-      @include respond-to(sm) {
-        grid-template-columns: 1fr;
-        row-gap: 8px;
-      }
     }
 
     &_head {
       margin-top: 60px;
       margin-bottom: 40px;
+
+      @include respond-to(md) {
+        // На мобильных «шапку» таблицы прячем — подписи к полям
+        // выводятся в каждой карточке-строке через data-label.
+        display: none;
+      }
 
       &-cell {
         font-family: $font-main;
@@ -69,6 +98,40 @@
       display: flex;
       flex-direction: column;
       gap: 32px;
+
+      @include respond-to(md) {
+        margin-top: 28px;
+        gap: 0;
+      }
+    }
+
+    &_row {
+      @include respond-to(md) {
+        // Карточный вид: имя сверху на всю ширину, ниже регион/год/объём
+        // в одну строку, цена — у правого края на следующей строке.
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas:
+          'name name name'
+          'region region region'
+          'vintage volume price';
+        column-gap: 14px;
+        row-gap: 8px;
+        padding: 18px 0;
+        border-bottom: 0.4px solid rgba(255, 187, 119, 0.12);
+      }
+
+      @include respond-to(sm) {
+        grid-template-columns: 1fr 1fr auto;
+        column-gap: 10px;
+        row-gap: 6px;
+        padding: 14px 0;
+      }
+
+      &:last-child {
+        @include respond-to(md) {
+          border-bottom: 0;
+        }
+      }
     }
 
     &_cell {
@@ -79,19 +142,68 @@
       line-height: 1.2;
       color: rgba(255, 195, 135, 0.8);
 
+      @include respond-to(md) {
+        font-size: 15px;
+      }
+
+      // Подпись поля (data-label) видна только в мобильном карточном виде
+      &::before {
+        content: attr(data-label) ': ';
+        display: none;
+        color: rgba(255, 195, 135, 0.5);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin-right: 6px;
+      }
+
+      @include respond-to(md) {
+        &[data-label]::before {
+          display: inline;
+        }
+      }
+
       &--name {
         color: #ffc387;
         text-transform: uppercase;
+
+        @include respond-to(md) {
+          grid-area: name;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 1.3;
+        }
+      }
+
+      &--region {
+        @include respond-to(md) {
+          grid-area: region;
+        }
+      }
+
+      &--vintage {
+        @include respond-to(md) {
+          grid-area: vintage;
+        }
+      }
+
+      &--volume {
+        @include respond-to(md) {
+          grid-area: volume;
+        }
       }
 
       &--price {
         justify-self: end;
         text-align: right;
         color: #ffc387;
+        white-space: nowrap;
 
         @include respond-to(md) {
-          justify-self: start;
-          text-align: left;
+          grid-area: price;
+          justify-self: end;
+          text-align: right;
+          font-weight: 400;
         }
       }
     }
@@ -107,8 +219,17 @@
     );
     backdrop-filter: blur(50px);
     -webkit-backdrop-filter: blur(50px);
-    min-height: 548px;
     padding: 60px 48px;
+    height: fit-content;
+
+    @include respond-to(md) {
+      border-radius: 32px;
+      padding: 32px 24px;
+    }
+
+    @include respond-to(sm) {
+      padding: 24px 16px;
+    }
 
     &-title {
       margin: 0;
@@ -118,9 +239,24 @@
       line-height: 1.33;
       text-transform: uppercase;
       color: transparent;
-      background: linear-gradient(112deg, #c4ae75 4%, #e2da9b 7%, #c8b375 9%, #ece7ac 14%, #c7ae6e 24%);
+      background: linear-gradient(
+        112deg,
+        #c4ae75 4%,
+        #e2da9b 7%,
+        #c8b375 9%,
+        #ece7ac 14%,
+        #c7ae6e 24%
+      );
       -webkit-background-clip: text;
       background-clip: text;
+
+      @include respond-to(md) {
+        font-size: 28px;
+      }
+
+      @include respond-to(sm) {
+        font-size: 24px;
+      }
     }
 
     &-body {
@@ -157,8 +293,6 @@
           padding-top: 24px;
         }
       }
-
-      @include kaifuso-booking-form-c-select;
 
       &-icon {
         position: absolute;

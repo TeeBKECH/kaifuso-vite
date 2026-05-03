@@ -50,6 +50,51 @@
     }
   }
 
+  // Кнопка с CSS-стрелкой (right/left/up/down). Пилюля + chevron справа.
+  &--arrow {
+    gap: 4px;
+  }
+
+  &_arrow {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    flex-shrink: 0;
+    display: block;
+    color: inherit;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      top: 5px;
+      left: 4px;
+      border-top: 1.4px solid currentColor;
+      border-right: 1.4px solid currentColor;
+      transform-origin: center;
+    }
+
+    &--right::before {
+      transform: rotate(45deg);
+    }
+
+    &--left::before {
+      transform: rotate(-135deg);
+      left: 6px;
+    }
+
+    &--up::before {
+      transform: rotate(-45deg);
+      top: 6px;
+    }
+
+    &--down::before {
+      transform: rotate(135deg);
+      top: 4px;
+    }
+  }
+
   // Круглая кнопка-навигация (как у swiper: иконка, светлый круг)
   &--nav {
     @include onlyDescHover() {

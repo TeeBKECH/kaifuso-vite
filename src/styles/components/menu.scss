@@ -24,19 +24,19 @@
     flex: none;
 
     &_link {
-      color: $light-gold;
-      font-size: 18px;
-      font-weight: 500;
-      line-height: 1;
-      cursor: pointer;
+      color: $gold;
       font-family: $font-main;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      transition: all 0.2s linear;
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 18px;
+      letter-spacing: 0;
+      text-transform: none;
       white-space: nowrap;
+      transition: all 0.2s linear;
 
-      @include respond-to(xl-2) {
-        font-size: 13px;
+      @include respond-to(xl) {
+        font-size: 16px;
+        line-height: 16px;
       }
 
       &:hover {
@@ -250,6 +250,10 @@
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
+
+        @include respond-to(lg) {
+          padding: 12px 16px;
+        }
       }
 
       // Кнопка раскрытия подменю (иконка-шеврон)

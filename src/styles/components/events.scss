@@ -8,14 +8,18 @@
     z-index: 1;
     pointer-events: none;
     background:
-      radial-gradient(82% 100% at 50% 50%, rgba(63, 12, 0, 1) 0%, rgba(39, 6, 1, 1) 50%, rgba(15, 1, 1, 1) 100%),
+      radial-gradient(
+        82% 100% at 50% 50%,
+        rgba(63, 12, 0, 1) 0%,
+        rgba(39, 6, 1, 1) 50%,
+        rgba(15, 1, 1, 1) 100%
+      ),
       linear-gradient(90deg, rgba(255, 167, 79, 0.04) 0%, rgba(255, 167, 79, 0.04) 100%);
   }
 
   &_hero {
     position: relative;
     z-index: 3;
-    border-bottom: 0.4px solid rgba(255, 187, 119, 0.16);
 
     &_container {
       padding-bottom: 32px;
@@ -30,6 +34,7 @@
     justify-content: space-between;
     gap: 20px;
     padding-bottom: 32px;
+    border-bottom: 0.4px solid rgba(255, 187, 119, 0.16);
 
     @include respond-to(lg) {
       flex-direction: column;
@@ -197,6 +202,10 @@
     border-radius: 24px;
   }
 
+  @include respond-to(sm) {
+    border-radius: 20px;
+  }
+
   &_media {
     width: 48%;
     min-height: 450px;
@@ -206,6 +215,14 @@
     @include respond-to(md) {
       width: 46%;
       min-height: 390px;
+    }
+
+    @include respond-to(sm) {
+      min-height: 320px;
+    }
+
+    @include respond-to(xs) {
+      min-height: 260px;
     }
 
     img {
@@ -239,6 +256,18 @@
       gap: 20px;
       padding: 20px 16px;
     }
+
+    @include respond-to(sm) {
+      min-height: 320px;
+      gap: 14px;
+      padding: 14px 12px;
+    }
+
+    @include respond-to(xs) {
+      min-height: 260px;
+      gap: 10px;
+      padding: 12px 10px;
+    }
   }
 
   &_meta {
@@ -252,6 +281,11 @@
     justify-content: space-between;
     gap: 8px;
 
+    @include respond-to(sm) {
+      min-height: 36px;
+      padding: 8px 12px;
+    }
+
     &-date,
     &-time {
       color: #ffc387;
@@ -260,6 +294,10 @@
       font-weight: 350;
       line-height: 1;
       white-space: nowrap;
+
+      @include respond-to(sm) {
+        font-size: 13px;
+      }
     }
 
     &-plus {
@@ -294,7 +332,14 @@
   &_title {
     margin: 0;
     color: transparent;
-    background: linear-gradient(112deg, #c4ae75 4%, #e2da9b 7%, #c8b375 9%, #ece7ac 14%, #c7ae6e 24%);
+    background: linear-gradient(
+      112deg,
+      #c4ae75 4%,
+      #e2da9b 7%,
+      #c8b375 9%,
+      #ece7ac 14%,
+      #c7ae6e 24%
+    );
     -webkit-background-clip: text;
     background-clip: text;
     font-family: $font-heading;
@@ -307,6 +352,15 @@
       font-size: 30px;
       line-height: 1.25;
     }
+
+    @include respond-to(sm) {
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    @include respond-to(xs) {
+      font-size: 18px;
+    }
   }
 
   &_line {
@@ -314,9 +368,20 @@
     flex-direction: column;
     gap: 10px;
 
+    @include respond-to(sm) {
+      gap: 6px;
+    }
+
     &-label {
       color: transparent;
-      background: linear-gradient(163deg, #c4ae75 4%, #e2da9b 7%, #c8b375 9%, #ece7ac 14%, #c7ae6e 24%);
+      background: linear-gradient(
+        163deg,
+        #c4ae75 4%,
+        #e2da9b 7%,
+        #c8b375 9%,
+        #ece7ac 14%,
+        #c7ae6e 24%
+      );
       -webkit-background-clip: text;
       background-clip: text;
       font-family: $font-heading;
@@ -324,6 +389,10 @@
       font-weight: 400;
       line-height: 1;
       text-transform: uppercase;
+
+      @include respond-to(sm) {
+        font-size: 12px;
+      }
     }
 
     &-value {
@@ -333,47 +402,18 @@
       font-size: 14px;
       font-weight: 350;
       line-height: 1.43;
+
+      @include respond-to(sm) {
+        font-size: 12px;
+        line-height: 1.35;
+      }
     }
   }
 
-  &_more {
-    min-height: 44px;
-    border-radius: 65px;
-    padding: 14px 16px;
-    background: rgba(255, 195, 135, 0.08);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    text-decoration: none;
-    color: #ffc387;
-    width: fit-content;
-
-    &-text {
-      font-family: $font-main;
-      font-size: 16px;
-      font-weight: 350;
-      line-height: 1;
-      opacity: 0.8;
-    }
-
-    &-arrow {
-      width: 16px;
-      height: 16px;
-      position: relative;
-
-      &::before {
-        content: '';
-        position: absolute;
-        width: 6px;
-        height: 6px;
-        border-top: 1.4px solid currentColor;
-        border-right: 1.4px solid currentColor;
-        transform: rotate(45deg);
-        top: 5px;
-        left: 4px;
-      }
-    }
+  // .events-card_more — это .button.button--ghost-gold.button--sm.button--arrow
+  // (см. mixins/events.pug). Здесь — только обёрточные правила позиционирования.
+  &_more.button {
+    align-self: flex-start;
   }
 }
 

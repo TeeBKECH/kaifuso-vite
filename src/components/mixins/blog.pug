@@ -22,6 +22,4 @@ mixin BlogPostCard(item)
         span.blog-post-card_meta-item
           img.blog-post-card_meta-icon(src='assets/img/kaifuso/icon-blog-clock.svg' width='16' height='16' alt='')
           span.blog-post-card_meta-text= item.readTime
-      a.blog-post-card_more(href=item.href)
-        span.blog-post-card_more-text Подробнее
-        span.blog-post-card_more-arrow(aria-hidden='true')
+      +Button('Подробнее', ['ghost-gold', 'sm'], { arrow: 'right' })(href=item.href class='blog-post-card_more')

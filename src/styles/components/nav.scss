@@ -55,10 +55,10 @@
 
     @include respond-to(lg) {
       display: flex;
+      gap: 24px;
     }
 
     @include respond-to(md) {
-      gap: 48px;
     }
   }
 

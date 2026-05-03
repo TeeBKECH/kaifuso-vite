@@ -6,12 +6,15 @@ header.header
         +NavMain()
     .header_tray
       .header_contacts
-        a.header_line.header_line--phone(href='tel:+74957302277') 7 (495) 730 22 77
-        a.header_line.header_line--address(
+        a.header_line.header_line--phone(href='tel:+74957302277') +7 (495) 730 22 77
+        a.header_line.header_line--address.route-link(
           href='https://yandex.ru/maps/?text=%D0%9A%D1%83%D0%B7%D0%BD%D0%B5%D1%86%D0%BA%D0%B8%D0%B9%20%D0%BC%D0%BE%D1%81%D1%82%2C%206%2F3'
           target='_blank'
           rel='noopener noreferrer nofollow'
-        ) ул. Кузнецкий мост, д.6/3
+        ) 
+          span.route-link_text ул. Кузнецкий мост, д.6/3
+          span.route-link_icon(aria-hidden='true')
+            img(src='assets/img/kaifuso/icon-arrow-external.svg' alt='' decoding='async')
         +Button('Забронировать', ['ghost-gold', 'md'])(data-modal='modal-form' data-modal-action='open' class='header_booking')
       a.header_iconbtn.header_iconbtn--phone(
         href='tel:+74957302277'

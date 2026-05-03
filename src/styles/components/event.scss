@@ -101,7 +101,14 @@
       line-height: 1.33;
       text-transform: uppercase;
       color: transparent;
-      background: linear-gradient(112deg, #c4ae75 4%, #e2da9b 7%, #c8b375 9%, #ece7ac 14%, #c7ae6e 24%);
+      background: linear-gradient(
+        112deg,
+        #c4ae75 4%,
+        #e2da9b 7%,
+        #c8b375 9%,
+        #ece7ac 14%,
+        #c7ae6e 24%
+      );
       -webkit-background-clip: text;
       background-clip: text;
 
@@ -144,8 +151,6 @@
           padding-top: 24px;
         }
       }
-
-      @include kaifuso-booking-form-c-select;
 
       &-icon {
         position: absolute;
@@ -296,7 +301,14 @@
     &-item-value {
       margin: 0;
       color: transparent;
-      background: linear-gradient(157deg, #c4ae75 4%, #e2da9b 7%, #c8b375 9%, #ece7ac 14%, #c7ae6e 24%);
+      background: linear-gradient(
+        157deg,
+        #c4ae75 4%,
+        #e2da9b 7%,
+        #c8b375 9%,
+        #ece7ac 14%,
+        #c7ae6e 24%
+      );
       -webkit-background-clip: text;
       background-clip: text;
       font-family: $font-heading;
@@ -387,7 +399,14 @@
     &-title {
       margin: 0;
       color: transparent;
-      background: linear-gradient(157deg, #c4ae75 4%, #e2da9b 7%, #c8b375 9%, #ece7ac 14%, #c7ae6e 24%);
+      background: linear-gradient(
+        157deg,
+        #c4ae75 4%,
+        #e2da9b 7%,
+        #c8b375 9%,
+        #ece7ac 14%,
+        #c7ae6e 24%
+      );
       -webkit-background-clip: text;
       background-clip: text;
       font-family: $font-heading;

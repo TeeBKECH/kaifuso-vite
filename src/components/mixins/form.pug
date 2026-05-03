@@ -38,13 +38,7 @@ mixin FormModal()
                 { value: '3', label: '3 гостя' },
                 { value: '4', label: '4 гостя' },
                 { value: '5', label: '5 гостей' },
-                { value: '6', label: '6 гостей' },
-                { value: '7', label: '7 гостей' },
-                { value: '8', label: '8 гостей' },
-                { value: '9', label: '9 гостей' },
-                { value: '10', label: '10 гостей' },
-                { value: '11', label: '11 гостей' },
-                { value: '12', label: '12 гостей' }
+                { value: 'more', label: 'более 5 гостей' },
               ],
               selected: []
             })
@@ -103,13 +97,7 @@ mixin BookingForm(props)
       { value: '3', label: '3 гостя' },
       { value: '4', label: '4 гостя' },
       { value: '5', label: '5 гостей' },
-      { value: '6', label: '6 гостей' },
-      { value: '7', label: '7 гостей' },
-      { value: '8', label: '8 гостей' },
-      { value: '9', label: '9 гостей' },
-      { value: '10', label: '10 гостей' },
-      { value: '11', label: '11 гостей' },
-      { value: '12', label: '12 гостей' },
+      { value: 'more', label: 'более 5 гостей' },
     ]
   - const c = (name = '') => (name ? `${rootClass}-${name}` : rootClass)
   h2(class=c('title'))= title
