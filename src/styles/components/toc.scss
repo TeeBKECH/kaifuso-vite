@@ -10,7 +10,12 @@
   &-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
     @include respond-to(lg) {
     }
@@ -20,6 +25,9 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
   &__link {
@@ -27,12 +35,32 @@
     line-height: 1.2;
     color: $prime;
     font-weight: 600;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.35;
+    color: rgba(255, 195, 135, 0.88);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    width: fit-content;
+
+    &:hover {
+      color: #ffc387;
+      border-bottom-color: rgba(255, 195, 135, 0.35);
+    }
   }
 
   &-sub {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    margin: 8px 0 0 10px;
+    padding: 0 0 0 12px;
+    border-left: 1px solid rgba(255, 195, 135, 0.15);
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 
     @include respond-to(lg) {
       gap: 8px;
@@ -43,6 +71,9 @@
     }
 
     &__item {
+      list-style: none;
+      margin: 0;
+      padding: 0;
     }
 
     &__link {
@@ -50,6 +81,16 @@
       line-height: 1;
       color: $prime;
       font-weight: 400;
+      font-size: 14px;
+      font-weight: 350;
+      line-height: 1.35;
+      color: rgba(255, 195, 135, 0.65);
+      text-decoration: none;
+      width: fit-content;
+
+      &:hover {
+        color: rgba(255, 195, 135, 0.92);
+      }
     }
   }
 }

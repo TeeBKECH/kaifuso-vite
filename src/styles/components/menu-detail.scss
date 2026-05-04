@@ -358,6 +358,11 @@
       align-items: center;
       justify-content: space-between;
       gap: 32px;
+
+      @include respond-to(md) {
+        gap: 16px;
+        flex-direction: column;
+      }
     }
 
     &-privacy {
@@ -422,6 +427,10 @@
       font-size: 18px;
       border-radius: 100px;
       white-space: nowrap;
+
+      @include respond-to(md) {
+        width: 100%;
+      }
     }
   }
 }

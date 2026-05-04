@@ -113,6 +113,11 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    margin-left: auto;
+
+    @include respond-to(md) {
+      margin: 0 auto;
+    }
 
     &-btn {
       width: 44px;
@@ -129,6 +134,12 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+
+      @include respond-to(md) {
+        font-size: 14px;
+        width: 36px;
+        height: 36px;
+      }
 
       &--active {
         background: rgba(255, 195, 135, 0.24);

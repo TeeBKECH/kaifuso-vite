@@ -1,23 +1,22 @@
+// Оглавление в сайдбаре записи
 .widget {
-  width: fit-content;
   position: sticky;
-  top: 110px;
-  width: 100%;
-
-  @include respond-to(md) {
-  }
+  top: calc(var(--height-h, 92px) + 16px);
+  padding: 20px 18px 22px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 0.4px solid rgba(255, 187, 119, 0.14);
+  backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
   &-title {
-    font-size: 24px;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: $light-gold;
-    line-height: 1;
     text-align: center;
-    margin-bottom: 12px;
-
-    @include respond-to(xl) {
-      font-size: 20px;
-    }
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 195, 135, 0.55);
   }
 }

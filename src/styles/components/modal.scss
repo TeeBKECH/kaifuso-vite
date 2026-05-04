@@ -352,6 +352,9 @@
   }
 
   &--form.open {
+    #{$modal}_overlay {
+      background: none;
+    }
     #{$modal}_content {
       transform: translate(-50%, -50%) scale(1);
     }

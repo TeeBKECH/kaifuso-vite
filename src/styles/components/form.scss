@@ -465,6 +465,14 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+
+    @include respond-to(lg) {
+      font-size: 48px;
+    }
+
+    @include respond-to(md) {
+      font-size: 24px;
+    }
   }
 
   &_subtitle {
@@ -496,6 +504,18 @@
       font-size: 20px;
       font-weight: 300;
       color: rgba(255, 195, 135, 0.8);
+
+      @include respond-to(lg) {
+        font-size: 18px;
+      }
+
+      @include respond-to(md) {
+        font-size: 16px;
+      }
+
+      @include respond-to(sm) {
+        font-size: 14px;
+      }
     }
 
     &-value {
@@ -515,6 +535,18 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+
+      @include respond-to(lg) {
+        font-size: 32px;
+      }
+
+      @include respond-to(md) {
+        font-size: 24px;
+      }
+
+      @include respond-to(sm) {
+        font-size: 20px;
+      }
     }
   }
 

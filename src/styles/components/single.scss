@@ -21,6 +21,7 @@
     grid-template-columns: minmax(0, 1fr) 320px;
     gap: 40px 32px;
     align-items: start;
+    position: relative;
 
     @include respond-to(lg) {
       grid-template-columns: minmax(0, 1fr);
@@ -284,89 +285,10 @@
 
   &_sidebar {
     position: relative;
+    height: 100%;
 
     @include respond-to(lg) {
       order: -1;
-    }
-  }
-}
-
-// Оглавление в сайдбаре записи
-.page--single .widget {
-  position: sticky;
-  top: calc(var(--height-h, 92px) + 16px);
-  padding: 20px 18px 22px;
-  border-radius: 20px;
-  background: rgba(0, 0, 0, 0.35);
-  border: 0.4px solid rgba(255, 187, 119, 0.14);
-  backdrop-filter: blur(16px);
-
-  .widget-title {
-    margin: 0 0 14px;
-    text-align: left;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgba(255, 195, 135, 0.55);
-  }
-
-  #toc-list,
-  .toc-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .toc__item {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .toc__link {
-    display: inline-block;
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 1.35;
-    color: rgba(255, 195, 135, 0.88);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-
-    &:hover {
-      color: #ffc387;
-      border-bottom-color: rgba(255, 195, 135, 0.35);
-    }
-  }
-
-  .toc-sub {
-    margin: 8px 0 0 10px;
-    padding: 0 0 0 12px;
-    border-left: 1px solid rgba(255, 195, 135, 0.15);
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .toc-sub__item {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .toc-sub__link {
-    font-size: 14px;
-    font-weight: 350;
-    line-height: 1.35;
-    color: rgba(255, 195, 135, 0.65);
-    text-decoration: none;
-
-    &:hover {
-      color: rgba(255, 195, 135, 0.92);
     }
   }
 }
