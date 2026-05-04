@@ -5,14 +5,15 @@
 // (триггер — IntersectionObserver на секции).
 
 // ── Курсор (тёплая янтарная палитра) ─────────────────────────────────────
-.home-anim_has-cursor {
-  cursor: none;
-
-  a,
-  button,
-  [role='button'] {
-    cursor: none;
-  }
+// Скрываем нативный курсор у всех элементов на странице (включая контент
+// модалок, у которых .modal_cls и т.д. явно ставят cursor: pointer/text).
+// Без !important такие правила перебивают cursor: none и нативный курсор
+// «вылезает» внутри модалок.
+.home-anim_has-cursor,
+.home-anim_has-cursor *,
+.home-anim_has-cursor *::before,
+.home-anim_has-cursor *::after {
+  cursor: none !important;
 }
 
 .home-anim_cursor {
@@ -21,7 +22,9 @@
   left: 0;
   width: 0;
   height: 0;
-  z-index: 9990;
+  // Поверх любых модалок (.modal--video-player, --site-nav, --mobile = 9999)
+  // и оверлеев. Glow ниже на 1, чтобы курсор-точка всегда поверх свечения.
+  z-index: 100000;
   pointer-events: none;
 
   &.is-hidden {
@@ -74,7 +77,9 @@
 
   position: fixed;
   inset: 0;
-  z-index: 9985;
+  // На 1 ниже курсора, но всё ещё поверх модалок и оверлеев — чтобы
+  // свечение «оборачивало» интерфейс модалки, а не пряталось под неё.
+  z-index: 99999;
   pointer-events: none;
   mix-blend-mode: screen;
   background: radial-gradient(
@@ -180,12 +185,26 @@
 }
 
 // ── 4-конечные звёзды в hero (мерцают, без перемещения) ─────────────────
-.home-anim_stars {
+// Контейнеры альтернативных эффектов (particles.js, sparticles) используют
+// тот же z-index/слой что и звёзды — они взаимоисключающие (см. effects/index.js).
+.home-anim_stars,
+.home-anim_particles,
+.home-anim_leaves {
   position: absolute;
   inset: 0;
   z-index: 6;
   pointer-events: none;
   overflow: hidden;
+}
+
+// particles.js рисует canvas с position:absolute внутри своего контейнера —
+// принудительно растягиваем canvas на весь интро-блок.
+.home-anim_particles canvas,
+.home-anim_leaves canvas {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .home-anim_star {
@@ -246,11 +265,38 @@
   }
 }
 
+// === Lite-режим (страницы с классом .lite-effects на .page) ===============
+// Отключаем: тёплую дымку (.page-intro::after) и звёзды (через JS).
+// Уменьшаем радиус глобального warm-glow с 400px до 300px и слегка снижаем
+// насыщенность — в интро меньше «суеты», dim+курсор остаются.
+// Затемнение «свечи» делаем светлее (0.55 вместо 0.78) — фон лучше читается.
+body.effects-lite {
+  .page-intro::after {
+    display: none;
+  }
+
+  .home-anim_dim {
+    background: rgba(8, 5, 3, 0.55);
+  }
+
+  .home-anim_glow {
+    background: radial-gradient(
+      300px circle at var(--gx) var(--gy),
+      rgba(255, 178, 95, 0.22) 0%,
+      rgba(255, 178, 95, 0.1) 28%,
+      rgba(255, 178, 95, 0.04) 55%,
+      transparent 75%
+    );
+  }
+}
+
 // === Reduced motion =======================================================
 @media (prefers-reduced-motion: reduce) {
   .home-anim_cursor,
   .home-anim_glow,
   .home-anim_stars,
+  .home-anim_particles,
+  .home-anim_leaves,
   .home-anim_dim {
     display: none !important;
   }
@@ -277,10 +323,13 @@
 }
 
 // === No-hover устройства (без custom cursor / glow / звёзд) ==============
+// Листья (sparticles) оставляем — они не зависят от курсора и красиво смотрятся
+// и на тач-устройствах. Particles.js без hover теряет смысл — скрываем.
 @media (hover: none), (pointer: coarse) {
   .home-anim_cursor,
   .home-anim_glow,
-  .home-anim_stars {
+  .home-anim_stars,
+  .home-anim_particles {
     display: none !important;
   }
 

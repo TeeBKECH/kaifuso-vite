@@ -70,7 +70,7 @@
     &_head,
     &_row {
       display: grid;
-      grid-template-columns: 312px 172px 50px 108px 140px;
+      grid-template-columns: 3fr 2fr 1fr 2fr 2fr;
       column-gap: 19px;
     }
 
@@ -91,6 +91,10 @@
         line-height: 1;
         color: #ffc387;
         text-transform: uppercase;
+
+        &:last-child {
+          text-align: right;
+        }
       }
     }
 

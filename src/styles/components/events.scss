@@ -15,6 +15,10 @@
         rgba(15, 1, 1, 1) 100%
       ),
       linear-gradient(90deg, rgba(255, 167, 79, 0.04) 0%, rgba(255, 167, 79, 0.04) 100%);
+
+    @include respond-to(md) {
+      background: none;
+    }
   }
 
   &_hero {
@@ -133,6 +137,10 @@
     gap: 4px;
     color: #ffc387;
     cursor: pointer;
+
+    @include respond-to(md) {
+      display: none;
+    }
 
     &-text {
       font-family: $font-main;
@@ -281,6 +289,10 @@
     justify-content: space-between;
     gap: 8px;
 
+    @include respond-to(xl) {
+      // flex-direction: column;
+    }
+
     @include respond-to(sm) {
       min-height: 36px;
       padding: 8px 12px;
@@ -294,6 +306,10 @@
       font-weight: 350;
       line-height: 1;
       white-space: nowrap;
+
+      @include respond-to(xl-2) {
+        font-size: 14px;
+      }
 
       @include respond-to(sm) {
         font-size: 13px;
@@ -347,6 +363,11 @@
     font-weight: 400;
     line-height: 1.33;
     text-transform: uppercase;
+
+    @include respond-to(xl-3) {
+      font-size: 24px;
+      line-height: 1.25;
+    }
 
     @include respond-to(md) {
       font-size: 30px;

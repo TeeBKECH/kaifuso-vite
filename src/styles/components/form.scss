@@ -192,9 +192,13 @@
     z-index: 2;
   }
 
-  @include respond-to(md) {
+  @include respond-to(lg) {
     border-radius: 28px;
     padding: 72px 20px 28px;
+  }
+
+  @include respond-to(md) {
+    padding: 40px 20px 28px;
   }
 }
 
@@ -224,6 +228,14 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+
+    @include respond-to(lg) {
+      font-size: 48px;
+    }
+
+    @include respond-to(md) {
+      font-size: 24px;
+    }
   }
 
   &_form {
@@ -231,12 +243,26 @@
     display: flex;
     flex-direction: column;
     gap: 40px;
+
+    @include respond-to(lg) {
+      margin-top: 24px;
+      gap: 24px;
+    }
+
+    @include respond-to(md) {
+      gap: 16px;
+    }
   }
 
   &_grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
+
+    @include respond-to(md) {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
   }
 
   &_field {
@@ -286,8 +312,22 @@
     background: rgba(255, 195, 135, 0.04);
     outline: none;
 
+    @include respond-to(lg) {
+      font-size: 16px;
+      padding: 12px 20px;
+      border-radius: 8px;
+    }
+
     &::placeholder {
       color: rgba(255, 195, 135, 0.8);
+    }
+  }
+
+  .c-select__toggle {
+    @include respond-to(lg) {
+      font-size: 16px;
+      padding: 12px 20px;
+      border-radius: 8px;
     }
   }
 

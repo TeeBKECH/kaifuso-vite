@@ -6,18 +6,17 @@ extends ../layouts/default.pug
 
 block content
   +PageIntro({
-    mediaType: 'image',
-    mediaSrc: 'assets/img/kaifuso/about/hero.jpg',
-    kicker: 'Пространство',
-    title: 'О ресторане',
-    text: 'Мы создавали Kaifuso как пространство, где каждая деталь работает на ощущение. Кухня, свет, музыка и сервис — всё выстроено как единое целое.',
-    buttonText: 'Забронировать',
-    buttonStyles: ['ghost-gold', 'md'],
-    rootClass: 'page-intro--kaifuso',
-    actionModal: 'modal-form',
-    titleId: 'about-title',
-    overlay: true
-  })
+      mediaType: 'image',
+      mediaSrc: 'assets/img/kaifuso/about/hero.jpg',
+      kicker: 'Пространство',
+      title: 'О ресторане',
+      textHtml: 'Мы создавали Kaifuso как пространство, где каждая деталь работает на ощущение. Кухня, свет, музыка и сервис — всё выстроено как единое целое.',
+      buttonText: 'Забронировать',
+      buttonStyles: ['ghost-gold', 'lg'],
+      rootClass: 'page-intro--kaifuso home-hero',
+      actionModal: 'modal-form',
+      overlay: true
+    })
 
   section.about-page_story
     .container.about-page_story_container

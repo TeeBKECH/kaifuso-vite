@@ -200,12 +200,16 @@ document.addEventListener('DOMContentLoaded', (e) => {
       pagination: false,
       breakpoints: {
         320: {
-          slidesPerView: 1.06,
-          spaceBetween: 12,
+          slidesPerView: 1.1,
+          spaceBetween: 14,
+          slidesOffsetAfter: 14,
+          slidesOffsetBefore: 14,
         },
         768: {
-          slidesPerView: 2.05,
+          slidesPerView: 2,
           spaceBetween: 20,
+          slidesOffsetAfter: 0,
+          slidesOffsetBefore: 0,
         },
         1200: {
           slidesPerView: 3,
@@ -242,15 +246,19 @@ document.addEventListener('DOMContentLoaded', (e) => {
       pagination: false,
       breakpoints: {
         320: {
-          slidesPerView: 1.05,
+          slidesPerView: 1.1,
           spaceBetween: 14,
+          slidesOffsetAfter: 14,
+          slidesOffsetBefore: 14,
         },
         768: {
-          slidesPerView: 2.1,
+          slidesPerView: 2,
           spaceBetween: 20,
+          slidesOffsetAfter: 0,
+          slidesOffsetBefore: 0,
         },
         1200: {
-          slidesPerView: 4,
+          slidesPerView: 3,
           spaceBetween: 16,
         },
       },

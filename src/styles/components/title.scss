@@ -7,12 +7,19 @@
 
   &-h1 {
     font-family: $font-heading;
-    font-size: clamp(36px, 5vw, 72px);
+    font-size: clamp(28px, 5vw, 72px);
     font-weight: 400;
     line-height: 1.1;
     letter-spacing: 0.03em;
     text-transform: uppercase;
-    background: linear-gradient(157deg, #c4ae75 0%, #e2da9b 13%, #c8b375 25%, #ece7ac 50%, #c7ae6e 100%);
+    background: linear-gradient(
+      157deg,
+      #c4ae75 0%,
+      #e2da9b 13%,
+      #c8b375 25%,
+      #ece7ac 50%,
+      #c7ae6e 100%
+    );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
