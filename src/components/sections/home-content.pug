@@ -87,11 +87,13 @@ mixin HomeContent(variantClass = '')
     })
 
     section.home-about(aria-labelledby='home-about-title')
+      .home-about_logo
+        img(src='assets/img/kaifuso/logo-decor.svg' alt='')
       .home-about_decor__wrapper
         .home-about_decor.home-about_decor--left(aria-hidden='true')
           img(src='assets/img/kaifuso/main/about-left.png' alt='')
         .home-about_decor.home-about_decor--right(aria-hidden='true')
-          img(src='assets/img/kaifuso/main/about-right-bird.png' alt='')
+          img(src='assets/img/kaifuso/main/decor-2.png' alt='')
       .container
         .home-about_card
           .home-about_text
@@ -105,7 +107,7 @@ mixin HomeContent(variantClass = '')
       .home-about-gallery_stage
         .home-about-gallery_track
           each photo in aboutPhotos
-            .home-about-gallery_slide(class=photo.mod ? `home-about-gallery_slide--${photo.mod}` : '')
+            .home-about-gallery_slide(class=photo.mod ? `home-about-gallery_slide--${photo.mod}` : '', data-src=photo.src data-fancybox='home-about-gallery')
               img(src=photo.src alt='Интерьер KAIFUSO')
         nav.home-about-gallery_nav.swiper_nav(aria-label='Навигация по фото')
           button.swiper_nav_item.swiper_nav_item-prev.home-about-gallery_nav-prev(type='button' aria-label='Назад')

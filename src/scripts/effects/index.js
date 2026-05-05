@@ -63,7 +63,7 @@ export function initEffects() {
   } else if (mode.leaves) {
     initIntroLeaves()
   } else if (!mode.lite) {
-    initIntroStars()
+    // initIntroStars()
   }
 
   initScrollParallax()
@@ -74,5 +74,5 @@ export function initEffects() {
 // Vanilla-tilt полагается на размеры элементов — Swiper'ы инициализируются
 // в main.js синхронно после initEffects, но имеет смысл подождать кадр.
 export function initEffectsLate() {
-  initTilt()
+  // initTilt()
 }

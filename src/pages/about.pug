@@ -1,84 +1,85 @@
 //- @title: О ресторане
 //- @description: О ресторане KAIFUSO
-//- @page_class: about
-//- @has_intro: false
+//- @page_class: about lite-effects
+//- @has_intro: true
 extends ../layouts/default.pug
 
 block content
-  +PageIntro({
-      mediaType: 'image',
-      mediaSrc: 'assets/img/kaifuso/about/hero.jpg',
-      kicker: 'Пространство',
-      title: 'О ресторане',
-      textHtml: 'Мы создавали Kaifuso как пространство, где каждая деталь работает на ощущение. Кухня, свет, музыка и сервис — всё выстроено как единое целое.',
-      buttonText: 'Забронировать',
-      buttonStyles: ['ghost-gold', 'lg'],
-      rootClass: 'page-intro--kaifuso home-hero',
-      actionModal: 'modal-form',
-      overlay: true
-    })
-
-  section.about-page_story
-    .container.about-page_story_container
-      article.about-page_story_row
-        .about-page_story_media
-          img(src='assets/img/kaifuso/about/interior.jpg' alt='Интерьер KAIFUSO')
-        .about-page_story_content
-          .about-page_story_kicker
-            span.about-page_story_kicker-text Пространство
-            span.about-page_story_kicker-line
-          h2.about-page_story_title Интерьер<br>как произведение<br>искусства
-          p.about-page_story_text В центре нашей философии — гость. Не меню, не интерьер, а то, как человек чувствует себя в этом месте с первой минуты.
-
-      article.about-page_story_row.about-page_story_row--reverse
-        .about-page_story_media
-          img(src='assets/img/kaifuso/about/kitchen.jpg' alt='Кухня KAIFUSO')
-        .about-page_story_content
-          .about-page_story_kicker
-            span.about-page_story_kicker-text Кухня
-            span.about-page_story_kicker-line
-          h2.about-page_story_title Традиции<br>двух великих культур<br>на одной тарелке
-          p.about-page_story_text
-            | В основе меню — классические техники китайской и японской кухни, переосмысленные через призму современной гастрономии.
-            br
-            | Димсам, роллы, утка по-пекински — знакомое, открытое заново.
-
-      article.about-page_story_row
-        .about-page_story_media.about-page_story_media--narrow
-          img(src='assets/img/kaifuso/about/club.jpg' alt='Клубная атмосфера KAIFUSO')
-        .about-page_story_content.about-page_story_content--wide
-          .about-page_story_kicker
-            span.about-page_story_kicker-text Клуб
-            span.about-page_story_kicker-line
-          h2.about-page_story_title Живая музыка<br>и клубная<br>атмосфера
-          p.about-page_story_text
-            | По вечерам Kaifuso трансформируется: живые выступления, DJ-сеты и особое световое настроение превращают ужин в полноценное событие.
-            br
-            | Здесь собираются те, кому важен не только вкус — но и то, как проведён вечер целиком.
-
-  section.about-page_art
-    .about-page_art_bg
-      img(src='assets/img/kaifuso/about/art.jpg' alt='Ваши вечера — наше искусство')
-    h2.about-page_art_title Ваши вечера — наше искусство
-
-  section.about-page_gallery.gallery
-    .about-page_gallery_container
-      +Gallery({
-        items: [
-          'assets/img/kaifuso/about/gallery.jpg',
-          'assets/img/kaifuso/about/interior.jpg',
-          'assets/img/kaifuso/about/kitchen.jpg',
-          'assets/img/kaifuso/about/club.jpg',
-          'assets/img/kaifuso/about/hero.jpg'
-        ],
-        galleryId: 'about-gallery',
-        pagination: true
+  div
+    +PageIntro({
+        mediaType: 'image',
+        mediaSrc: 'assets/img/kaifuso/about/hero.jpg',
+        kicker: 'Пространство',
+        title: 'О ресторане',
+        textHtml: 'Мы создавали Kaifuso как пространство, где каждая деталь работает на ощущение. Кухня, свет, музыка и сервис — всё выстроено как единое целое.',
+        buttonText: 'Забронировать',
+        buttonStyles: ['ghost-gold', 'lg'],
+        rootClass: 'page-intro--kaifuso home-hero',
+        actionModal: 'modal-form',
+        overlay: true
       })
 
-  -
-    const contactsSection = {
-      sectionClass: 'contacts about-page_contacts',
-      withHero: false,
-      privacyVariant: 'short'
-    }
-  include ../components/sections/contacts-section.pug
+    section.about-page_story
+      .container.about-page_story_container
+        article.about-page_story_row
+          .about-page_story_media
+            img(src='assets/img/kaifuso/about/interior.jpg' alt='Интерьер KAIFUSO')
+          .about-page_story_content
+            .about-page_story_kicker
+              span.about-page_story_kicker-text Пространство
+              span.about-page_story_kicker-line
+            h2.about-page_story_title Интерьер<br>как произведение<br>искусства
+            p.about-page_story_text В центре нашей философии — гость. Не меню, не интерьер, а то, как человек чувствует себя в этом месте с первой минуты.
+
+        article.about-page_story_row.about-page_story_row--reverse
+          .about-page_story_media
+            img(src='assets/img/kaifuso/about/kitchen.jpg' alt='Кухня KAIFUSO')
+          .about-page_story_content
+            .about-page_story_kicker
+              span.about-page_story_kicker-text Кухня
+              span.about-page_story_kicker-line
+            h2.about-page_story_title Традиции<br>двух великих культур<br>на одной тарелке
+            p.about-page_story_text
+              | В основе меню — классические техники китайской и японской кухни, переосмысленные через призму современной гастрономии.
+              br
+              | Димсам, роллы, утка по-пекински — знакомое, открытое заново.
+
+        article.about-page_story_row
+          .about-page_story_media.about-page_story_media--narrow
+            img(src='assets/img/kaifuso/about/club.jpg' alt='Клубная атмосфера KAIFUSO')
+          .about-page_story_content.about-page_story_content--wide
+            .about-page_story_kicker
+              span.about-page_story_kicker-text Клуб
+              span.about-page_story_kicker-line
+            h2.about-page_story_title Живая музыка<br>и клубная<br>атмосфера
+            p.about-page_story_text
+              | По вечерам Kaifuso трансформируется: живые выступления, DJ-сеты и особое световое настроение превращают ужин в полноценное событие.
+              br
+              | Здесь собираются те, кому важен не только вкус — но и то, как проведён вечер целиком.
+
+    section.about-page_art
+      .about-page_art_bg
+        img(src='assets/img/kaifuso/about/art.jpg' alt='Ваши вечера — наше искусство')
+      h2.about-page_art_title Ваши вечера — наше искусство
+
+    section.about-page_gallery.gallery
+      .about-page_gallery_container
+        +Gallery({
+          items: [
+            'assets/img/kaifuso/about/gallery.jpg',
+            'assets/img/kaifuso/about/interior.jpg',
+            'assets/img/kaifuso/about/kitchen.jpg',
+            'assets/img/kaifuso/about/club.jpg',
+            'assets/img/kaifuso/about/hero.jpg'
+          ],
+          galleryId: 'about-gallery',
+          pagination: true
+        })
+
+    -
+      const contactsSection = {
+        sectionClass: 'contacts about-page_contacts',
+        withHero: false,
+        privacyVariant: 'short'
+      }
+    include ../components/sections/contacts-section.pug

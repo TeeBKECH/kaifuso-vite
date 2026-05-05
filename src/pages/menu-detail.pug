@@ -46,12 +46,14 @@ block content
                 p.menu-detail_table_cell.menu-detail_table_cell--volume(data-label='Объём')= row.volume
                 p.menu-detail_table_cell.menu-detail_table_cell--price= row.price
 
-        .menu-detail_form
-          +BookingForm({
-            rootClass: 'menu-detail_form',
-            title: 'Забронировать стол',
-            fieldMode: 'channel',
-            privacyVariant: 'full',
-            buttonText: 'Забронировать стол',
-            buttonStyles: ['ghost-gold', 'sm']
-          })
+        .menu-detail_form-wrapper
+          .menu-detail_form
+            +BookingForm({
+              rootClass: 'menu-detail_form',
+              title: 'Забронировать стол',
+              fieldMode: 'channel',
+              privacyVariant: 'full',
+              buttonText: 'Забронировать стол',
+              buttonStyles: ['ghost-gold', 'sm']
+            })
+          

@@ -10,6 +10,10 @@ import { getLenis } from '@/scripts/utils/smooth-scroll-lenis.js'
 const DEFAULTS = [
   { sel: '.page-intro_bg img', strength: 0.18 },
   { sel: '.home-club_media', strength: 0.1 },
+  { sel: '.home-about-gallery', strength: 0.1 },
+  { sel: '.home-gallery', strength: 0.1 },
+  { sel: '.home-about_logo', strength: 0.1 },
+  { sel: '.about-page_story_media', strength: -0.1 },
 ]
 
 export function initScrollParallax() {

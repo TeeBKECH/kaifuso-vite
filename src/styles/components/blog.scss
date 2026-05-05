@@ -9,14 +9,20 @@
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background:
-      radial-gradient(
-        82% 100% at 50% 50%,
-        rgba(63, 12, 0, 1) 0%,
-        rgba(39, 6, 1, 1) 50%,
-        rgba(15, 1, 1, 1) 100%
-      ),
-      linear-gradient(90deg, rgba(255, 167, 79, 0.04) 0%, rgba(255, 167, 79, 0.04) 100%);
+    background: linear-gradient(
+      to bottom,
+      rgba(63, 12, 0, 0.4) 0%,
+      rgba(63, 12, 0, 0.2) 52%,
+      rgba(#0a0502, 1) 100%
+    );
+    // background:
+    //   radial-gradient(
+    //     82% 100% at 50% 50%,
+    //     rgba(63, 12, 0, 1) 0%,
+    //     rgba(39, 6, 1, 1) 50%,
+    //     rgba(15, 1, 1, 1) 100%
+    //   ),
+    //   linear-gradient(90deg, rgba(255, 167, 79, 0.04) 0%, rgba(255, 167, 79, 0.04) 100%);
 
     @include respond-to(md) {
       background: none;
@@ -305,8 +311,12 @@
   z-index: 3;
   padding-top: 56px;
   padding-bottom: 100px;
-  background: #0f0101;
-  // border-top: 0.4px solid rgba(255, 187, 119, 0.12);
+  background: linear-gradient(
+    to bottom,
+    rgba(#0f0101, 1) 0%,
+    rgba(63, 12, 0, 0.2) 52%,
+    rgba(#0a0502, 1) 100%
+  );
 
   @include respond-to(lg) {
     padding-top: 40px;

@@ -1,6 +1,12 @@
 .menu-page {
   position: relative;
-  background: #0f0101;
+  // background: #0f0101;
+  background: linear-gradient(
+    to bottom,
+    rgba(63, 12, 0, 0.4) 0%,
+    rgba(63, 12, 0, 0.2) 52%,
+    rgba(#0a0502, 1) 100%
+  );
 
   &_hero {
   }
@@ -53,6 +59,7 @@
         height: 100%;
         object-fit: cover;
         display: block;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       &::after {
@@ -64,6 +71,12 @@
           linear-gradient(90deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%);
         mix-blend-mode: soft-light;
         pointer-events: none;
+      }
+
+      &:hover {
+        img {
+          transform: scale(1.05);
+        }
       }
     }
 

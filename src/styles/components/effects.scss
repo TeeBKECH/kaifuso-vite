@@ -1,5 +1,5 @@
 // === Глобальные «atmospheric» эффекты (для всего сайта) =================
-// Тёплая палитра. Курсор-огонёк + warm-glow с задержкой за курсором.
+// Тёплая палитра. Курсор-огонёк + warm-glow (вне .page-intro; dim-маска в hero — отдельно).
 // Затемнение «свечи» в hero — только под фоном (внутри .page-intro_bg).
 // 4-конечные звёзды в hero. Scroll-parallax фона hero. Stagger карточек афиши
 // (триггер — IntersectionObserver на секции).
@@ -49,18 +49,18 @@
     mix-blend-mode: difference;
   }
 
-  &-dot {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 4px;
-    background: rgba(255, 207, 145, 1);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 8px rgba(255, 178, 95, 0.7);
-    mix-blend-mode: difference;
-  }
+  // &-dot {
+  //   position: fixed;
+  //   top: 0;
+  //   left: 0;
+  //   width: 4px;
+  //   height: 4px;
+  //   background: rgba(255, 207, 145, 1);
+  //   border-radius: 50%;
+  //   transform: translate(-50%, -50%);
+  //   box-shadow: 0 0 8px rgba(255, 178, 95, 0.7);
+  //   mix-blend-mode: difference;
+  // }
 
   &.is-hover #{&}-ring {
     width: 56px;
@@ -70,7 +70,7 @@
   }
 }
 
-// ── Тёплое запаздывающее свечение (всегда видимо) ───────────────────────
+// ── Тёплое свечение за курсором (см. cursor-glow.js: в .page-intro — is-off) ──
 .home-anim_glow {
   --gx: 50%;
   --gy: 50%;
@@ -82,6 +82,8 @@
   z-index: 99999;
   pointer-events: none;
   mix-blend-mode: screen;
+  opacity: 1;
+  transition: opacity 0.12s ease;
   background: radial-gradient(
     400px circle at var(--gx) var(--gy),
     rgba(255, 178, 95, 0.28) 0%,
@@ -89,6 +91,10 @@
     rgba(255, 178, 95, 0.06) 48%,
     transparent 72%
   );
+
+  &.is-off {
+    opacity: 0;
+  }
 }
 
 // ── Hero: лёгкая тёплая дымка над фоном (под контентом) ─────────────────
@@ -98,44 +104,44 @@
 }
 
 .page-intro::after {
-  content: '';
-  position: absolute;
-  inset: -10%;
-  z-index: 3;
-  pointer-events: none;
-  background:
-    radial-gradient(50% 40% at 50% 90%, rgba(255, 167, 80, 0.1) 0%, transparent 70%),
-    radial-gradient(35% 30% at 20% 30%, rgba(255, 195, 135, 0.05) 0%, transparent 60%);
-  mix-blend-mode: soft-light;
-  animation: home-anim-fog 22s ease-in-out infinite alternate;
+  // content: '';
+  // position: absolute;
+  // inset: -10%;
+  // z-index: 3;
+  // pointer-events: none;
+  // background:
+  //   radial-gradient(50% 40% at 50% 90%, rgba(255, 167, 80, 0.1) 0%, transparent 70%),
+  //   radial-gradient(35% 30% at 20% 30%, rgba(255, 195, 135, 0.05) 0%, transparent 60%);
+  // mix-blend-mode: soft-light;
+  // animation: home-anim-fog 22s ease-in-out infinite alternate;
 }
 
 // ── Затемнение под фоном hero (внутри .page-intro_bg) ───────────────────
 .page-intro_bg {
-  --cx: 50%;
-  --cy: 50%;
+  // --cx: 50%;
+  // --cy: 50%;
 }
 
 .home-anim_dim {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  pointer-events: none;
-  background: rgba(8, 5, 3, 0.78);
-  mask-image: radial-gradient(
-    circle 320px at var(--cx) var(--cy),
-    transparent 0%,
-    rgba(0, 0, 0, 0.3) 35%,
-    rgba(0, 0, 0, 0.85) 75%,
-    black 100%
-  );
-  -webkit-mask-image: radial-gradient(
-    circle 320px at var(--cx) var(--cy),
-    transparent 0%,
-    rgba(0, 0, 0, 0.3) 35%,
-    rgba(0, 0, 0, 0.85) 75%,
-    black 100%
-  );
+  // position: absolute;
+  // inset: 0;
+  // z-index: 5;
+  // pointer-events: none;
+  // background: rgba(8, 5, 3, 0.78);
+  // mask-image: radial-gradient(
+  //   circle 320px at var(--cx) var(--cy),
+  //   transparent 0%,
+  //   rgba(0, 0, 0, 0.3) 35%,
+  //   rgba(0, 0, 0, 0.85) 75%,
+  //   black 100%
+  // );
+  // -webkit-mask-image: radial-gradient(
+  //   circle 320px at var(--cx) var(--cy),
+  //   transparent 0%,
+  //   rgba(0, 0, 0, 0.3) 35%,
+  //   rgba(0, 0, 0, 0.85) 75%,
+  //   black 100%
+  // );
 }
 
 // ── Параллакс фона hero (img внутри .page-intro_bg) ─────────────────────
@@ -214,16 +220,7 @@
   width: var(--size);
   height: var(--size);
   background: rgba(255, 217, 165, 1);
-  clip-path: polygon(
-    50% 0%,
-    54% 46%,
-    100% 50%,
-    54% 54%,
-    50% 100%,
-    46% 54%,
-    0% 50%,
-    46% 46%
-  );
+  clip-path: polygon(50% 0%, 54% 46%, 100% 50%, 54% 54%, 50% 100%, 46% 54%, 0% 50%, 46% 46%);
   filter: drop-shadow(0 0 6px rgba(255, 178, 95, 0.85))
     drop-shadow(0 0 14px rgba(255, 178, 95, 0.4));
   opacity: 0;

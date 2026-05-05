@@ -7,11 +7,11 @@
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background: radial-gradient(
-      ellipse 86% 92% at 25% 48%,
-      rgba(63, 12, 0, 0.5) 0%,
-      rgba(39, 6, 1, 0.52) 50%,
-      rgba(15, 1, 1, 0.56) 100%
+    background: linear-gradient(
+      to bottom,
+      rgba(63, 12, 0, 0.4) 0%,
+      rgba(63, 12, 0, 0.2) 52%,
+      rgba(#0a0502, 1) 100%
     );
 
     @include respond-to(md) {
@@ -228,6 +228,10 @@
 
       &::placeholder {
         color: rgba(255, 195, 135, 0.6);
+      }
+
+      &:focus::placeholder {
+        color: rgba(255, 195, 135, 0.4);
       }
     }
 

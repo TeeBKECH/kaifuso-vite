@@ -1,7 +1,7 @@
-// Глобальный custom cursor (тёплая палитра) + запаздывающее warm-glow.
-// Создаёт DOM один раз при первом вызове, привязывается к body, пишет
-// CSS-переменные --gx/--gy на glow и --cx/--cy на каждом .page-intro_bg
-// (для маски затемнения вокруг курсора, которую делает intro-dim.js).
+// Глобальный custom cursor (тёплая палитра) + warm-glow по странице.
+// Glow в зоне .page-intro отключён (класс is-off). Кольцо / glow / маска dim
+// следуют за курсором без сглаживания (mx/my напрямую).
+// Пишет --gx/--gy на .home-anim_glow и --cx/--cy на каждом .page-intro_bg.
 
 import { motion } from '@/scripts/utils/anim-utils.js'
 
@@ -34,10 +34,6 @@ export function initCursorGlow() {
   // ── State ──────────────────────────────────────────────────────────────
   let mx = window.innerWidth / 2
   let my = window.innerHeight / 2
-  let rx = mx
-  let ry = my
-  let gx = mx
-  let gy = my
 
   document.addEventListener(
     'mousemove',
@@ -48,24 +44,28 @@ export function initCursorGlow() {
     { passive: true },
   )
 
+  function pointerInIntro() {
+    return [...document.querySelectorAll('.page-intro')].some((el) => {
+      const r = el.getBoundingClientRect()
+      return mx >= r.left && mx <= r.right && my >= r.top && my <= r.bottom
+    })
+  }
+
   // ── RAF tick ───────────────────────────────────────────────────────────
   const heroBgs = () => document.querySelectorAll('.page-intro_bg')
 
   const tick = () => {
-    rx += (mx - rx) * 0.22
-    ry += (my - ry) * 0.22
-    gx += (mx - gx) * 0.05
-    gy += (my - gy) * 0.05
-
     if (dot) dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`
-    if (ring) ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`
-    glow.style.setProperty('--gx', `${gx}px`)
-    glow.style.setProperty('--gy', `${gy}px`)
+    if (ring) ring.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`
+
+    glow.classList.toggle('is-off', pointerInIntro())
+    glow.style.setProperty('--gx', `${mx}px`)
+    glow.style.setProperty('--gy', `${my}px`)
 
     heroBgs().forEach((bg) => {
       const r = bg.getBoundingClientRect()
-      bg.style.setProperty('--cx', `${gx - r.left}px`)
-      bg.style.setProperty('--cy', `${gy - r.top}px`)
+      bg.style.setProperty('--cx', `${mx - r.left}px`)
+      bg.style.setProperty('--cy', `${my - r.top}px`)
     })
 
     requestAnimationFrame(tick)

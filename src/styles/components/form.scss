@@ -185,6 +185,11 @@
     opacity: 0.2;
     mix-blend-mode: color-dodge;
     pointer-events: none;
+    transform: translate3d(
+      calc(var(--home-about-mx, 0) * var(--decor-shift-x, 8px)),
+      calc(var(--home-about-my, 0) * var(--decor-shift-y, 4px)),
+      0
+    );
   }
 
   &_inner {
@@ -320,6 +325,10 @@
 
     &::placeholder {
       color: rgba(255, 195, 135, 0.8);
+    }
+
+    &:focus::placeholder {
+      color: rgba(255, 195, 135, 0.4);
     }
   }
 

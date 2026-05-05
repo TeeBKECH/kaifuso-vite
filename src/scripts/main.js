@@ -36,6 +36,35 @@ import { initEffects, initEffectsLate } from '@/scripts/effects'
 import 'aos/dist/aos.css'
 import '@/styles/styles.scss'
 
+/**
+ * Fancybox 5: <dialog class="fancybox__dialog"> + showModal() → native top layer.
+ * Он выше любого z-index у потомков body, поэтому кастомный курсор «уезжает под» лайтбокс.
+ * Пока открыт Fancybox, переносим .home-anim_cursor и .home-anim_glow внутрь dialog.
+ */
+function reparentCursorIntoFancyboxDialog(fancybox) {
+  const dlg = fancybox.getContainer()?.closest('dialog.fancybox__dialog')
+  if (!dlg) return
+  const c = document.querySelector('.home-anim_cursor')
+  const g = document.querySelector('.home-anim_glow')
+  if (c) dlg.appendChild(c)
+  if (g) dlg.appendChild(g)
+}
+
+function reparentCursorBackToBody() {
+  const c = document.querySelector('.home-anim_cursor')
+  const g = document.querySelector('.home-anim_glow')
+  if (c) document.body.appendChild(c)
+  if (g) document.body.appendChild(g)
+}
+
+const FANCYBOX_OPTIONS_WITH_CURSOR = {
+  on: {
+    ready: reparentCursorIntoFancyboxDialog,
+    close: reparentCursorBackToBody,
+    destroy: reparentCursorBackToBody,
+  },
+}
+
 // Инициализируем viewport height для мобильных устройств
 initViewportHeight()
 
@@ -433,7 +462,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
   // Слушаем mousemove на window (по всей странице), считаем velocity и плавно затухаем.
   // Пишем CSS-переменные --home-about-mx/--home-about-my (-1..1) в :root, читаются в SCSS.
   ;(() => {
-    if (!document.querySelector('.home-about')) return
+    if (!document.querySelector('body')) return
     const mqHover = window.matchMedia('(hover: hover) and (pointer: fine)')
     const mqReduced = window.matchMedia('(prefers-reduced-motion: reduce)')
     if (!mqHover.matches || mqReduced.matches) return
@@ -544,13 +573,13 @@ document.addEventListener('DOMContentLoaded', (e) => {
   const galleryGroups = new Set()
   document
     .querySelectorAll(
-      '.gallery [data-fancybox], .gallery-mosaic [data-fancybox], .room_gallery [data-fancybox], .meropriyaiya_gallery [data-fancybox], .meropriyaiya_gallery-skip [data-fancybox], .meropriyaiya_rental-visual [data-fancybox], .meropriyaiya_floor-tabs [data-fancybox^="meropriyaiya-floor-"], .home-gallery [data-fancybox]',
+      '.gallery [data-fancybox], .gallery-mosaic [data-fancybox], .room_gallery [data-fancybox], .meropriyaiya_gallery [data-fancybox], .meropriyaiya_gallery-skip [data-fancybox], .meropriyaiya_rental-visual [data-fancybox], .meropriyaiya_floor-tabs [data-fancybox^="meropriyaiya-floor-"], .home-gallery [data-fancybox], .home-about-gallery [data-fancybox]',
     )
     .forEach((el) => {
       const group = el.getAttribute('data-fancybox')
       if (group && !galleryGroups.has(group)) {
         galleryGroups.add(group)
-        Fancybox.bind(`[data-fancybox="${group}"]`, {})
+        Fancybox.bind(`[data-fancybox="${group}"]`, FANCYBOX_OPTIONS_WITH_CURSOR)
       }
     })
 

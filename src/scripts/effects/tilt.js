@@ -7,11 +7,11 @@ import VanillaTilt from 'vanilla-tilt'
 import { motion } from '@/scripts/utils/anim-utils.js'
 
 const SELECTORS = [
-  '.home-club_media',
-  '.home-about-gallery_slide',
-  '.home-gallery_slide',
-  '.gallery_slide',
-  '[data-tilt]',
+  // '.home-club_media',
+  // '.home-about-gallery_slide',
+  // '.home-gallery_slide',
+  // '.gallery_slide',
+  // '[data-tilt]',
 ]
 
 export function initTilt() {

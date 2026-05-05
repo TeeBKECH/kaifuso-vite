@@ -109,8 +109,8 @@
     font-weight: 300;
 
     &:hover {
-      color: #1f0501;
-      background: #ffc387;
+      color: #ffc387;
+      background: rgba(255, 195, 135, 0.12);
     }
     &.is-selected {
       background: rgba(255, 195, 135, 0.14);

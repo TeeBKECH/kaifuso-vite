@@ -9,13 +9,14 @@ $img: '@/assets/img';
 // Parallax — img.style.transform управляется JS через CSS-переменные --mx/--my (-1..1).
 .home-about {
   $home-about: &;
-
   position: relative;
   z-index: 2;
   padding: 100px 0;
-  overflow: hidden;
+  // overflow-x: hidden;
+  // overflow-y: visible;
   background:
-    radial-gradient(72% 80% at 50% 40%, rgba(63, 12, 0, 0.64) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
+    radial-gradient(100% 40% at 50% 80%, rgba(63, 12, 0, 0.64) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
+  // linear-gradient(180deg, rgba(15, 1, 1, 0) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
 
   @include respond-to(lg) {
     padding: 64px 0;
@@ -137,7 +138,7 @@ $img: '@/assets/img';
     }
 
     @include respond-to(sm) {
-      font-size: 14px;
+      // font-size: 14px;
     }
   }
 
@@ -146,6 +147,36 @@ $img: '@/assets/img';
     color: inherit;
     font-size: inherit;
     line-height: inherit;
+  }
+
+  &_logo {
+    position: absolute;
+    top: calc(-30%);
+    right: 15px;
+    width: 500px;
+    height: auto;
+    z-index: 3;
+
+    img {
+      width: 100%;
+      transform: translate3d(
+        calc(var(--home-about-mx, 0) * var(--decor-shift-x, 8px)),
+        calc(var(--home-about-my, 0) * var(--decor-shift-y, 6px)),
+        0
+      );
+    }
+
+    @include respond-to(xl-2) {
+      width: 200px;
+      top: 0;
+    }
+
+    @include respond-to(lg) {
+      right: unset;
+      left: 50%;
+      transform: translateX(-50%) translate3d(0, 0, 0) !important;
+      top: -120px;
+    }
   }
 
   // Декор-птицы. Позиционирование от карточки — но т.к. секция overflow-x:clip,
@@ -162,22 +193,24 @@ $img: '@/assets/img';
       left: 0;
       top: 0;
       width: 100%;
-      height: 100%;
+      height: 120%;
       z-index: 1;
+      overflow: hidden;
+      margin-top: -100px;
 
-      &::after {
-        content: '';
-        display: block;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        z-index: 2;
-        background: radial-gradient(
-          40% 60% at 22% 35%,
-          rgba(63, 12, 0, 0.5) 0%,
-          rgba(15, 1, 1, 0.5) 100%
-        );
-      }
+      // &::after {
+      //   content: '';
+      //   display: block;
+      //   width: 100%;
+      //   height: 100%;
+      //   position: absolute;
+      //   z-index: 2;
+      //   background: radial-gradient(
+      //     40% 60% at 22% 35%,
+      //     rgba(63, 12, 0, 0.5) 0%,
+      //     rgba(15, 1, 1, 0.5) 100%
+      //   );
+      // }
     }
 
     img {
@@ -187,30 +220,30 @@ $img: '@/assets/img';
       object-fit: contain;
       display: block;
       transform: translate3d(
-        calc(var(--home-about-mx, 0) * var(--decor-shift-x, 24px)),
-        calc(var(--home-about-my, 0) * var(--decor-shift-y, 16px)),
+        calc(var(--home-about-mx, 0) * var(--decor-shift-x, 4px)),
+        calc(var(--home-about-my, 0) * var(--decor-shift-y, 3px)),
         0
       );
     }
 
     &--left {
       width: auto;
-      height: 120%;
-      left: -148px;
+      height: 100%;
+      left: 30px;
       top: 50%;
       transform: translateY(-50%);
-      --decor-shift-x: 18px;
-      --decor-shift-y: 14px;
+      --decor-shift-x: 4px;
+      --decor-shift-y: 3px;
     }
 
     &--right {
       width: auto;
-      height: 130%;
-      right: -120px;
-      top: 50%;
-      transform: translateY(-58%);
-      --decor-shift-x: -16px;
-      --decor-shift-y: -12px;
+      height: 100%;
+      right: -15px;
+      bottom: -45px;
+      transform: translateY(0);
+      --decor-shift-x: -4px;
+      --decor-shift-y: -3px;
     }
 
     @include respond-to(xl-2) {
@@ -231,13 +264,13 @@ $img: '@/assets/img';
 
     @include respond-to(xl) {
       &--left {
-        width: clamp(220px, 24vw, 320px);
-        left: clamp(-72px, -4vw, -32px);
+        // width: clamp(220px, 24vw, 320px);
+        // left: clamp(-72px, -4vw, -32px);
       }
 
       &--right {
-        width: clamp(220px, 24vw, 320px);
-        right: clamp(-72px, -4vw, -32px);
+        // width: clamp(220px, 24vw, 320px);
+        // right: clamp(-72px, -4vw, -32px);
       }
     }
 
@@ -246,15 +279,15 @@ $img: '@/assets/img';
 
       &--left,
       &--right {
-        width: clamp(180px, 28vw, 240px);
+        // width: clamp(180px, 28vw, 240px);
       }
 
       &--left {
-        left: -32px;
+        // left: -32px;
       }
 
       &--right {
-        right: -32px;
+        // right: -32px;
       }
     }
 
@@ -263,15 +296,15 @@ $img: '@/assets/img';
 
       &--left,
       &--right {
-        width: clamp(140px, 30vw, 200px);
+        // width: clamp(140px, 30vw, 200px);
       }
 
       &--left {
-        left: -16px;
+        // left: -16px;
       }
 
       &--right {
-        right: -16px;
+        // right: -16px;
       }
     }
 
@@ -291,12 +324,13 @@ $img: '@/assets/img';
 // z-index: 1 — ниже home-about, чтобы декоративные птицы наезжали сверху.
 .home-about-gallery {
   $home-about-gallery: &;
-
   position: relative;
-  z-index: 1;
-  padding: 0;
-  background:
-    radial-gradient(72% 80% at 50% 40%, rgba(63, 12, 0, 0.64) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
+  z-index: 3;
+  // padding: 0;
+  padding: 40px 0;
+  margin-top: -40px;
+  // background:
+  //   radial-gradient(72% 80% at 50% 40%, rgba(63, 12, 0, 0.64) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
 
   @include respond-to(lg) {
     padding: 0 0 56px;
@@ -312,7 +346,7 @@ $img: '@/assets/img';
 
     .swiper-wrapper {
       align-items: stretch;
-      padding: 25px 0;
+      // padding: 25px 0;
     }
   }
 
@@ -537,7 +571,7 @@ $img: '@/assets/img';
     display: flex;
     align-items: stretch;
     transition:
-      width 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      width 1s cubic-bezier(0.22, 1, 0.36, 1),
       opacity 0.45s ease,
       filter 0.45s ease;
     will-change: width, opacity;
@@ -726,8 +760,8 @@ $img: '@/assets/img';
       white-space: nowrap;
       opacity: 1;
       transition:
-        opacity 0.35s ease,
-        visibility 0.35s ease;
+        opacity 0.45s ease,
+        visibility 0.45s ease;
 
       &-dot {
         width: 4px;
@@ -786,14 +820,14 @@ $img: '@/assets/img';
       opacity: 0;
       visibility: hidden;
       transition:
-        opacity 0.4s ease,
-        visibility 0.4s ease;
+        opacity 0.5s ease,
+        visibility 0.5s ease;
 
       // Дефолт — info на активном
       #{$home-afisha}_slide.swiper-slide-active & {
         opacity: 1;
         visibility: visible;
-        transition-delay: 0.2s;
+        transition-delay: 0.5s;
       }
 
       // На hover-списке — info переезжает к hovered, прячется на активном
@@ -801,13 +835,13 @@ $img: '@/assets/img';
         #{$home-afisha}_list:hover #{$home-afisha}_slide.swiper-slide-active & {
           opacity: 0;
           visibility: hidden;
-          transition-delay: 0s;
+          transition-delay: 1s;
         }
 
         #{$home-afisha}_list:hover #{$home-afisha}_slide:hover & {
           opacity: 1;
           visibility: visible;
-          transition-delay: 0.2s;
+          transition-delay: 0.5s;
         }
       }
 
@@ -1345,6 +1379,7 @@ $img: '@/assets/img';
     overflow: hidden;
     position: relative;
     flex-shrink: 0;
+    outline: none !important;
 
     @include respond-to(xl) {
       width: clamp(720px, 80vw, 1380px);
