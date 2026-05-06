@@ -9,9 +9,17 @@ import { getLenis } from '@/scripts/utils/smooth-scroll-lenis.js'
 
 const DEFAULTS = [
   { sel: '.page-intro_bg img', strength: 0.18 },
+  { sel: '.home-about_decor--left', strength: -0.06 },
+  { sel: '.home-about_decor--alt', strength: -0.06 },
   { sel: '.home-club_media', strength: 0.1 },
-  { sel: '.home-about-gallery', strength: 0.1 },
-  { sel: '.home-gallery', strength: 0.1 },
+  { sel: '.home-about-gallery', strength: -0.1 },
+  { sel: '.home-about-gallery_slide', strength: -0.2 },
+  { sel: '.home-about-gallery_slide img', strength: 0.1 },
+  // { sel: '.home-gallery', strength: -0.1 },
+  { sel: '.home-gallery_slide', strength: -0.1 },
+  { sel: '.home-gallery_slide img', strength: 0.04 },
+  { sel: '.about-page_story_media img', strength: 0.2 },
+  { sel: '.home-gallery_pagination', strength: -0.1 },
   { sel: '.home-about_logo', strength: 0.1 },
   { sel: '.about-page_story_media', strength: -0.1 },
 ]
@@ -42,7 +50,15 @@ export function initScrollParallax() {
       if (r.bottom < -200 || r.top > vh + 200) return
       const center = r.top + r.height / 2
       const offset = (center - vh / 2) * strength * -1
-      el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`
+      if (el.classList.contains('home-gallery_pagination')) {
+        el.style.transform = `translateX(-50%) translate3d(0, ${offset.toFixed(1)}px, 0)`
+      } else if (el.classList.contains('home-about_decor--left')) {
+        el.style.transform = `translateY(-50%) translate3d(0, ${offset.toFixed(1)}px, 0)`
+      } else if (el.classList.contains('home-about_decor--alt')) {
+        el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0) scaleX(-1)`
+      } else {
+        el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`
+      }
     })
   }
 

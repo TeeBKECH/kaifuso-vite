@@ -117,6 +117,10 @@
     letter-spacing: 0.28em;
     text-transform: uppercase;
     color: rgba(255, 195, 135, 0.8);
+
+    @include respond-to(md) {
+      font-size: 16px;
+    }
   }
 
   .page-intro_kicker-line {
@@ -196,8 +200,7 @@
     color: transparent;
 
     @include respond-to(md) {
-      font-size: clamp(36px, 9vw, 56px);
-      line-height: 1.08;
+      font-size: 56px;
     }
   }
 
@@ -205,13 +208,13 @@
     margin: 0 0 48px;
     max-width: 528px;
     font-size: 20px;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 32px;
     color: #ffc387;
 
     @include respond-to(md) {
       margin: 0 0 32px;
-      font-size: 18px;
+      font-size: 16px;
       line-height: 1.6;
     }
   }

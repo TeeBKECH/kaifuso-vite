@@ -1,3 +1,5 @@
+import { initPreloader } from '@/scripts/components/preloader.js'
+
 import Swiper from 'swiper'
 import { Navigation, Pagination } from 'swiper/modules'
 import { Fancybox } from '@fancyapps/ui/dist/fancybox/'
@@ -28,6 +30,8 @@ import {
   setHeaderHeight,
   setFooterHeight,
 } from '@/scripts/utils/viewport-height.js'
+import { initScrollReadingText } from '@/scripts/effects/scroll-reading-text.js'
+import { initScrollRevealText } from '@/scripts/effects/scroll-reveal-text.js'
 // import { initThemeSwitcher } from '@/scripts/utils/theme-switcher.js'
 
 import '@/scripts/components/smooth-scroll.js'
@@ -72,6 +76,8 @@ initViewportHeight()
 // initThemeSwitcher()
 
 document.addEventListener('DOMContentLoaded', (e) => {
+  initPreloader()
+
   // AOS Section Animation
   AOS.init({
     duration: 800,
@@ -113,6 +119,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
   initContactFields()
 
   initBookingDatepickers()
+
+  initScrollReadingText()
+  initScrollRevealText()
 
   // Custom Scroll Bar for Selects
   selects.forEach((select) => {
@@ -438,7 +447,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
       navigation: { prevEl, nextEl, createInside: false },
       breakpoints: {
         0: {
-          slidesPerView: 2.1,
+          slidesPerView: 1.2,
           spaceBetween: 16,
           slidesOffsetBefore: 16,
           slidesOffsetAfter: 16,
@@ -522,6 +531,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
       itemsSelector: '.home-gallery_slide',
       breakpoint: '(max-width: 9999px)',
       spaceBetween: 32,
+      slidesPerView: 1.4,
       centeredSlides: true,
       loop: true,
       navigation: {
@@ -529,6 +539,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
         nextEl,
         createInside: false,
       },
+      watchOverflow: true,
       pagination: paginationEl
         ? {
             el: paginationEl,
@@ -536,6 +547,22 @@ document.addEventListener('DOMContentLoaded', (e) => {
             createInside: false,
           }
         : false,
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 16,
+          slidesOffsetAfter: 16,
+          slidesOffsetBefore: 16,
+          loop: false,
+        },
+        768: {
+          slidesPerView: 1.4,
+          spaceBetween: 24,
+          slidesOffsetAfter: 32,
+          slidesOffsetBefore: 32,
+          loop: true,
+        },
+      },
       extendSwiperOptions: (opts) => ({
         ...opts,
         slidesPerView: 'auto',

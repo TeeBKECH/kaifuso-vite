@@ -98,7 +98,8 @@ mixin HomeContent(variantClass = '')
         .home-about_card
           .home-about_text
             h2#home-about-title.home-about_title мир изысканных вкусов
-            .home-about_paragraphs
+            //- .home-about_paragraphs(data-scroll-reading)
+            .home-about_paragraphs(data-scroll-reveal-text)
               p.home-about_paragraph KAIFUSO — это ресторан и клубное пространство, в котором гастрономия, эстетика и атмосфера соединяются в единое впечатление. Здесь важна не только кухня, но и то, как вы себя чувствуете в моменте — от первого шага в зал до последних минут вечера.
               p.home-about_paragraph Авторская кухня, выверенная подача и внимательное отношение к деталям формируют основу опыта, в котором вкус, визуальная эстетика и сервис работают как единое целое. Пространство продумано так, чтобы создавать ощущение уюта, приватности и одновременно — легкой динамики живого города.
               p.home-about_paragraph Это пространство, куда приходят не только за ужином, а за состоянием.
@@ -158,6 +159,9 @@ mixin HomeContent(variantClass = '')
           .home-club_content
             h2#home-club-title.home-club_title Клуб
             .home-club_body
+              .home-about_decor.home-about_decor--right.home-about_decor--alt(aria-hidden='true')
+                img(src='assets/img/kaifuso/main/about-left.png' alt='')
+              //- .home-club_paragraphs(data-scroll-reading=true)
               .home-club_paragraphs
                 p.home-club_text.
                   Клуб создан для тех, кто ценит приватность, атмосферу и уровень. Здесь проходят камерные вечера, живые выступления, интеллектуальные встречи и события, в которых важна не массовость, а качество аудитории и впечатления.
@@ -187,8 +191,9 @@ mixin HomeContent(variantClass = '')
       .home-gallery_stage
         .home-gallery_track
           each slide in gallerySlides
-            a.home-gallery_slide(href=slide data-fancybox='home-gallery')
-              img(src=slide alt='KAIFUSO gallery')
+            div.home-gallery_slide
+              div.home-gallery_slide-inner(data-fancybox='home-gallery', data-src=slide)
+                img(src=slide alt='KAIFUSO gallery')
         nav.home-gallery_nav.swiper_nav(aria-label='Навигация по галерее')
           button.swiper_nav_item.swiper_nav_item-prev.home-gallery_nav-prev(type='button' aria-label='Назад')
             span.gallery_nav_arrow.gallery_nav_arrow--left(aria-hidden='true')

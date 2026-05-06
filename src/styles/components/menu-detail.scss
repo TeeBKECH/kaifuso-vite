@@ -35,7 +35,7 @@
   &_table {
     border-radius: 40px;
     border: 1px solid rgba(255, 195, 135, 0.08);
-    padding: 60px 48px;
+    padding: 32px 20px;
 
     @include respond-to(md) {
       border-radius: 28px;
@@ -79,12 +79,10 @@
       display: grid;
       grid-template-columns: 3fr 2fr 1fr 2fr 2fr;
       column-gap: 19px;
+      padding: 18px 16px;
     }
 
     &_head {
-      margin-top: 60px;
-      margin-bottom: 40px;
-
       @include respond-to(md) {
         // На мобильных «шапку» таблицы прячем — подписи к полям
         // выводятся в каждой карточке-строке через data-label.
@@ -108,7 +106,7 @@
     &_rows {
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 12px;
 
       @include respond-to(md) {
         margin-top: 28px;
@@ -117,6 +115,7 @@
     }
 
     &_row {
+      padding: 18px 16px;
       @include respond-to(md) {
         // Карточный вид: имя сверху на всю ширину, ниже регион/год/объём
         // в одну строку, цена — у правого края на следующей строке.
@@ -142,6 +141,10 @@
         @include respond-to(md) {
           border-bottom: 0;
         }
+      }
+
+      &:hover {
+        background: rgba(255, 195, 135, 0.04);
       }
     }
 

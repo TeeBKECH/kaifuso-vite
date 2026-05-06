@@ -49,9 +49,7 @@ mixin FormModal()
             input.booking-modal_privacy-checkbox(type='checkbox', name='privacy-policy', checked, required)
             span.booking-modal_privacy-check(aria-hidden='true')
             span.booking-modal_privacy-text
-              | Я ознакомлен и согласен
-              br
-              | с
+              | Я ознакомлен и согласен с 
               a(href='privacy.html') политикой обработки персональных данных
           +Button('Забронировать стол', ['ghost-gold', 'lg'], 'submit')(class='booking-modal_submit')
 
@@ -59,8 +57,8 @@ mixin FormModalSuccess()
   .booking-success
     .booking-success_inner
       .booking-success_icon(aria-hidden='true')
-      h2.booking-success_title Бронь подтверждена!
-      p.booking-success_subtitle Ваш столик забронирован. Мы ждём вас!
+      h2.booking-success_title Заявка отправлена!
+      p.booking-success_subtitle Ваш запрос на бронирование получен.
       .booking-success_details
         .booking-success_details-item
           p.booking-success_details-label Дата:
@@ -72,7 +70,7 @@ mixin FormModalSuccess()
           p.booking-success_details-label Кол-во персон:
           p.booking-success_details-value(data-booking-persons) 4 чел.
       +Button('Хорошо', ['ghost-gold', 'lg'], 'button')(class='booking-success_btn' data-close='modal-popup')
-      p.booking-success_note Подтверждение и детали брони отправлены на ваш номер телефона
+      p.booking-success_note Наш менеджер свяжется с вами для подтверждения.
 
 //- Универсальная форма бронирования для внутренних страниц
 //- fieldMode: 'contacts' | 'channel'

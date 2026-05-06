@@ -27,7 +27,9 @@ export function setViewportHeight() {
 export function setHeaderHeight() {
   const header = document.querySelector('.header')
   if (header) {
-    document.documentElement.style.setProperty('--height-h', `${header.offsetHeight}px`)
+    const h = `${header.offsetHeight}px`
+    document.documentElement.style.setProperty('--height-h', h)
+    document.documentElement.style.setProperty('--header-h', h)
   }
 }
 

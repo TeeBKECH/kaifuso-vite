@@ -49,3 +49,7 @@
 .air-datepicker.kaifuso .air-datepicker-cell.-selected- {
   color: #1a0804;
 }
+
+.air-datepicker.kaifuso .air-datepicker-time--row:last-child {
+  display: none;
+}

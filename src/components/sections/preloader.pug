@@ -1,0 +1,13 @@
+//- Прелоадер:
+//-   data-preloader-mode="load"  — прогресс от фактической загрузки (readystate + window.load)
+//-   ≤768px: тёмный фон остаётся до window.load, затем исчезает (лист как и раньше от прогресса)
+#preloader.preloader(
+  aria-busy='true'
+  aria-label='Загрузка страницы'
+  data-preloader-mode='load'
+)
+  .preloader_backdrop(aria-hidden='true')
+  .preloader_inner
+    .preloader_leaf
+      img.preloader_img(src='assets/img/kaifuso/logo-decor.svg' alt='' decoding='async' width='618' height='320')
+      .preloader_fill(data-preloader-fill aria-hidden='true')

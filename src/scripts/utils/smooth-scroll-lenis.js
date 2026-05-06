@@ -11,8 +11,8 @@ export function initLenis() {
     duration: 1.1,
     easing: (t) => 1 - Math.pow(1 - t, 3),
     smoothWheel: true,
-    // Touch-устройства: используем нативный скролл (так лучше для жестов)
-    smoothTouch: false,
+    // Lenis v2: нативный touch-скролл (smoothTouch в опциях нет — он игнорировался).
+    syncTouch: false,
   })
 
   function raf(time) {

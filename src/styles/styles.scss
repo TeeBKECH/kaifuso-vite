@@ -8,6 +8,8 @@
 
 :root {
   --height-h: 92px;
+  // Синоним для разметки от хедера (прелоадер: top: calc(var(--header-h) + 10px))
+  --header-h: var(--height-h);
   --vh: 1vh; // Fallback, будет перезаписано JavaScript
   --scrollbar-width: 0px;
 }
@@ -23,6 +25,8 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
+  // Место под скроллбар всегда — нет скачка при снятии .noscroll с прелоадера
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -66,6 +70,7 @@ textarea {
 
 @import '@/styles/components/route';
 @import '@/styles/components/page';
+@import '@/styles/components/preloader';
 @import '@/styles/components/title';
 @import '@/styles/components/scroll-bar';
 @import '@/styles/components/container';

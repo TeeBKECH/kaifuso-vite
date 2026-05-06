@@ -15,8 +15,8 @@ $img: '@/assets/img';
   // overflow-x: hidden;
   // overflow-y: visible;
   background:
-    radial-gradient(100% 40% at 50% 80%, rgba(63, 12, 0, 0.64) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
-  // linear-gradient(180deg, rgba(15, 1, 1, 0) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
+    // radial-gradient(100% 40% at 50% 80%, rgba(63, 12, 0, 0.64) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
+    linear-gradient(to bottom, rgba(15, 1, 1, 1) 0%, rgba(63, 12, 0, 1) 50%, rgba(#0a0502, 1) 100%);
 
   @include respond-to(lg) {
     padding: 64px 0;
@@ -132,6 +132,21 @@ $img: '@/assets/img';
     font-weight: 400;
     line-height: 32px;
 
+    // До init JS: полностью скрыто mask (градиент как на десктопе). overflow — контейнер маски на Android.
+    &[data-scroll-reveal-text] {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to bottom, transparent, transparent);
+      mask-image: linear-gradient(to bottom, transparent, transparent);
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-mode: alpha;
+      mask-mode: alpha;
+    }
+
     @include respond-to(lg) {
       font-size: 16px;
       line-height: 1.6;
@@ -168,14 +183,20 @@ $img: '@/assets/img';
 
     @include respond-to(xl-2) {
       width: 200px;
-      top: 0;
     }
 
     @include respond-to(lg) {
-      right: unset;
-      left: 50%;
-      transform: translateX(-50%) translate3d(0, 0, 0) !important;
-      top: -120px;
+      // transform: translateX(-50%) translate3d(0, 0, 0) !important;
+    }
+
+    @include respond-to(md) {
+      width: calc(100% - 30px);
+      transform: translate3d(
+        calc(var(--home-about-mx, 0) * var(--decor-shift-x, 8px)),
+        calc(var(--home-about-my, 0) * var(--decor-shift-y, 8px)),
+        0
+      );
+      top: -25%;
     }
   }
 
@@ -228,7 +249,7 @@ $img: '@/assets/img';
 
     &--left {
       width: auto;
-      height: 100%;
+      height: 80%;
       left: 30px;
       top: 50%;
       transform: translateY(-50%);
@@ -242,6 +263,13 @@ $img: '@/assets/img';
       right: -15px;
       bottom: -45px;
       transform: translateY(0);
+      --decor-shift-x: -4px;
+      --decor-shift-y: -3px;
+    }
+
+    &--alt {
+      display: none;
+      transform: translateY(0) scaleY(-1);
       --decor-shift-x: -4px;
       --decor-shift-y: -3px;
     }
@@ -283,11 +311,22 @@ $img: '@/assets/img';
       }
 
       &--left {
-        // left: -32px;
+        left: 40%;
+        transform: translate(-50%, 0);
+        width: auto;
+        height: 80%;
       }
 
       &--right {
-        // right: -32px;
+        display: none;
+      }
+
+      &--alt {
+        display: block;
+        width: auto;
+        height: 80%;
+        right: 0;
+        bottom: 0;
       }
     }
 
@@ -300,7 +339,7 @@ $img: '@/assets/img';
       }
 
       &--left {
-        // left: -16px;
+        left: 0;
       }
 
       &--right {
@@ -313,7 +352,7 @@ $img: '@/assets/img';
 
       &--left,
       &--right {
-        width: clamp(120px, 32vw, 160px);
+        // width: clamp(120px, 32vw, 160px);
       }
     }
   }
@@ -331,9 +370,10 @@ $img: '@/assets/img';
   margin-top: -40px;
   // background:
   //   radial-gradient(72% 80% at 50% 40%, rgba(63, 12, 0, 0.64) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
+  // background: linear-gradient(to top, rgba(15, 1, 1, 0) 0%, rgba(63, 12, 0, 1) 100%), #0f0101;
 
   @include respond-to(lg) {
-    padding: 0 0 56px;
+    padding: 0 0 20px;
   }
 
   &_stage {
@@ -346,7 +386,11 @@ $img: '@/assets/img';
 
     .swiper-wrapper {
       align-items: stretch;
-      // padding: 25px 0;
+      padding: 45px 0;
+
+      @include respond-to(lg) {
+        padding: 30px 0;
+      }
     }
   }
 
@@ -382,8 +426,8 @@ $img: '@/assets/img';
     }
 
     img {
-      width: 100%;
-      height: 100%;
+      width: 110%;
+      height: 110%;
       object-fit: cover;
       display: block;
     }
@@ -443,10 +487,13 @@ $img: '@/assets/img';
   position: relative;
   padding: 80px 0 100px;
   background:
-    radial-gradient(40% 40% at 22% 55%, rgba(63, 12, 0, 0.5) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
+    // radial-gradient(40% 40% at 22% 55%, rgba(63, 12, 0, 0.5) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
+
+    linear-gradient(to bottom, rgba(#0a0502, 1) 0%, rgba(63, 12, 0, 1) 50%, rgba(#0a0502, 1) 100%),
+    #0f0101;
 
   @include respond-to(lg) {
-    padding: 56px 0 32px;
+    padding: 16px 0 32px;
   }
 
   .container {
@@ -557,6 +604,15 @@ $img: '@/assets/img';
   &_list {
     width: 100%;
     isolation: isolate;
+
+    // Swiper: .swiper-wrapper — flex со stretch по умолчанию; все слайды тянутся по высоте
+    // самого высокого. На iOS у flex + img часто даёт min-height по интринсик-высоте фото —
+    // карточки «разъезжаются» по вертикали. На md слайд сам задаёт высоту (aspect-ratio).
+    @include respond-to(md) {
+      .swiper-wrapper {
+        align-items: flex-start;
+      }
+    }
   }
 
   &_slide {
@@ -660,13 +716,14 @@ $img: '@/assets/img';
       }
     }
 
-    // ≤768 — Swiper: slidesPerView:2.1 + spaceBetween:16 (см. main.js).
+    // ≤768 — Swiper: slidesPerView 1.2, spaceBetween 16 (см. main.js).
     // Карточка остаётся горизонтальной, но info/контент скрыт — видно ТОЛЬКО media.
     // Размеры слайда задаёт Swiper (width:auto), мы фиксируем aspect-ratio для media.
     @include respond-to(md) {
       width: auto;
       height: auto;
       min-height: 0;
+      align-self: flex-start;
       aspect-ratio: 388 / 558;
       border-radius: 28px;
       transition: none;
@@ -693,6 +750,11 @@ $img: '@/assets/img';
     align-items: stretch;
     border-radius: inherit;
     overflow: hidden;
+
+    @include respond-to(md) {
+      align-items: center;
+      min-height: 0;
+    }
 
     &-media {
       position: relative;
@@ -722,6 +784,7 @@ $img: '@/assets/img';
         width: 100%;
         height: 100%;
         flex: 1 1 auto;
+        min-height: 0;
       }
 
       img {
@@ -1106,7 +1169,9 @@ $img: '@/assets/img';
   flex-direction: column;
   gap: 120px;
   background:
-    radial-gradient(40% 30% at 45% 50%, rgba(63, 12, 0, 0.44) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
+    linear-gradient(to bottom, rgba(#0a0502, 1) 0%, rgba(63, 12, 0, 1) 50%, rgba(#0a0502, 1) 100%),
+    #0f0101;
+  // radial-gradient(40% 30% at 45% 50%, rgba(63, 12, 0, 0.44) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
 
   @include respond-to(lg) {
     padding: 56px 0 32px;
@@ -1134,6 +1199,10 @@ $img: '@/assets/img';
     flex-direction: column;
     gap: 40px;
     min-width: 0;
+
+    @include respond-to(md) {
+      padding-bottom: 40px;
+    }
   }
 
   &_title {
@@ -1165,9 +1234,11 @@ $img: '@/assets/img';
     display: flex;
     flex-direction: column;
     gap: 52px;
+    position: relative;
 
     @include respond-to(lg) {
       gap: 32px;
+      overflow: hidden;
     }
   }
 
@@ -1175,6 +1246,11 @@ $img: '@/assets/img';
     display: flex;
     flex-direction: column;
     gap: 16px;
+  }
+
+  // Символы для scroll-reading (цвет задаёт JS)
+  &_read-char {
+    display: inline;
   }
 
   &_text {
@@ -1200,6 +1276,7 @@ $img: '@/assets/img';
     border-radius: 60px;
     overflow: hidden;
     position: relative;
+    z-index: 3;
 
     @include respond-to(lg) {
       height: 360px;
@@ -1339,11 +1416,16 @@ $img: '@/assets/img';
 
   position: relative;
   padding: 0 0 40px;
-  background:
-    radial-gradient(40% 40% at 22% 55%, rgba(63, 12, 0, 0.5) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
+  // background:
+  //   radial-gradient(40% 40% at 22% 55%, rgba(63, 12, 0, 0.5) 0%, rgba(15, 1, 1, 1) 100%), #0f0101;
 
   @include respond-to(lg) {
     padding: 48px 0;
+  }
+
+  @include respond-to(md) {
+    background: none;
+    padding: 16px 0 24px;
   }
 
   .sr-only {
@@ -1366,46 +1448,91 @@ $img: '@/assets/img';
 
   &_track {
     width: 100%;
+    padding-bottom: 30px;
+
+    @include respond-to(sm) {
+      // padding-top: 30px;
+      padding-bottom: 0;
+    }
 
     .swiper-wrapper {
       padding: 30px 0;
     }
   }
 
+  // Слайд = элемент, на который Swiper вешает transform (на iOS — .swiper-ios + translateZ/translate3d).
+  // border-radius + overflow на том же слое после окончания transition в WebKit часто «теряют» маску.
+  // Скругление и затемнение — на .home-gallery_slide-inner внутри <a>.
   &_slide {
-    width: 1380px;
-    height: 920px;
-    border-radius: 60px;
-    overflow: hidden;
+    display: block;
+    width: 100%;
+    height: 820px;
     position: relative;
     flex-shrink: 0;
     outline: none !important;
 
     @include respond-to(xl) {
-      width: clamp(720px, 80vw, 1380px);
       height: clamp(520px, 60vw, 920px);
-      border-radius: clamp(36px, 4vw, 60px);
     }
 
     @include respond-to(md) {
-      width: 92vw;
       height: 480px;
+    }
+
+    @include respond-to(sm) {
+      height: 380px;
+    }
+  }
+
+  &_slide-inner {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 60px;
+    // Переменная для clip-path на iOS (WebKit теряет radius после transition Swiper, если есть
+    // смешивание слоёв и transform у img; home-about-gallery без mix-blend — без бага).
+    --home-gallery-slide-radius: 60px;
+    overflow: hidden;
+    position: relative;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+    @include respond-to(xl) {
+      border-radius: clamp(36px, 4vw, 60px);
+      --home-gallery-slide-radius: #{clamp(36px, 4vw, 60px)};
+    }
+
+    @include respond-to(md) {
       border-radius: 32px;
+      --home-gallery-slide-radius: 32px;
+    }
+
+    @include respond-to(sm) {
+      border-radius: 32px;
+      --home-gallery-slide-radius: 32px;
+    }
+
+    // iOS Safari: inset(round) держит маску при завершении translate3d на родительском слайде
+    // (border-radius + overflow + mix-blend / transform часто дают «прямой» угол до следующего кадра).
+    @supports (-webkit-touch-callout: none) {
+      clip-path: inset(0 round var(--home-gallery-slide-radius));
     }
 
     img {
-      width: 100%;
-      height: 100%;
+      width: 110%;
+      height: 110%;
       object-fit: cover;
       display: block;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
     }
 
+    // Без mix-blend-mode: на WebKit он ломает композитинг со скруглением рядом с transform (Swiper + parallax).
     &::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.2);
-      mix-blend-mode: soft-light;
+      background: rgba(10, 6, 4, 0.35);
       pointer-events: none;
     }
   }
@@ -1453,7 +1580,7 @@ $img: '@/assets/img';
 
   &_pagination {
     position: absolute;
-    top: 70px;
+    top: 200px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 4;
@@ -1461,6 +1588,7 @@ $img: '@/assets/img';
     gap: 8px;
 
     @include respond-to(md) {
+      top: 100px;
     }
   }
 

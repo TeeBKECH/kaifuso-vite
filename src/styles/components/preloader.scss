@@ -1,0 +1,106 @@
+// === Прелоадер: режимы load | timed, прогресс — JS → --preloader-progress (0…1) ===
+$img: '@/assets/img';
+
+.preloader {
+  --preloader-progress: 0;
+
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+
+  @include respond-to(md) {
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+
+  &--done {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  &_backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: #0f0101;
+    // Десктоп: фон убывает вместе с прогрессом; ≤md — см. модификатор --backdrop-after-load
+    opacity: calc(1 - var(--preloader-progress));
+
+    @include respond-to(md) {
+      opacity: 1;
+      transition: opacity 0.35s ease;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      opacity: 0;
+    }
+  }
+
+  // Мобильный фон гаснет только после полной загрузки (класс вешает JS на window.load)
+  &--backdrop-after-load &_backdrop {
+    @include respond-to(md) {
+      opacity: 0;
+    }
+  }
+
+  &_inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+
+    @include respond-to(md) {
+      flex: 1;
+      min-height: 100%;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 0;
+    }
+  }
+
+  &_leaf {
+    position: relative;
+    width: min(78vw, 400px);
+    aspect-ratio: 618 / 320;
+
+    @include respond-to(md) {
+      position: absolute;
+      top: calc(var(--header-h) + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &_img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0.32;
+  }
+
+  &_fill {
+    position: absolute;
+    inset: 0;
+    background-color: #e2da9b;
+    mask-image: url('#{$img}/kaifuso/logo-decor.svg');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-image: url('#{$img}/kaifuso/logo-decor.svg');
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    clip-path: inset(0 calc((1 - var(--preloader-progress)) * 100%) 0 0);
+
+    @media (prefers-reduced-motion: reduce) {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+}
